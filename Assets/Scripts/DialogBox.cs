@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class DialogBox : MonoBehaviour
 {
-    public string dialog;
+    public static string dialog;
+
+    private void Start()
+    {
+        
+    }
 
     private void OnGUI()
     {

@@ -233,12 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e95c36e312e4fd5ababba3b433d348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog: 'Lorem ipsum here is a bunch of text. Right now I''m working in Unity and
-    having a good time setting up dialog boxes. I don''t know what they''re going
-    to look like yet, but I bet they''ll be pretty cool. I''m trying to write enough
-    text that it will go to two lines on the iPhone S Max, but that''s a really big
-    phone so I''m going to keep writing. Arlo is sitting next to me. He is awfully
-    cute. '
 --- !u!4 &89683047
 Transform:
   m_ObjectHideFlags: 0
@@ -251,7 +245,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &372560229
 GameObject:
@@ -496,6 +490,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1039627393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1039627394}
+  - component: {fileID: 1039627395}
+  m_Layer: 0
+  m_Name: StoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1039627394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039627393}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5669721, y: -0.20039983, z: -0.4633445}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1039627395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039627393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a35434af8f9411f923eed85f3fdc5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogBox: {fileID: 0}
 --- !u!1 &1979031728
 GameObject:
   m_ObjectHideFlags: 0
