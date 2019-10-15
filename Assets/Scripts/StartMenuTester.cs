@@ -2,26 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StartMenuTester : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnGUI()
     {
         if(GUI.Button(new Rect(50, 100, 150, 60), "Start New"))
         {
-
+            SceneManager.LoadScene("IntroductionScene");
         }
         if(GUI.Button(new Rect(50, 160, 150, 60), "Continue"))
         {
