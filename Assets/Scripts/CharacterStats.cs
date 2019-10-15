@@ -117,6 +117,63 @@ public class CharacterStats : MonoBehaviour
         Debug.Log(partyData.ArtroData);
         Debug.Log(partyData.ArtroData.arms);
     }
+
+    public BattleStats GetLorbertBattleStats()
+    {
+        BattleStats stats = new BattleStats();
+        stats.currentHP = partyData.LorbertData.health;
+        stats.maxHP = partyData.LorbertData.health;
+        stats.currentStamina = stats.maxStamina = partyData.LorbertData.stamina;
+        stats.currentMP = stats.maxMP = partyData.LorbertData.mp;
+        stats.strength = partyData.LorbertData.strength;
+        stats.vitality = partyData.LorbertData.vitality;
+        stats.agility = partyData.LorbertData.agility;
+        stats.dexterity = partyData.LorbertData.dexterity;
+        stats.wisdom = partyData.LorbertData.wisdom;
+        stats.aura = partyData.LorbertData.aura;
+        stats.perception = partyData.LorbertData.perception;
+        stats.luck = partyData.LorbertData.luck;
+
+        return stats;
+    }
+
+    public BattleStats GetArtroBattleStats()
+    {
+        BattleStats stats = new BattleStats();
+        stats.currentHP = partyData.ArtroData.health;
+        stats.maxHP = partyData.ArtroData.health;
+        stats.currentStamina = stats.maxStamina = partyData.ArtroData.stamina;
+        stats.currentMP = stats.maxMP = partyData.ArtroData.mp;
+        stats.strength = partyData.ArtroData.strength;
+        stats.vitality = partyData.ArtroData.vitality;
+        stats.agility = partyData.ArtroData.agility;
+        stats.dexterity = partyData.ArtroData.dexterity;
+        stats.wisdom = partyData.ArtroData.wisdom;
+        stats.aura = partyData.ArtroData.aura;
+        stats.perception = partyData.ArtroData.perception;
+        stats.luck = partyData.ArtroData.luck;
+
+        return stats;
+    }
+
+    public BattleStats GetIOBattleStats()
+    {
+        BattleStats stats = new BattleStats();
+        stats.currentHP = partyData.IOData.health;
+        stats.maxHP = partyData.IOData.health;
+        stats.currentStamina = stats.maxStamina = partyData.IOData.stamina;
+        stats.currentMP = stats.maxMP = partyData.IOData.mp;
+        stats.strength = partyData.IOData.strength;
+        stats.vitality = partyData.IOData.vitality;
+        stats.agility = partyData.IOData.agility;
+        stats.dexterity = partyData.IOData.dexterity;
+        stats.wisdom = partyData.IOData.wisdom;
+        stats.aura = partyData.IOData.aura;
+        stats.perception = partyData.IOData.perception;
+        stats.luck = partyData.IOData.luck;
+
+        return stats;
+    }
 }
 
 [Serializable]

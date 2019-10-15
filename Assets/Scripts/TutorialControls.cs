@@ -13,6 +13,8 @@ public class TutorialControls : MonoBehaviour
     public GameObject IOActive;
     public GameObject Enemy;
 
+    public GameObject battleManager;
+
     public TextAsset boxAsset;
 
     private GameObject AlienWithPriority;
@@ -52,6 +54,10 @@ public class TutorialControls : MonoBehaviour
 
     private void OnGUI()
     {
+        if(tutorialIndex > tutorial.Count)
+        {
+            return;
+        }
         string dialog = tutorial[tutorialIndex];
         if(dialog.Length > 0)
         {
@@ -76,8 +82,6 @@ public class TutorialControls : MonoBehaviour
             RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (tutorialIndex == 1)
             {
-                Debug.Log(hitInfo);
-                Debug.Log(hitInfo.transform.gameObject.name);
                 if(hitInfo && hitInfo.transform.gameObject.name == "LorbertRest")
                 {
                     LorbertRest.SetActive(false);
@@ -92,7 +96,12 @@ public class TutorialControls : MonoBehaviour
             }
             else if (tutorialIndex == 3)
             {
-
+                if (AlienWithPriority != null)
+                {
+                    int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy);
+                    Debug.Log("Deal " + damage + " damage.");
+                    tutorialIndex += 1;
+                }
             }
             else if (tutorialIndex < 7)
             {
@@ -129,7 +138,14 @@ public class TutorialControls : MonoBehaviour
                         IOActive.SetActive(true);
                         AlienWithPriority = LorbertActive;
                         break;
-
+                    case "SludgeMonster":
+                        if(AlienWithPriority != null)
+                        {
+                            int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy);
+                            Debug.Log("Deal " + damage + " damage.");
+                            tutorialIndex += 1;
+                        }
+                        break;
                 }
             }
         }
