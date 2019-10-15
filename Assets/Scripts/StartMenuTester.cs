@@ -7,11 +7,25 @@ using UnityEngine.SceneManagement;
 public class StartMenuTester : MonoBehaviour
 {
 
+    IEnumerator FadeToScene(string scene)
+    {
+        Debug.Log("Should fade to scene " + scene);
+        ScreenFader sf = GameObject.FindGameObjectWithTag("Fader").GetComponent<ScreenFader>();
+
+        yield return StartCoroutine(sf.FadeToBlack());
+
+        SceneManager.LoadScene(scene);
+    }
+
     private void OnGUI()
     {
+
+        GUI.depth = -1;        
+
         if(GUI.Button(new Rect(50, 100, 150, 60), "Start New"))
         {
-            SceneManager.LoadScene("IntroductionScene");
+            Debug.Log("Calling the button");
+            StartCoroutine(FadeToScene("IntroductionScene"));
         }
         if(GUI.Button(new Rect(50, 160, 150, 60), "Continue"))
         {

@@ -14,6 +14,10 @@ public class DialogBox : MonoBehaviour
 
     private void OnGUI()
     {
+        if(dialog == null)
+        {
+            return;
+        }
         GUIStyle dialogStyle = new GUIStyle();
         dialogStyle.font = (Font) Resources.Load("Orbitron-Bold");
         dialogStyle.fontSize = 32;
