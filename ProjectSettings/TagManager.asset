@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3678181057
+    locked: 0
+  - name: Entities
+    uniqueID: 789142009
+    locked: 0
+  - name: Abilities
+    uniqueID: 2231780305
+    locked: 0
+  - name: HUD
+    uniqueID: 887858307
+    locked: 0
