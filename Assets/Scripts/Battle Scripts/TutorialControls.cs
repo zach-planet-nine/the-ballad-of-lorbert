@@ -19,10 +19,14 @@ public class TutorialControls : MonoBehaviour
     public TextAsset boxAsset;
 
     private GameObject AlienWithPriority;
+    private GameObject SpellBeingDragged;
     private int tutorialIndex;
     private int bossHitCount;
     private int bossHitMax = 3;
     private bool bossHasAttacked;
+    private bool isDraggingSpell;
+    private Vector3 spellStartingPosition;
+    private Vector2 lastPosition;
 
     private List<string> tutorial = new List<string>
     {
@@ -65,7 +69,7 @@ public class TutorialControls : MonoBehaviour
 
     private void OnGUI()
     {
-        if(tutorialIndex > tutorial.Count)
+        if(tutorialIndex >= tutorial.Count)
         {
             return;
         }
@@ -133,9 +137,91 @@ public class TutorialControls : MonoBehaviour
         EnemyActive.SetActive(false);
     }
 
+    void SpellIsDropped()
+    {
+        isDraggingSpell = false;
+        SpellBeingDragged.transform.position = spellStartingPosition;
+        CircleCollider2D spellCollider = SpellBeingDragged.GetComponent<CircleCollider2D>();
+        Collider2D[] overlap = Physics2D.OverlapAreaAll(spellCollider.bounds.min, spellCollider.bounds.max);
+        if (overlap.Length == 2)
+        {
+            Debug.Log(overlap.Length);
+            Debug.Log(overlap[0].gameObject == SpellBeingDragged);
+            Debug.Log(overlap[1].gameObject == SpellBeingDragged);
+            GameObject target = overlap[0].gameObject == SpellBeingDragged ? overlap[1].gameObject : overlap[0].gameObject;
+            int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
+            AlienWithPriority.GetComponent<Water>().HealEntity(target, target.transform.position, healing);
+            tutorialIndex += 1;
+        }
+    }
+
+    void StartDragging()
+    {
+        lastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hitInfo)
+        {
+            switch (hitInfo.transform.gameObject.name)
+            {
+                case "LorbertWater":
+                    isDraggingSpell = true;
+                    SpellBeingDragged = hitInfo.transform.gameObject;
+                    spellStartingPosition = SpellBeingDragged.transform.position;
+                    break;
+                case "ArtroWater":
+                    isDraggingSpell = true;
+                    SpellBeingDragged = hitInfo.transform.gameObject;
+                    spellStartingPosition = SpellBeingDragged.transform.position;
+                    break;
+                case "IOWater":
+                    isDraggingSpell = true;
+                    SpellBeingDragged = hitInfo.transform.gameObject;
+                    spellStartingPosition = SpellBeingDragged.transform.position;
+                    break;
+            }
+        }
+    }
+
+    void DragSpell()
+    {
+        Vector2 currentPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 delta = new Vector2(currentPosition.x - lastPosition.x, currentPosition.y - lastPosition.y);
+        SpellBeingDragged.transform.position = new Vector3(SpellBeingDragged.transform.position.x + delta.x, SpellBeingDragged.transform.position.y + delta.y, SpellBeingDragged.transform.position.z);
+        lastPosition = currentPosition;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if(tutorialIndex == 9 && Input.GetMouseButtonDown(0))
+        {
+            StartDragging();
+        }
+        if(tutorialIndex == 9 && isDraggingSpell)
+        {
+            if(Input.GetMouseButtonUp(0))
+            {
+                SpellIsDropped();
+            } else
+            {
+                DragSpell();
+            }
+        }
+        if(tutorialIndex >= tutorial.Count && Input.GetMouseButtonDown(0))
+        {
+            StartDragging();
+        }
+        if(tutorialIndex >= tutorial.Count && isDraggingSpell)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                SpellIsDropped();
+            }
+            else
+            {
+                DragSpell();
+            }
+        }
         if(Input.GetMouseButtonUp(0))
         {
             RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -187,7 +273,11 @@ public class TutorialControls : MonoBehaviour
                     EnemyActive.SetActive(true);
                     int damage = BattleManager.manager.EntityAttacksEntity(Enemy, AlienWithPriority);
                     EnemyActive.GetComponent<Attack>().AttackEntityWithCallback(AlienWithPriority, AlienWithPriority.transform.position, damage, RelaxEnemy);
+                    bossHasAttacked = true;
                 }
+            } else if(tutorialIndex == 9)
+            {
+
             }
             else if (tutorialIndex < tutorial.Count)
             {

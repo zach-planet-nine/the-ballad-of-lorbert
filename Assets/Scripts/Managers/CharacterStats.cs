@@ -133,6 +133,7 @@ public class CharacterStats : MonoBehaviour
         stats.aura = partyData.LorbertData.aura;
         stats.perception = partyData.LorbertData.perception;
         stats.luck = partyData.LorbertData.luck;
+        stats.attackStaminaCost = 80;
 
         return stats;
     }
@@ -152,6 +153,7 @@ public class CharacterStats : MonoBehaviour
         stats.aura = partyData.ArtroData.aura;
         stats.perception = partyData.ArtroData.perception;
         stats.luck = partyData.ArtroData.luck;
+        stats.attackStaminaCost = 70;
 
         return stats;
     }
@@ -171,6 +173,7 @@ public class CharacterStats : MonoBehaviour
         stats.aura = partyData.IOData.aura;
         stats.perception = partyData.IOData.perception;
         stats.luck = partyData.IOData.luck;
+        stats.attackStaminaCost = 50;
 
         return stats;
     }
@@ -244,7 +247,7 @@ class CharacterData
                 mp = 210;
                 strength = 53;
                 vitality = 45;
-                agility = 60;
+                agility = 59;
                 dexterity = 55;
                 wisdom = 55;
                 aura = 60;

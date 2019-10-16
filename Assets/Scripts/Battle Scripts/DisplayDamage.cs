@@ -13,7 +13,7 @@ public class DisplayDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector2 startingVelocity = new Vector2(Randomness.GetPositiveOrNegative() * Randomness.GetValueBetween(3.0f, 7.0f), Randomness.GetValueBetween(7.0f, 10.0f));
+        Vector2 startingVelocity = new Vector2(Randomness.GetPositiveOrNegative() * Randomness.GetValueBetween(1.0f, 5.0f), Randomness.GetValueBetween(7.0f, 10.0f));
         Rigidbody2D rbdy = damageText.GetComponent<Rigidbody2D>();
         rbdy.velocity = startingVelocity;
     }
@@ -21,7 +21,13 @@ public class DisplayDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        damageText.text = "" + damageNumber;
+        if(damageNumber <= 0)
+        {
+            damageText.text = "Miss";
+        } else
+        {
+            damageText.text = "" + damageNumber;
+        }
         decayTime -= Time.deltaTime;
         if(decayTime <= 0)
         {
