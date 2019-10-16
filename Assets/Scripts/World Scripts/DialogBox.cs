@@ -9,7 +9,7 @@ public class DialogBox : MonoBehaviour
 
     private void Start()
     {
-        StoryManager.manager.engaged = true;
+        StoryManager.manager.engaged = true;            
     }
 
     private void OnGUI()
