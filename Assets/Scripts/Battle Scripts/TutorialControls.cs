@@ -28,6 +28,9 @@ public class TutorialControls : MonoBehaviour
     private Vector3 spellStartingPosition;
     private Vector2 lastPosition;
 
+    private float bossTimer;
+    private float bossTimerThreshold = 2.0f;
+
     private List<string> tutorial = new List<string>
     {
         "Welcome to battle in The Ballad of Lorbert!",
@@ -149,9 +152,19 @@ public class TutorialControls : MonoBehaviour
             Debug.Log(overlap[0].gameObject == SpellBeingDragged);
             Debug.Log(overlap[1].gameObject == SpellBeingDragged);
             GameObject target = overlap[0].gameObject == SpellBeingDragged ? overlap[1].gameObject : overlap[0].gameObject;
-            int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
-            AlienWithPriority.GetComponent<Water>().HealEntity(target, target.transform.position, healing);
-            tutorialIndex += 1;
+            if(target == Enemy || target == EnemyActive)
+            {
+                int damage = BattleManager.manager.EntityUsesWaterToAttackEntity(AlienWithPriority, target);
+                AlienWithPriority.GetComponent<Water>().AttackEntity(target, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+                Debug.Log("Gonna put the cloud at");
+                Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            } else
+            {
+                int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
+                AlienWithPriority.GetComponent<Water>().HealEntity(target, target.transform.position, healing);
+                tutorialIndex += 1;
+            }
+            
         }
     }
 
@@ -286,6 +299,34 @@ public class TutorialControls : MonoBehaviour
             else if (hitInfo)
             {
                 HandleTap(hitInfo);
+            }
+        }
+
+        if(tutorialIndex >= tutorial.Count)
+        {
+            bossTimer += Time.deltaTime;
+            if(bossTimer > bossTimerThreshold)
+            {
+                bossTimer = 0;
+                EnemyActive.SetActive(true);
+                int val = Randomness.GetIntBetween(0, 3);
+                if(val == 3)
+                {
+                    Debug.Log("val is 3");
+                    val = 2;
+                }
+                GameObject Target = LorbertRest;
+                switch(val)
+                {
+                    case 0: Target = LorbertRest;
+                        break;
+                    case 1: Target = ArtroRest;
+                        break;
+                    case 2: Target = IORest;
+                        break;
+                }
+                int damage = BattleManager.manager.EntityAttacksEntity(Enemy, Target);
+                EnemyActive.GetComponent<Attack>().AttackEntityWithCallback(Target, Target.transform.position, damage, RelaxEnemy);
             }
         }
     }

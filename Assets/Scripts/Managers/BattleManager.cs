@@ -211,7 +211,7 @@ public class BattleManager : MonoBehaviour
         }
         BattleStats stats = GetStatsForEntity(entity);
         stats.currentHP += healing;
-        if (stats.currentHP < stats.maxHP)
+        if (stats.currentHP > stats.maxHP)
         {
             stats.currentHP = stats.maxHP;
         }
@@ -254,6 +254,11 @@ public class BattleManager : MonoBehaviour
         healerStats.currentMP -= 70;
 
         return healing;
+    }
+
+    public int EntityUsesWaterToAttackEntity(GameObject attacker, GameObject target)
+    {
+        return 240;
     }
 
     public int ApplyStamina(BattleStats stats, int value)

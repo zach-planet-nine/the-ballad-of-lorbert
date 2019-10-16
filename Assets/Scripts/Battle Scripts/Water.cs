@@ -31,7 +31,8 @@ public class Water : MonoBehaviour
 
     public void AttackEntity(GameObject entity, Vector3 destination, int damage)
     {
-
+        var clone = (GameObject)Instantiate(AttackObject, new Vector3(destination.x, destination.y + 0.7f, 0), Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<Storm>().SetTarget(entity, destination, damage);
     }
 
     // Update is called once per frame
