@@ -38,5 +38,9 @@ public class Storm : MonoBehaviour
 		{
 			Bolt.SetActive(false);
 		}
+        if(damageTimes >= 4 && boltTimer >= 0.15f)
+        {
+            Destroy(gameObject);
+        }
     }
 }
