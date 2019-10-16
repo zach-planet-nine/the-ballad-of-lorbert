@@ -28,6 +28,8 @@ public class BattleManager : MonoBehaviour
         IOStats = CharacterStats.characterStats.GetIOBattleStats();
 
         Enemy1Stats = Enemy1.GetComponent<EnemyStats>().GetBattleStats();
+
+        StoryManager.manager.engaged = false;
     }
 
     // Update is called once per frame

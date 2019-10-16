@@ -17,7 +17,10 @@ public class Story : MonoBehaviour
         "bar",
         "Should be stopped here",
     "The quick brown fox jumps over the lazy dog",
-    "Who's got the keys to the jeep? Vrooooom!"};
+    "Who's got the keys to the jeep? Vrooooom!",
+    "",
+    "This is going on with the scene."
+    };
     public static List<MovementDirections> directions = new List<MovementDirections>
     {
         MovementDirections.GetEmptyMD(),
@@ -38,6 +41,8 @@ public class Story : MonoBehaviour
         }, new List<float> {
             2.0f
         }),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD()
     };
 }

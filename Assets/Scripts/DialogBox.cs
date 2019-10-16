@@ -9,12 +9,12 @@ public class DialogBox : MonoBehaviour
 
     private void Start()
     {
-        
+        StoryManager.manager.engaged = true;
     }
 
     private void OnGUI()
     {
-        if(dialog == null)
+        if(dialog == null || dialog == "")
         {
             return;
         }

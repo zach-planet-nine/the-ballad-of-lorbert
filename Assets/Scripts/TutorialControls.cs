@@ -96,7 +96,7 @@ public class TutorialControls : MonoBehaviour
             }
             else if (tutorialIndex == 3)
             {
-                if (AlienWithPriority != null)
+                if (AlienWithPriority != null && hitInfo && hitInfo.transform.gameObject.name == "SludgeMonster")
                 {
                     int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy);
                     Debug.Log("Deal " + damage + " damage.");
