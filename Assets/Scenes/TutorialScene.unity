@@ -527,7 +527,8 @@ MonoBehaviour:
   WaterObject: {fileID: 549854585}
   HealingObject: {fileID: 7216889000031876086, guid: 73a9df16fee8c422d987c04d291cbb0e,
     type: 3}
-  AttackObject: {fileID: 0}
+  AttackObject: {fileID: 4824658441535349096, guid: 8263446e687fb4992ac4f334882afae7,
+    type: 3}
 --- !u!114 &271345689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,7 +895,8 @@ MonoBehaviour:
   WaterObject: {fileID: 759848391}
   HealingObject: {fileID: 7216889000031876086, guid: 73a9df16fee8c422d987c04d291cbb0e,
     type: 3}
-  AttackObject: {fileID: 0}
+  AttackObject: {fileID: 4824658441535349096, guid: 8263446e687fb4992ac4f334882afae7,
+    type: 3}
 --- !u!114 &763725202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1031,6 +1033,7 @@ GameObject:
   - component: {fileID: 1062998594}
   - component: {fileID: 1062998595}
   - component: {fileID: 1062998596}
+  - component: {fileID: 1062998597}
   m_Layer: 0
   m_Name: SludgeMonster
   m_TagString: Untagged
@@ -1165,6 +1168,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageText: {fileID: 6522631912835526299, guid: b960b960bc7824d57ab808a5efed8f44,
     type: 3}
+--- !u!114 &1062998597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062998591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec542947b0c0427a9217e19977af930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
 --- !u!1 &1075647396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,7 +1449,7 @@ MonoBehaviour:
   WaterObject: {fileID: 1542680512}
   HealingObject: {fileID: 7216889000031876086, guid: 73a9df16fee8c422d987c04d291cbb0e,
     type: 3}
-  AttackObject: {fileID: 5684010185105514991, guid: 7cf8a0e29e11540858ba49ecc029dd12,
+  AttackObject: {fileID: 4824658441535349096, guid: 8263446e687fb4992ac4f334882afae7,
     type: 3}
 --- !u!114 &1112436207
 MonoBehaviour:

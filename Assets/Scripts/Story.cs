@@ -19,7 +19,8 @@ public class Story : MonoBehaviour
     "The quick brown fox jumps over the lazy dog",
     "Who's got the keys to the jeep? Vrooooom!",
     "",
-    "This is going on with the scene."
+    "This is going on with the scene.",
+    "Adding one more dialog"
     };
     public static List<MovementDirections> directions = new List<MovementDirections>
     {
@@ -41,6 +42,7 @@ public class Story : MonoBehaviour
         }, new List<float> {
             2.0f
         }),
+        MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD()

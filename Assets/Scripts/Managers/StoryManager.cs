@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 public class StoryManager : MonoBehaviour
 {
     public static StoryManager manager;
-    public bool isFading = false;
+    public bool isFading;
     public DialogBox dialogBox;
     public bool engaged = true;
     private string currentDialog = "";
     private int storyIndex;
-    private bool shouldWrite = true;
+    public bool shouldWrite = true;
     private int dialogIndex;
     private float writeDelay;
     private float writeDelayMax = 0.07f;
-    private bool debounce = false;
+    public bool debounce = false;
 
     private void Awake()
     {
@@ -50,8 +50,8 @@ public class StoryManager : MonoBehaviour
             if(GUI.Button(new Rect(600, 50, 150, 80), "Yes Please"))
             {
                 Debug.Log("Do Tutorial");
-                debounce = true;
-                storyIndex += 1;
+                AdvanceStory();
+                shouldWrite = false;
                 SceneManager.LoadScene("TutorialScene");
             }
             if(GUI.Button(new Rect(600, 130, 150, 80), "No thanks"))
@@ -87,7 +87,7 @@ public class StoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(shouldWrite)
+        if(shouldWrite && !isFading)
         {
             writeDelay += Time.deltaTime;
             if(writeDelay > writeDelayMax)
@@ -95,13 +95,14 @@ public class StoryManager : MonoBehaviour
                 dialogIndex += 1;
                 if (dialogIndex > currentDialog.Length)
                 {
+                    Debug.Log("It's Dialog index that's the problem");
                     dialogIndex = currentDialog.Length;
                 }
                 writeDelay = 0;
             }
         } else
         {
-            dialogIndex = currentDialog.Length;
+            //dialogIndex = currentDialog.Length;
         }
         if(isFading)
         {
@@ -110,7 +111,7 @@ public class StoryManager : MonoBehaviour
         {
             DialogBox.dialog = currentDialog.Substring(0, dialogIndex);
         }
-        if(Input.GetMouseButtonUp(0) && storyIndex != 5)
+        if(shouldWrite && Input.GetMouseButtonUp(0) && storyIndex != 5)
         {
             if(dialogIndex < currentDialog.Length)
             {
@@ -119,12 +120,20 @@ public class StoryManager : MonoBehaviour
                     debounce = false;
                 } else
                 {
+                    Debug.Log("Here is where this gets called");
                     dialogIndex = currentDialog.Length;
                 }
                 
             } else
             {
-                AdvanceStory();
+                if(debounce)
+                {
+                    debounce = false;
+                } else
+                {
+                    AdvanceStory();
+                }
+                
             }
         }
     }

@@ -200,6 +200,10 @@ public class BattleManager : MonoBehaviour
         if(stats.currentHP <= 0)
         {
             Debug.Log("Handle dying here");
+            if(entity == Enemy1)
+            {
+                Enemy1.GetComponent<EnemyDeath>().Die();
+            }
         }
     }
 
@@ -258,6 +262,10 @@ public class BattleManager : MonoBehaviour
 
     public int EntityUsesWaterToAttackEntity(GameObject attacker, GameObject target)
     {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+
+        attackerStats.currentMP -= 120;
+
         return 240;
     }
 

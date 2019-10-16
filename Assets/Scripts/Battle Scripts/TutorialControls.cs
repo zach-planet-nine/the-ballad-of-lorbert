@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialControls : MonoBehaviour
 {
@@ -72,6 +73,10 @@ public class TutorialControls : MonoBehaviour
 
     private void OnGUI()
     {
+        if(Enemy.GetComponent<EnemyDeath>().isDead)
+        {
+            RenderDialog("Congratulations you won this battle!");
+        }
         if(tutorialIndex >= tutorial.Count)
         {
             return;
@@ -206,6 +211,16 @@ public class TutorialControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Enemy.GetComponent<EnemyDeath>().isDead)
+        {
+            if(Input.GetMouseButtonUp(0))
+            {
+                StoryManager.manager.shouldWrite = true;
+                StoryManager.manager.isFading = true;
+                SceneManager.LoadScene("IntroductionScene");
+            }
+            return;
+        }
         if(tutorialIndex == 9 && Input.GetMouseButtonDown(0))
         {
             StartDragging();
