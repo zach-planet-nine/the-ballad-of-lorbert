@@ -9,13 +9,19 @@ public class StoryManager : MonoBehaviour
     public bool isFading;
     public DialogBox dialogBox;
     public bool engaged = true;
-    private string currentDialog = "";
-    private int storyIndex;
     public bool shouldWrite = true;
+    public bool debounce = false;
+
+    private string currentDialog = "";
+    private int storyIndex = 9;
     private int dialogIndex;
     private float writeDelay;
     private float writeDelayMax = 0.07f;
-    public bool debounce = false;
+    private float gotNineumTimer;
+    private float gotNineumDuration = 1.0f;
+    private int gotNineumIndex = 10;
+    private bool inInventory;
+
 
     private void Awake()
     {
@@ -62,6 +68,34 @@ public class StoryManager : MonoBehaviour
                 AdvanceStory();
             }
         }
+        if(storyIndex == gotNineumIndex)
+        {
+            if(gotNineumTimer > gotNineumDuration)
+            {
+                if(inInventory)
+                {
+                    DialogBox.dialog = "";
+                    return;
+                }
+                GUIStyle inventoryStyle = new GUIStyle();
+                inventoryStyle.font = (Font) Resources.Load("Orbitron-Bold");
+                inventoryStyle.fontSize = 80;
+                inventoryStyle.normal.textColor = Color.white;
+                if(GUI.Button(new Rect(Screen.width - 500, 50, 400, 120), "Inventory", inventoryStyle))
+                {
+                    Debug.Log("Handle Inventory here");
+                    CameraOnLorbert.shouldFollowLorbert = false;
+                    InventoryManager.shouldDisplayInventory = true;
+                    inInventory = true;
+                    Camera.main.transform.position = new Vector3(-27.35f, 18.04f, Camera.main.transform.position.z);
+                    
+                }
+                DialogBox.dialog = "Go ahead and tap your inventory button now to equip some Nineum.";
+            } else
+            {
+                DialogBox.dialog = "You received 3 common Nineum!";
+            }
+        }
     }
 
     private void OnEnable()
@@ -93,16 +127,31 @@ public class StoryManager : MonoBehaviour
             currentDialog = Story.story[storyIndex];
             Debug.Log(currentDialog);
             dialogIndex = 1;
-            DialogBox.dialog = currentDialog.Substring(0, dialogIndex);
+            if(dialogIndex < currentDialog.Length)
+            {
+                DialogBox.dialog = currentDialog.Substring(0, dialogIndex);
+            }
         } else
         {
             Debug.Log("Out of story");
+        }
+        if(storyIndex == gotNineumIndex)
+        {
+            NineumManager.manager.AddNineum("01000000010201010102030100000001");
+            NineumManager.manager.AddNineum("01000000010201010102060100000001");
+            NineumManager.manager.AddNineum("01000000010203010104080100000001");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(storyIndex == gotNineumIndex)
+        {
+            gotNineumTimer += Time.deltaTime;
+            return;
+        }
+
         if(shouldWrite && !isFading)
         {
             writeDelay += Time.deltaTime;
@@ -124,7 +173,13 @@ public class StoryManager : MonoBehaviour
             DialogBox.dialog = null;
         } else
         {
-            DialogBox.dialog = currentDialog.Substring(0, dialogIndex);
+            if(dialogIndex > currentDialog.Length)
+            {
+                
+            } else
+            {
+                DialogBox.dialog = currentDialog.Substring(0, dialogIndex);
+            }
         }
         if(shouldWrite && Input.GetMouseButtonUp(0) && storyIndex != 5)
         {

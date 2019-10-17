@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraOnLorbert : MonoBehaviour
 {
     public GameObject Lorbert;
+    public static bool shouldFollowLorbert = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,11 +14,15 @@ public class CameraOnLorbert : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Camera.main.transform.position = new Vector3(Lorbert.transform.position.x, Lorbert.transform.position.y, Camera.main.transform.position.z);
+        if(shouldFollowLorbert)
+        {
+            Camera.main.transform.position = new Vector3(Lorbert.transform.position.x, Lorbert.transform.position.y, Camera.main.transform.position.z);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
     }
 }

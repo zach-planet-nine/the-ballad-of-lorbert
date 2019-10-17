@@ -14,14 +14,18 @@ public enum Directions
 public class Story : MonoBehaviour
 {
     public static List<string> story = new List<string> {
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat ornare sodales. Fusce vitae eros ultricies, auctor mi quis, aliquet ex. In non libero nibh. Lorem ipsum dolor",
-        "This is the second dialog that should be displayed.",
-        "Should be stopped here",
-    "The quick brown fox jumps over the lazy dog",
-    "Who's got the keys to the jeep? Vrooooom!",
+        "Oh no! It appears that the station is under attack. Quick Lorbert and team, come over here.",
+        "The station is under attack from the Seventians. They're throwing everything they have at us!",
+        "They're sending landers and breaching our hull all over! We need to act quickly if we're not going to get overrun.",
+    "Do you remember your training? You lot are the only combat trained ones on board. We're counting on you to take them down.",
+    "Do you remember or do you need a refresher?",
     "",
-    "This is going on with the scene.",
-    "Adding one more dialog"
+    "Alright good. Now I know you're ready for battle. We've gotten reports that the Seventians have invaded the science lab, the hangar, the observation room, the greenhouse, the recycling center, and the engine room.",
+    "We need you to head on in there and clear out all the bad guys. Shouldn't be too hard for you if you keep your wits about you.",
+    "Follow me. This portal over here will take you to any of the six locations. You can go in any order, just make sure you do it quickly.",
+    "Oh I almost forgot. The station's been picking up some Nineum during its researching here. I'll let you borrow this Nineum. It'll help you take down those bad guys.",
+    "", // 10
+    "Outside of battle you can adjust your Nineum whenever you want, just press the inventory button on your HUD."
     };
     public static List<MovementDirections> directions = new List<MovementDirections>
     {
@@ -55,6 +59,10 @@ public class Story : MonoBehaviour
             {
                 -1.0f
             }),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD()
     };
 }

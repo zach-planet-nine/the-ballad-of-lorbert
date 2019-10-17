@@ -28,7 +28,14 @@ public class CharacterStats : MonoBehaviour
 {
 
     public static CharacterStats characterStats;
-    private PartyData partyData = new PartyData();
+    public PartyData partyData = new PartyData();
+    public List<string> Nineum
+    {
+        set
+        {
+            partyData.Nineum = value;
+        }
+    }
 
     private void Awake()
     {
@@ -180,15 +187,17 @@ public class CharacterStats : MonoBehaviour
 }
 
 [Serializable]
-class PartyData
+public class PartyData
 {
     public CharacterData LorbertData = new CharacterData("Lorbert");
     public CharacterData ArtroData = new CharacterData("Artro");
     public CharacterData IOData = new CharacterData("I-O");
+
+    public List<string> Nineum = new List<string>();
 }
 
 [Serializable]
-class CharacterData
+public class CharacterData
 {
     public int health = 1000;
     public int stamina = 300;
@@ -217,7 +226,7 @@ class CharacterData
         this.name = name;
         switch(name)
         {
-            case "Lorbert": health = 1200;
+            case "Lorbert": health = 600;
                 stamina = 350;
                 mp = 120;
                 strength = 64;
@@ -229,7 +238,7 @@ class CharacterData
                 perception = 50;
                 luck = 50;
                 break;
-            case "Artro": health = 1300;
+            case "Artro": health = 650;
                 stamina = 280;
                 mp = 240;
                 strength = 45;
@@ -242,7 +251,7 @@ class CharacterData
                 luck = 50;
                 break;
             case "I-O":
-                health = 1100;
+                health = 550;
                 stamina = 320;
                 mp = 210;
                 strength = 53;
