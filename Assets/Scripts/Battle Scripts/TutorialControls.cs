@@ -32,6 +32,9 @@ public class TutorialControls : MonoBehaviour
     private float bossTimer;
     private float bossTimerThreshold = 2.0f;
 
+    private float battleIsOverTimer;
+    private float battleIsOverDuration = 0.5f;
+
     private List<string> tutorial = new List<string>
     {
         "Welcome to battle in The Ballad of Lorbert!",
@@ -43,7 +46,7 @@ public class TutorialControls : MonoBehaviour
         "Go ahead and try attacking with the other characters",
         "Make sure to watch your stamina as you attack. Switch characters often to keep that stamina up.",
         "Now your enemy is going to attack. As the enemy attacks your characters' hp will go down.",
-        "That's where spells come in handy! Your first spell is Water. To use it just drag it onto a character. Go ahead and try that now.",
+        "That's where spells come in handy! Your first spell is Liquid. To use it just drag it onto a character. Go ahead and try that now.",
         "Good. Water will heal your characters over time. You can also attack with water by dragging it to an enemy. Give it a try.",
         "There you go! Spells will use mp, which also recharges over time although slower than stamina.",
         "That's it for this tutorial. You have everything you need to take out these baddies. Tap once more to go all out on this monster."
@@ -160,13 +163,13 @@ public class TutorialControls : MonoBehaviour
             if(target == Enemy || target == EnemyActive)
             {
                 int damage = BattleManager.manager.EntityUsesWaterToAttackEntity(AlienWithPriority, target);
-                AlienWithPriority.GetComponent<Water>().AttackEntity(target, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+                AlienWithPriority.GetComponent<Liquid>().AttackEntity(target, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
                 Debug.Log("Gonna put the cloud at");
                 Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             } else
             {
                 int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
-                AlienWithPriority.GetComponent<Water>().HealEntity(target, target.transform.position, healing);
+                AlienWithPriority.GetComponent<Liquid>().HealEntity(target, target.transform.position, healing);
                 tutorialIndex += 1;
             }
             
@@ -181,17 +184,17 @@ public class TutorialControls : MonoBehaviour
         {
             switch (hitInfo.transform.gameObject.name)
             {
-                case "LorbertWater":
+                case "LorbertLiquid":
                     isDraggingSpell = true;
                     SpellBeingDragged = hitInfo.transform.gameObject;
                     spellStartingPosition = SpellBeingDragged.transform.position;
                     break;
-                case "ArtroWater":
+                case "ArtroLiquid":
                     isDraggingSpell = true;
                     SpellBeingDragged = hitInfo.transform.gameObject;
                     spellStartingPosition = SpellBeingDragged.transform.position;
                     break;
-                case "IOWater":
+                case "IOLiquid":
                     isDraggingSpell = true;
                     SpellBeingDragged = hitInfo.transform.gameObject;
                     spellStartingPosition = SpellBeingDragged.transform.position;
@@ -213,7 +216,9 @@ public class TutorialControls : MonoBehaviour
     {
         if(Enemy.GetComponent<EnemyDeath>().isDead)
         {
-            if(Input.GetMouseButtonUp(0))
+            BattleManager.manager.battleIsOver = true;
+            battleIsOverTimer += Time.deltaTime;
+            if(battleIsOverTimer >= battleIsOverDuration && Input.GetMouseButtonUp(0))
             {
                 StoryManager.manager.shouldWrite = true;
                 StoryManager.manager.isFading = true;

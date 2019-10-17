@@ -29,6 +29,7 @@ public class WorldManager : MonoBehaviour
             index = value;
             StopMovingAndMoveToDestination();
             CheckForDirections(value);
+            Debug.Log("Set storyIndex to " + value);
         }
     }
 
@@ -71,6 +72,8 @@ public class WorldManager : MonoBehaviour
             Artro.transform.position = artroDestination;
             IO.transform.position = ioDestination;
 
+            Camera.main.transform.position = new Vector3(Lorbert.transform.position.x, Lorbert.transform.position.y, Camera.main.transform.position.z);
+
             isPerforming = false;
         }
         
@@ -94,14 +97,46 @@ public class WorldManager : MonoBehaviour
     void PerformDirections(MovementDirections directions)
     {
         isPerforming = true;
-        Vector2 velocity = directions.GetVelocity(0);
-        directionDuration = directions.GetDuration(0);
-        Debug.Log(directionDuration);
-        Lorbert.GetComponent<Rigidbody2D>().velocity = velocity;
-        Artro.GetComponent<Rigidbody2D>().velocity = velocity;
-        IO.GetComponent<Rigidbody2D>().velocity = velocity;
-        lorbertDestination = currentDirections.GetDestinationTransformPosition(0, Lorbert);
-        artroDestination = currentDirections.GetDestinationTransformPosition(0, Artro);
-        ioDestination = currentDirections.GetDestinationTransformPosition(0, IO);
+
+        if(Directions.Down.Equals(Directions.Position))
+        {
+            Debug.Log("what the fuck");
+        } else
+        {
+            Debug.Log("This makes sense");
+        }
+        if(Directions.Right.Equals(Directions.Position))
+        {
+            Debug.Log("Double fuck");
+        } else
+        {
+            Debug.Log("This makes sense too.");
+        }
+
+        if(directions.GetDirection(0).Equals(Directions.Position))
+        {
+            Debug.Log("Getting into position");
+            Debug.Log(directions.GetDirection(0));
+            Vector3 artroOffset = Artro.transform.position - Lorbert.transform.position;
+            Vector3 ioOffset = IO.transform.position - Lorbert.transform.position;
+            Lorbert.transform.position = new Vector3(directions.GetDistance(0), directions.GetDistance(1), Lorbert.transform.position.z);
+            Artro.transform.position = Lorbert.transform.position + artroOffset;
+            IO.transform.position = Lorbert.transform.position + ioOffset;
+            Camera.main.transform.position = new Vector3(Lorbert.transform.position.x, Lorbert.transform.position.y, Camera.main.transform.position.z);
+            lorbertDestination = Lorbert.transform.position;
+            artroDestination = Artro.transform.position;
+            ioDestination = IO.transform.position;
+        }
+        else {
+            Vector2 velocity = directions.GetVelocity(0);
+            directionDuration = directions.GetDuration(0);
+            Debug.Log(directionDuration);
+            Lorbert.GetComponent<Rigidbody2D>().velocity = velocity;
+            Artro.GetComponent<Rigidbody2D>().velocity = velocity;
+            IO.GetComponent<Rigidbody2D>().velocity = velocity;
+            lorbertDestination = currentDirections.GetDestinationTransformPosition(0, Lorbert);
+            artroDestination = currentDirections.GetDestinationTransformPosition(0, Artro);
+            ioDestination = currentDirections.GetDestinationTransformPosition(0, IO);
+        }
     }
 }

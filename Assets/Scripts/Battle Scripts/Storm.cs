@@ -24,7 +24,12 @@ public class Storm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		damageTimer += Time.deltaTime;
+        if (BattleManager.manager.battleIsOver && gameObject != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        damageTimer += Time.deltaTime;
         if(damageTimer >= durationThreshold)
 		{
 			damageTimer = 0;

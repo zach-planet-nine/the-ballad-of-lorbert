@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour
     public GameObject Enemy3;
     public GameObject Enemy4;
 
+    public bool battleIsOver;
+
     private BattleStats LorbertStats;
     private BattleStats ArtroStats;
     private BattleStats IOStats;
@@ -114,6 +116,12 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(battleIsOver)
+        {
+            return;
+        }
+
         lorbertStaminaTimer += Time.deltaTime;
         artroStaminaTimer += Time.deltaTime;
         ioStaminaTimer += Time.deltaTime;

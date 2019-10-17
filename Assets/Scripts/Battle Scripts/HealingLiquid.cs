@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingWater : MonoBehaviour
+public class HealingLiquid : MonoBehaviour
 {
     GameObject HealedCharacter;
     Vector3 destination;
@@ -28,6 +28,11 @@ public class HealingWater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(BattleManager.manager.battleIsOver && gameObject != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         healingTimer += Time.deltaTime;
         if(healingTimer >= durationThreshold)
         {

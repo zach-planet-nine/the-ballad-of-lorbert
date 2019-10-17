@@ -27,6 +27,7 @@ public class StoryManager : MonoBehaviour
         } else if (this != manager)
         {
             Debug.Log("Destroying gameObject");
+            WorldManager.manager.storyIndex = manager.storyIndex;
             Destroy(gameObject);
         } else
         {
@@ -63,6 +64,21 @@ public class StoryManager : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoad;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoad;
+    }
+
+    private void OnSceneLoad(Scene scene, LoadSceneMode mode)
+    {
+        WorldManager.manager.storyIndex = storyIndex;
+    }
+
     void AdvanceStory()
     {
         if(!engaged)
@@ -76,8 +92,8 @@ public class StoryManager : MonoBehaviour
             WorldManager.manager.storyIndex = storyIndex;
             currentDialog = Story.story[storyIndex];
             Debug.Log(currentDialog);
-            dialogIndex = 0;
-            DialogBox.dialog = shouldWrite ? "" : currentDialog.Substring(0, dialogIndex);
+            dialogIndex = 1;
+            DialogBox.dialog = currentDialog.Substring(0, dialogIndex);
         } else
         {
             Debug.Log("Out of story");
@@ -95,7 +111,6 @@ public class StoryManager : MonoBehaviour
                 dialogIndex += 1;
                 if (dialogIndex > currentDialog.Length)
                 {
-                    Debug.Log("It's Dialog index that's the problem");
                     dialogIndex = currentDialog.Length;
                 }
                 writeDelay = 0;

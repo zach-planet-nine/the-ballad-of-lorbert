@@ -7,14 +7,15 @@ public enum Directions
     Up = 0,
     Down = 1,
     Left = 2,
-    Right = 3
+    Right = 3,
+    Position = 4
 }
 
 public class Story : MonoBehaviour
 {
     public static List<string> story = new List<string> {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat ornare sodales. Fusce vitae eros ultricies, auctor mi quis, aliquet ex. In non libero nibh. Lorem ipsum dolor",
-        "bar",
+        "This is the second dialog that should be displayed.",
         "Should be stopped here",
     "The quick brown fox jumps over the lazy dog",
     "Who's got the keys to the jeep? Vrooooom!",
@@ -44,7 +45,16 @@ public class Story : MonoBehaviour
         }),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
-        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            17.17f, 0.56f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
         MovementDirections.GetEmptyMD()
     };
 }

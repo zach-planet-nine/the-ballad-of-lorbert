@@ -527,7 +527,7 @@ MonoBehaviour:
   WaterObject: {fileID: 549854585}
   HealingObject: {fileID: 7216889000031876086, guid: 73a9df16fee8c422d987c04d291cbb0e,
     type: 3}
-  AttackObject: {fileID: 4824658441535349096, guid: 8263446e687fb4992ac4f334882afae7,
+  AttackObject: {fileID: 9201546543636089538, guid: a899681b575624c9ab9644cb045e896e,
     type: 3}
 --- !u!114 &271345689
 MonoBehaviour:
@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 549854587}
   - component: {fileID: 549854586}
   m_Layer: 0
-  m_Name: IOWater
+  m_Name: IOLiquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 759848393}
   - component: {fileID: 759848392}
   m_Layer: 0
-  m_Name: ArtroWater
+  m_Name: ArtroLiquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ MonoBehaviour:
   WaterObject: {fileID: 759848391}
   HealingObject: {fileID: 7216889000031876086, guid: 73a9df16fee8c422d987c04d291cbb0e,
     type: 3}
-  AttackObject: {fileID: 4824658441535349096, guid: 8263446e687fb4992ac4f334882afae7,
+  AttackObject: {fileID: 9201546543636089538, guid: a899681b575624c9ab9644cb045e896e,
     type: 3}
 --- !u!114 &763725202
 MonoBehaviour:
@@ -1117,10 +1117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37f472b698e470ba9dfd70f0a1aa33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 800
+  hp: 1600
   stamina: 300
   mp: 200
-  strength: 50
+  strength: 70
   vitality: 50
   agility: 50
   dexterity: 50
@@ -1449,7 +1449,7 @@ MonoBehaviour:
   WaterObject: {fileID: 1542680512}
   HealingObject: {fileID: 7216889000031876086, guid: 73a9df16fee8c422d987c04d291cbb0e,
     type: 3}
-  AttackObject: {fileID: 4824658441535349096, guid: 8263446e687fb4992ac4f334882afae7,
+  AttackObject: {fileID: 9201546543636089538, guid: a899681b575624c9ab9644cb045e896e,
     type: 3}
 --- !u!114 &1112436207
 MonoBehaviour:
@@ -1527,6 +1527,7 @@ MonoBehaviour:
   Enemy2: {fileID: 0}
   Enemy3: {fileID: 0}
   Enemy4: {fileID: 0}
+  battleIsOver: 0
 --- !u!4 &1271262044
 Transform:
   m_ObjectHideFlags: 0
@@ -1553,7 +1554,7 @@ GameObject:
   - component: {fileID: 1542680514}
   - component: {fileID: 1542680513}
   m_Layer: 0
-  m_Name: LorbertWater
+  m_Name: LorbertLiquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
