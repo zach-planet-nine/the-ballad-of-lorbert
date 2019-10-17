@@ -22,22 +22,22 @@ public class StartMenuTester : MonoBehaviour
 
         GUI.depth = -1;        
 
-        if(GUI.Button(new Rect(50, 100, 150, 60), "Start New"))
+        if(GUI.Button(new Rect(50, 100, 400, 100), "Start New"))
         {
             Debug.Log("Calling the button");
             StartCoroutine(FadeToScene("IntroductionScene"));
         }
-        if(GUI.Button(new Rect(50, 160, 150, 60), "Continue"))
+        if(GUI.Button(new Rect(50, 210, 400, 100), "Continue"))
         {
 
         }
-        if(GUI.Button(new Rect(50, 220, 150, 60), "Load"))
+        if(GUI.Button(new Rect(50, 320, 400, 100), "Load"))
         {
             CharacterStats.characterStats.LogPartyData();
             CharacterStats.characterStats.Load("testfile.dat");
             CharacterStats.characterStats.LogPartyData();
         }
-        if(GUI.Button(new Rect(50, 280, 150, 60), "Settings"))
+        if(GUI.Button(new Rect(50, 430, 400, 100), "Settings"))
         {
             Debug.Log("Settings");
         }

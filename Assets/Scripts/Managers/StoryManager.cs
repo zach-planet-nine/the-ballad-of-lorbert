@@ -47,14 +47,14 @@ public class StoryManager : MonoBehaviour
     {
         if(storyIndex == 5)
         {
-            if(GUI.Button(new Rect(600, 50, 150, 80), "Yes Please"))
+            if(GUI.Button(new Rect(600, 50, 400, 100), "Yes Please"))
             {
                 Debug.Log("Do Tutorial");
                 AdvanceStory();
                 shouldWrite = false;
                 SceneManager.LoadScene("TutorialScene");
             }
-            if(GUI.Button(new Rect(600, 130, 150, 80), "No thanks"))
+            if(GUI.Button(new Rect(600, 180, 400, 100), "No thanks"))
             {
                 Debug.Log("Skip Tutorial");
                 debounce = true;
