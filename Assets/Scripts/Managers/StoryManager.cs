@@ -13,7 +13,7 @@ public class StoryManager : MonoBehaviour
     public bool debounce = false;
 
     private string currentDialog = "";
-    private int storyIndex = 9;
+    private int storyIndex = 24;
     private int dialogIndex;
     private float writeDelay;
     private float writeDelayMax = 0.07f;
@@ -50,8 +50,41 @@ public class StoryManager : MonoBehaviour
         WorldManager.manager.storyIndex = storyIndex;
     }
 
+    private void DisplaySelectionScreen()
+    {
+        if(GUI.Button(new Rect(200, 300, 400, 200), "Science Lab"))
+        {
+            JumpToStoryIndex(30);
+        }
+        if(GUI.Button(new Rect(200, 600, 400, 200), "Hangar"))
+        {
+            JumpToStoryIndex(40);
+        }
+        if(GUI.Button(new Rect(200, 900, 400, 200), "Observation Room"))
+        {
+            JumpToStoryIndex(50);
+        }
+        if(GUI.Button(new Rect(800, 300, 400, 200), "Hydroponics"))
+        {
+            JumpToStoryIndex(60);
+        }
+        if(GUI.Button(new Rect(800, 600, 400, 200), "Recycling Center"))
+        {
+            JumpToStoryIndex(70);
+        }
+        if(GUI.Button(new Rect(800, 900, 400, 200), "Engine Room"))
+        {
+            JumpToStoryIndex(80);
+        }
+    }
+
     private void OnGUI()
     {
+        if(currentDialog == "SelectionScreen")
+        {
+            DialogBox.dialog = "";
+            DisplaySelectionScreen();
+        }
         if(storyIndex == 5)
         {
             if(GUI.Button(new Rect(600, 50, 400, 100), "Yes Please"))
@@ -84,10 +117,7 @@ public class StoryManager : MonoBehaviour
                 if(GUI.Button(new Rect(Screen.width - 500, 50, 400, 120), "Inventory", inventoryStyle))
                 {
                     Debug.Log("Handle Inventory here");
-                    CameraOnLorbert.shouldFollowLorbert = false;
-                    InventoryManager.shouldDisplayInventory = true;
-                    inInventory = true;
-                    Camera.main.transform.position = new Vector3(-27.35f, 18.04f, Camera.main.transform.position.z);
+                    OpenInventory();
                     
                 }
                 DialogBox.dialog = "Go ahead and tap your inventory button now to equip some Nineum.";
@@ -95,6 +125,41 @@ public class StoryManager : MonoBehaviour
             {
                 DialogBox.dialog = "You received 3 common Nineum!";
             }
+        }
+        if(storyIndex > gotNineumIndex && !inInventory)
+        {
+            GUIStyle inventoryStyle = new GUIStyle();
+            inventoryStyle.font = (Font)Resources.Load("Orbitron-Bold");
+            inventoryStyle.fontSize = 80;
+            inventoryStyle.normal.textColor = Color.white;
+            if (GUI.Button(new Rect(Screen.width - 500, 50, 400, 120), "Inventory", inventoryStyle))
+            {
+                Debug.Log("Handle Inventory here");
+                OpenInventory();
+
+            }
+        }
+    }
+
+    public void OpenInventory()
+    {
+        CameraOnLorbert.shouldFollowLorbert = false;
+        InventoryManager.shouldDisplayInventory = true;
+        inInventory = true;
+        DialogBox.dialog = "";
+        Camera.main.transform.position = new Vector3(-27.35f, 18.04f, Camera.main.transform.position.z);
+    }
+
+    public void CloseInventory()
+    {
+        inInventory = false;
+        dialogIndex = 1;
+        CameraOnLorbert.shouldFollowLorbert = true;
+        InventoryManager.shouldDisplayInventory = false;
+        if (storyIndex == gotNineumIndex)
+        { 
+            debounce = true;
+            AdvanceStory();
         }
     }
 
@@ -111,6 +176,18 @@ public class StoryManager : MonoBehaviour
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
         WorldManager.manager.storyIndex = storyIndex;
+    }
+
+    void JumpToStoryIndex(int index)
+    {
+        storyIndex = index;
+        WorldManager.manager.storyIndex = storyIndex;
+        currentDialog = Story.story[storyIndex];
+        dialogIndex = 1;
+        if (dialogIndex < currentDialog.Length)
+        {
+            DialogBox.dialog = currentDialog.Substring(0, dialogIndex);
+        }
     }
 
     void AdvanceStory()
@@ -137,15 +214,19 @@ public class StoryManager : MonoBehaviour
         }
         if(storyIndex == gotNineumIndex)
         {
-            NineumManager.manager.AddNineum("01000000010201010102030100000001");
+            /*NineumManager.manager.AddNineum("01000000010201010102030100000001");
             NineumManager.manager.AddNineum("01000000010201010102060100000001");
-            NineumManager.manager.AddNineum("01000000010203010104080100000001");
+            NineumManager.manager.AddNineum("01000000010203010104080100000001");*/
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(inInventory || currentDialog == "SelectionScreen")
+        {
+            return;
+        }
         if(storyIndex == gotNineumIndex)
         {
             gotNineumTimer += Time.deltaTime;

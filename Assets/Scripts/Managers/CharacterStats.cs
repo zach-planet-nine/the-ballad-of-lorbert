@@ -12,6 +12,18 @@ public enum Characters
     IO = 2
 }
 
+public enum Stats
+{
+    Strength,
+    Vitality,
+    Agility,
+    Dexterity,
+    Wisdom,
+    Aura,
+    Perception,
+    Luck
+}
+
 public enum EquipLocations
 {
     Weapon = 0,
@@ -105,6 +117,59 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
+    public void Equip(CharacterData data, Equipment equipment)
+    {
+        switch(equipment.location)
+        {
+            case EquipLocations.Weapon: data.inventory.weapons = new List<Equipment>();
+                data.inventory.weapons.Add(equipment);
+                break;
+            case EquipLocations.Head:
+                data.inventory.helms = new List<Equipment>();
+                data.inventory.helms.Add(equipment);
+                break;
+            case EquipLocations.Body:
+                data.inventory.armors = new List<Equipment>();
+                data.inventory.armors.Add(equipment);
+                break;
+            case EquipLocations.Shield:
+                data.inventory.shields = new List<Equipment>();
+                data.inventory.shields.Add(equipment);
+                break;
+            case EquipLocations.Arms:
+                data.inventory.bracers = new List<Equipment>();
+                data.inventory.bracers.Add(equipment);
+                break;
+            case EquipLocations.Neck:
+                data.inventory.necklaces = new List<Equipment>();
+                data.inventory.necklaces.Add(equipment);
+                break;
+            case EquipLocations.Hands:
+                data.inventory.gloves = new List<Equipment>();
+                data.inventory.gloves.Add(equipment);
+                break;
+            case EquipLocations.Feet:
+                data.inventory.boots = new List<Equipment>();
+                data.inventory.boots.Add(equipment);
+                break;
+        }
+
+        data.RecalculateStats();
+    }
+
+    public void EquipOnCharacter(Characters character, Equipment equipment)
+    {
+        switch(character)
+        {
+            case Characters.Lorbert: Equip(partyData.LorbertData, equipment);
+                break;
+            case Characters.Artro: Equip(partyData.ArtroData, equipment);
+                break;
+            case Characters.IO: Equip(partyData.IOData, equipment);
+                break;
+        }
+    }
+
     public void EquipOnCharacterOnLocation(Characters character, EquipLocations location, string ninea)
     {
         switch(character)
@@ -116,6 +181,55 @@ public class CharacterStats : MonoBehaviour
             case Characters.IO: EquipOnLocation(partyData.IOData, location, ninea);
                 break;
         }
+    }
+
+    public List<string> GetEquippedNineumForCharacter(CharacterData data)
+    {
+        List<string> nineum = new List<string>();
+        if(data.inventory.weapons.Count > 0)
+        {
+            nineum.Add(data.inventory.weapons[0].nineaHexString);
+        }
+        if (data.inventory.helms.Count > 0)
+        {
+            nineum.Add(data.inventory.helms[0].nineaHexString);
+        }
+        if (data.inventory.armors.Count > 0)
+        {
+            nineum.Add(data.inventory.armors[0].nineaHexString);
+        }
+        if (data.inventory.shields.Count > 0)
+        {
+            nineum.Add(data.inventory.shields[0].nineaHexString);
+        }
+        if (data.inventory.bracers.Count > 0)
+        {
+            nineum.Add(data.inventory.bracers[0].nineaHexString);
+        }
+        if (data.inventory.necklaces.Count > 0)
+        {
+            nineum.Add(data.inventory.necklaces[0].nineaHexString);
+        }
+        if (data.inventory.gloves.Count > 0)
+        {
+            nineum.Add(data.inventory.gloves[0].nineaHexString);
+        }
+        if (data.inventory.boots.Count > 0)
+        {
+            nineum.Add(data.inventory.boots[0].nineaHexString);
+        }
+
+        return nineum;
+    }
+
+    public List<string> GetEquippedNineum()
+    {
+        List<string> nineum = new List<string>();
+        nineum.AddRange(GetEquippedNineumForCharacter(partyData.LorbertData));
+        nineum.AddRange(GetEquippedNineumForCharacter(partyData.ArtroData));
+        nineum.AddRange(GetEquippedNineumForCharacter(partyData.IOData));
+
+        return nineum;
     }
 
     public void LogPartyData()
@@ -219,6 +333,17 @@ public class CharacterData
     public string shield = "";
     public string feet = "";
 
+    private int baseStrength;
+    private int baseVitality;
+    private int baseAgility;
+    private int baseDexterity;
+    private int baseWisdom;
+    private int baseAura;
+    private int basePerception;
+    private int baseLuck;
+
+    public Inventory inventory = new Inventory();
+
     private string name = "";
 
     public CharacterData(string name)
@@ -229,40 +354,91 @@ public class CharacterData
             case "Lorbert": health = 600;
                 stamina = 350;
                 mp = 120;
-                strength = 64;
-                vitality = 55;
-                agility = 45;
-                dexterity = 40;
-                wisdom = 40;
-                aura = 35;
-                perception = 50;
-                luck = 50;
+                baseStrength = strength = 64;
+                baseVitality = vitality = 55;
+                baseAgility = agility = 45;
+                baseDexterity = dexterity = 40;
+                baseWisdom = wisdom = 40;
+                baseAura = aura = 35;
+                basePerception = perception = 50;
+                baseLuck = luck = 50;
                 break;
             case "Artro": health = 650;
                 stamina = 280;
                 mp = 240;
-                strength = 45;
-                vitality = 43;
-                agility = 55;
-                dexterity = 50;
-                wisdom = 65;
-                aura = 55;
-                perception = 50;
-                luck = 50;
+                baseStrength = strength = 45;
+                baseVitality = vitality = 43;
+                baseAgility = agility = 55;
+                baseDexterity = dexterity = 50;
+                baseWisdom = wisdom = 65;
+                baseAura = aura = 55;
+                basePerception = perception = 50;
+                baseLuck = luck = 50;
                 break;
             case "I-O":
                 health = 550;
                 stamina = 320;
                 mp = 210;
-                strength = 53;
-                vitality = 45;
-                agility = 59;
-                dexterity = 55;
-                wisdom = 55;
-                aura = 60;
-                perception = 50;
-                luck = 50;
+                baseStrength = strength = 53;
+                baseVitality = vitality = 45;
+                baseAgility = agility = 59;
+                baseDexterity = dexterity = 55;
+                baseWisdom = wisdom = 55;
+                baseAura = aura = 60;
+                basePerception = perception = 50;
+                baseLuck = luck = 50;
                 break;
         }
+    }
+
+    public void RecalculateStats()
+    {
+        int strengthModifier = 0;
+        int vitalityModifier = 0;
+        int agilityModifier = 0;
+        int dexterityModifier = 0;
+        int wisdomModifier = 0;
+        int auraModifier = 0;
+        int perceptionModifier = 0;
+        int luckModifier = 0;
+
+        List<Equipment> equipment = inventory.GetEquipment();
+        equipment.ForEach(e =>
+        {
+            switch (e.stat)
+            {
+                case Stats.Strength: strengthModifier += e.statModifier;
+                    break;
+                case Stats.Vitality: vitalityModifier += e.statModifier;
+                    break;
+                case Stats.Agility:
+                    agilityModifier += e.statModifier;
+                    break;
+                case Stats.Dexterity:
+                    dexterityModifier += e.statModifier;
+                    break;
+                case Stats.Wisdom:
+                    wisdomModifier += e.statModifier;
+                    break;
+                case Stats.Aura:
+                    auraModifier += e.statModifier;
+                    break;
+                case Stats.Perception:
+                    perceptionModifier += e.statModifier;
+                    break;
+                case Stats.Luck:
+                    luckModifier += e.statModifier;
+                    break;
+            }
+        });
+
+        strength = baseStrength + strengthModifier;
+        vitality = baseVitality + vitalityModifier;
+        agility = baseAgility + agilityModifier;
+        dexterity = baseDexterity + dexterityModifier;
+        wisdom = baseWisdom + wisdomModifier;
+        aura = baseAura + auraModifier;
+        perception = basePerception + perceptionModifier;
+        luck = baseLuck + luckModifier;
     }
 }

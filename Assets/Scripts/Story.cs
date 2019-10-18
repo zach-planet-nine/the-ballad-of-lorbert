@@ -25,7 +25,87 @@ public class Story : MonoBehaviour
     "Follow me. This portal over here will take you to any of the six locations. You can go in any order, just make sure you do it quickly.",
     "Oh I almost forgot. The station's been picking up some Nineum during its researching here. I'll let you borrow this Nineum. It'll help you take down those bad guys.",
     "", // 10
-    "Outside of battle you can adjust your Nineum whenever you want, just press the inventory button on your HUD."
+    "Outside of battle you can adjust your Nineum whenever you want, just press the inventory button on your HUD.",
+    "Here's the hydroponics room",
+    "",
+    "Here's the Hangar",
+    "",
+    "Here's the Engine Room",
+    "",
+    "Here's the Observation Room",
+    "",
+    "Here's the Recycling Center", // 20
+    "",
+    "Here's the Science Lab",
+    "",
+    "Now that you've checked out all of the rooms. It's time to get this party started. Go ahead and tap once more to get the selection screen.",
+    "SelectionScreen",
+    "",
+    "",
+    "",
+    "",
+    "Head Scientist: Oh Lorbert you're here!", // 30 Science Lab
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Pilot: Well shoot me sideways! Some help.", // 40 Hangar
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Young Scientist: It's beautiful isn't it.", // 50 Observation Room
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Gardener: My plants! What'll happen to my plants?!", // 60 Hydroponics
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "RecycleBOT: Beep boop recycleBOT online!", // 70 Recycling Center
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Scottie: I can't Lorbert. There's not enough Power!", // 80 Engine Room
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "", // 90
+    ""
     };
     public static List<MovementDirections> directions = new List<MovementDirections>
     {
@@ -61,9 +141,198 @@ public class Story : MonoBehaviour
             }),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(), 
+        MovementDirections.GetEmptyMD(), // 10
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            7.17f, -34.56f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -91.3f, 36.3f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -97.5f, -1.2f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -89.4f, -42.9f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
+        MovementDirections.GetEmptyMD(), // 20
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -142.7f, -84.6f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -4.2f, -83.0f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -4.2f, -83.0f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),  // 30 Science Lab
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -91.3f, 36.3f
+            },
+            new List<float>
+            {
+                -1.0f
+            }), // 40 Hangar
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -89.4f, -42.9f
+            },
+            new List<float>
+            {
+                -1.0f
+            }), // 50 Observation Room
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            7.17f, -34.56f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),  // 60 Hydroponics
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -142.7f, -84.6f
+            },
+            new List<float>
+            {
+                -1.0f
+            }), // 70 Recycling Center
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -97.5f, -1.2f
+            },
+            new List<float>
+            {
+                -1.0f
+            }), // 80 Engine Room
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(), // 90
         MovementDirections.GetEmptyMD()
+
     };
 }
 
