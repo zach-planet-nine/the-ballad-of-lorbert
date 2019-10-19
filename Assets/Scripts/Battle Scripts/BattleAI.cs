@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class BattleAI
 {
-    public EnemyActions ChooseAction()
+    public virtual EnemyActions ChooseAction()
     {
+        Debug.Log("This gets called");
         return EnemyActions.Projectile;
     }
 
-    public GameObject ChooseTarget(List<GameObject> potentialTargets)
+    public virtual GameObject ChooseTarget(List<GameObject> potentialTargets)
     {
         return potentialTargets[0];
     }

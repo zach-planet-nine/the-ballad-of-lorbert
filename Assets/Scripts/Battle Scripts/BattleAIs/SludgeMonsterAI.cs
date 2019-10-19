@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class SludgeMonsterAI : BattleAI
 {
-    new public EnemyActions ChooseAction()
+    public override EnemyActions ChooseAction()
     {
+        int coinToss = Randomness.GetIntBetween(0, 2);
+        if (coinToss == 1)
+        {
+            return EnemyActions.None;
+        }
         return EnemyActions.Projectile;
     }
 
-    new public GameObject ChooseTarget(List<GameObject> potentialTargets)
+    public override GameObject ChooseTarget(List<GameObject> potentialTargets)
     {
         return potentialTargets[0];
     }

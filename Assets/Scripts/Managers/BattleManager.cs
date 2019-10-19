@@ -53,6 +53,18 @@ public class BattleManager : MonoBehaviour
         IOStats = CharacterStats.characterStats.GetIOBattleStats();
 
         Enemy1Stats = Enemy1.GetComponent<EnemyStats>().GetBattleStats();
+        if(Enemy2 != null)
+        {
+            Enemy2Stats = Enemy2.GetComponent<EnemyStats>().GetBattleStats();
+        }
+        if(Enemy3 != null)
+        {
+            Enemy3Stats = Enemy3.GetComponent<EnemyStats>().GetBattleStats();
+        }
+        if(Enemy4 != null)
+        {
+            Enemy4Stats = Enemy4.GetComponent<EnemyStats>().GetBattleStats();
+        }
 
         StoryManager.manager.engaged = false;
 
@@ -179,15 +191,15 @@ public class BattleManager : MonoBehaviour
         {
             return IOStats;
         }
-        else if(entity.name == Enemy1.name)
+        else if(entity.name.Contains(Enemy1.name))
         {
             return Enemy1Stats;
         }
-        else if (entity.name == Enemy2.name)
+        else if (entity.name.Contains(Enemy2.name))
         {
             return Enemy2Stats;
         }
-        else if (entity.name == Enemy3.name)
+        else if (entity.name.Contains(Enemy3.name))
         {
             return Enemy3Stats;
         }

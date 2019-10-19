@@ -28,10 +28,10 @@ public class BattleControls : MonoBehaviour
     private Vector3 spellStartingPosition;
     private Vector2 lastPosition;
 
-    private float enemy1Timer;
-    private float enemy2Timer;
+    private float enemy1Timer = 1.8f;
+    private float enemy2Timer = 0.66f;
     private float enemy3Timer;
-    private float enemy4Timer;
+    private float enemy4Timer = -1.5f;
     private float enemyThreshold = 2.0f;
 
     private float battleIsOverTimer;
@@ -284,16 +284,65 @@ public class BattleControls : MonoBehaviour
         if (!CheckIfNullOrDead(Enemy1Rest))
         {
             enemy1Timer += Time.deltaTime;
+            enemy2Timer += Time.deltaTime;
+            enemy3Timer += Time.deltaTime;
+            enemy4Timer += Time.deltaTime;
+
             if(enemy1Timer > enemyThreshold)
             {
-                List<GameObject> potentialCharacters = GetAliveCharacters();
-                List<GameObject> potentialEnemies = GetAliveEnemies();
-
-                Enemy1Active.SetActive(true);
-                Enemy1Rest.GetComponent<EnemyAI>().DecideWhatToDo(potentialCharacters, potentialEnemies, a =>
+                enemy1Timer = 0;
+                if(!CheckIfNullOrDead(Enemy1Rest))
                 {
-                    RelaxEnemy(Enemy1Rest);
-                })
+                    List<GameObject> potentialCharacters = GetAliveCharacters();
+                    List<GameObject> potentialEnemies = GetAliveEnemies();
+
+                    Enemy1Rest.GetComponent<EnemyAI>().DecideWhatToDo(potentialCharacters, potentialEnemies, a =>
+                    {
+                        RelaxEnemy(Enemy1Rest);
+                    });
+                }  
+            }
+            if(enemy2Timer > enemyThreshold)
+            {
+                enemy2Timer = 0;
+                if (!CheckIfNullOrDead(Enemy2Rest))
+                {
+                    List<GameObject> potentialCharacters = GetAliveCharacters();
+                    List<GameObject> potentialEnemies = GetAliveEnemies();
+
+                    Enemy2Rest.GetComponent<EnemyAI>().DecideWhatToDo(potentialCharacters, potentialEnemies, a =>
+                    {
+                        RelaxEnemy(Enemy2Rest);
+                    });
+                }
+            }
+            if (enemy3Timer > enemyThreshold)
+            {
+                enemy3Timer = 0;
+                if (!CheckIfNullOrDead(Enemy3Rest))
+                {
+                    List<GameObject> potentialCharacters = GetAliveCharacters();
+                    List<GameObject> potentialEnemies = GetAliveEnemies();
+
+                    Enemy3Rest.GetComponent<EnemyAI>().DecideWhatToDo(potentialCharacters, potentialEnemies, a =>
+                    {
+                        RelaxEnemy(Enemy3Rest);
+                    });
+                }
+            }
+            if (enemy4Timer > enemyThreshold)
+            {
+                enemy4Timer = 0;
+                if (!CheckIfNullOrDead(Enemy4Rest))
+                {
+                    List<GameObject> potentialCharacters = GetAliveCharacters();
+                    List<GameObject> potentialEnemies = GetAliveEnemies();
+
+                    Enemy4Rest.GetComponent<EnemyAI>().DecideWhatToDo(potentialCharacters, potentialEnemies, a =>
+                    {
+                        RelaxEnemy(Enemy4Rest);
+                    });
+                }
             }
         }
     }
