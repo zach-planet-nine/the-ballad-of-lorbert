@@ -40,13 +40,13 @@ public class BattleControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void HandleTap(RaycastHit2D hitInfo)
     {
         string hitName = hitInfo.transform.gameObject.name;
-        if(hitName == "LorbertRest")
+        if (hitName == "LorbertRest")
         {
             LorbertRest.SetActive(false);
             LorbertActive.SetActive(true);
@@ -55,7 +55,8 @@ public class BattleControls : MonoBehaviour
             IORest.SetActive(true);
             IOActive.SetActive(false);
             AlienWithPriority = LorbertActive;
-        } else if(hitName == "ArtroRest")
+        }
+        else if (hitName == "ArtroRest")
         {
             LorbertRest.SetActive(true);
             LorbertActive.SetActive(false);
@@ -64,7 +65,8 @@ public class BattleControls : MonoBehaviour
             IORest.SetActive(true);
             IOActive.SetActive(false);
             AlienWithPriority = ArtroActive;
-        } else if(hitName == "IORest")
+        }
+        else if (hitName == "IORest")
         {
             LorbertRest.SetActive(true);
             LorbertActive.SetActive(false);
@@ -73,21 +75,23 @@ public class BattleControls : MonoBehaviour
             IORest.SetActive(false);
             IOActive.SetActive(true);
             AlienWithPriority = IOActive;
-        } else if(hitName == Enemy1Rest.name || hitName == Enemy1Active.name)
+        }
+        else if (hitName == Enemy1Rest.name || hitName == Enemy1Active.name)
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy1Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy1Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
-        } else if(hitName == Enemy2Rest.name || hitName == Enemy2Active.name)
+        }
+        else if (Enemy2Rest != null && (hitName == Enemy2Rest.name || hitName == Enemy2Active.name))
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy2Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy2Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
         }
-        else if (hitName == Enemy3Rest.name || hitName == Enemy3Active.name)
+        else if (Enemy3Rest != null && (hitName == Enemy3Rest.name || hitName == Enemy3Active.name))
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy3Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy3Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
         }
-        else if (hitName == Enemy4Rest.name || hitName == Enemy4Active.name)
+        else if (Enemy4Rest != null && (hitName == Enemy4Rest.name || hitName == Enemy4Active.name))
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy4Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy4Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
@@ -96,21 +100,22 @@ public class BattleControls : MonoBehaviour
 
     void RelaxEnemy(GameObject enemy)
     {
-        if(enemy.name == Enemy1Rest.name || enemy.name == Enemy1Active.name)
+        if (enemy.name == Enemy1Rest.name || enemy.name == Enemy1Active.name)
         {
             Enemy1Rest.SetActive(true);
             Enemy1Active.SetActive(false);
-        } else if (enemy.name == Enemy2Rest.name || enemy.name == Enemy2Active.name)
+        }
+        else if (Enemy2Rest != null && (enemy.name == Enemy2Rest.name || enemy.name == Enemy2Active.name))
         {
             Enemy2Rest.SetActive(true);
             Enemy2Active.SetActive(false);
         }
-        else if (enemy.name == Enemy3Rest.name || enemy.name == Enemy3Active.name)
+        else if (Enemy3Rest != null && (enemy.name == Enemy3Rest.name || enemy.name == Enemy3Active.name))
         {
             Enemy3Rest.SetActive(true);
             Enemy3Active.SetActive(false);
         }
-        else if (enemy.name == Enemy4Rest.name || enemy.name == Enemy4Active.name)
+        else if (Enemy4Rest != null && (enemy.name == Enemy4Rest.name || enemy.name == Enemy4Active.name))
         {
             Enemy4Rest.SetActive(true);
             Enemy4Active.SetActive(false);
@@ -144,7 +149,7 @@ public class BattleControls : MonoBehaviour
                         break;
                 }
             }
-            else if(target == LorbertRest || target == LorbertActive ||
+            else if (target == LorbertRest || target == LorbertActive ||
                 target == ArtroRest || target == ArtroActive ||
                 target == IORest || target == IOActive)
             {
@@ -182,13 +187,66 @@ public class BattleControls : MonoBehaviour
         lastPosition = currentPosition;
     }
 
+    bool CheckIfCharacterIsDead(GameObject character)
+    {
+        return character.GetComponent<CharacterDeath>().isDead;
+    }
+
+    bool CheckIfNullOrDead(GameObject entity)
+    {
+        if(entity == null)
+        {
+            return true;
+        } else
+        {
+            return entity.GetComponent<EnemyDeath>().isDead;
+        }
+    }
+
+    List<GameObject> GetAliveCharacters()
+    {
+        List<GameObject> potentialTargets = new List<GameObject>();
+        if (!CheckIfCharacterIsDead(LorbertRest))
+        {
+            potentialTargets.Add(LorbertRest);
+        }
+        if (!CheckIfCharacterIsDead(ArtroRest))
+        {
+            potentialTargets.Add(ArtroRest);
+        }
+        if (!CheckIfCharacterIsDead(IORest))
+        {
+            potentialTargets.Add(IORest);
+        }
+        return potentialTargets;
+    }
+
+    List<GameObject> GetAliveEnemies()
+    {
+        List<GameObject> potentialTargets = new List<GameObject>();
+        if(!CheckIfNullOrDead(Enemy1Rest))
+        {
+            potentialTargets.Add(Enemy1Rest);
+        }
+        if (!CheckIfNullOrDead(Enemy2Rest))
+        {
+            potentialTargets.Add(Enemy2Rest);
+        }
+        if (!CheckIfNullOrDead(Enemy3Rest))
+        {
+            potentialTargets.Add(Enemy3Rest);
+        }
+        if (!CheckIfNullOrDead(Enemy4Rest))
+        {
+            potentialTargets.Add(Enemy4Rest);
+        }
+        return potentialTargets;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if ((Enemy1Rest != null || Enemy1Rest.GetComponent<EnemyDeath>().isDead) &&
-            (Enemy2Rest != null || Enemy2Rest.GetComponent<EnemyDeath>().isDead) &&
-            (Enemy3Rest != null || Enemy3Rest.GetComponent<EnemyDeath>().isDead) &&
-            (Enemy4Rest != null || Enemy4Rest.GetComponent<EnemyDeath>().isDead))
+        if (CheckIfNullOrDead(Enemy1Rest) && CheckIfNullOrDead(Enemy2Rest) && CheckIfNullOrDead(Enemy3Rest) && CheckIfNullOrDead(Enemy4Rest))
         {
             BattleManager.manager.battleIsOver = true;
             battleIsOverTimer += Time.deltaTime;
@@ -200,16 +258,17 @@ public class BattleControls : MonoBehaviour
             }
             return;
         }
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             StartDragging();
         }
-        if(isDraggingSpell)
+        if (isDraggingSpell)
         {
-            if(Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 SpellIsDropped();
-            } else
+            }
+            else
             {
                 DragSpell();
             }
@@ -217,9 +276,25 @@ public class BattleControls : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if(hitInfo)
+            if (hitInfo)
             {
                 HandleTap(hitInfo);
             }
         }
+        if (!CheckIfNullOrDead(Enemy1Rest))
+        {
+            enemy1Timer += Time.deltaTime;
+            if(enemy1Timer > enemyThreshold)
+            {
+                List<GameObject> potentialCharacters = GetAliveCharacters();
+                List<GameObject> potentialEnemies = GetAliveEnemies();
+
+                Enemy1Active.SetActive(true);
+                Enemy1Rest.GetComponent<EnemyAI>().DecideWhatToDo(potentialCharacters, potentialEnemies, a =>
+                {
+                    RelaxEnemy(Enemy1Rest);
+                })
+            }
+        }
     }
+}

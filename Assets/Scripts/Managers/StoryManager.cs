@@ -47,7 +47,10 @@ public class StoryManager : MonoBehaviour
     void Start()
     {
         currentDialog = Story.story[storyIndex];
-        WorldManager.manager.storyIndex = storyIndex;
+        if(WorldManager.manager != null)
+        {
+            WorldManager.manager.storyIndex = storyIndex;
+        }
     }
 
     private void DisplaySelectionScreen()
@@ -175,7 +178,11 @@ public class StoryManager : MonoBehaviour
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        WorldManager.manager.storyIndex = storyIndex;
+        if(WorldManager.manager != null)
+        {
+            WorldManager.manager.storyIndex = storyIndex;
+        }
+       
     }
 
     void JumpToStoryIndex(int index)

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 51918668}
   - component: {fileID: 51918669}
   - component: {fileID: 51918670}
+  - component: {fileID: 51918671}
   m_Layer: 0
   m_Name: ArtroRest
   m_TagString: Untagged
@@ -259,6 +260,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealingText: {fileID: 5684010185105514991, guid: 7cf8a0e29e11540858ba49ecc029dd12,
     type: 3}
+--- !u!114 &51918671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51918665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae21fac761444b1692219ba2f0e4ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
 --- !u!1 &215923592
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +286,7 @@ GameObject:
   - component: {fileID: 215923595}
   - component: {fileID: 215923596}
   - component: {fileID: 215923597}
+  - component: {fileID: 215923598}
   m_Layer: 0
   m_Name: IORest
   m_TagString: Untagged
@@ -397,6 +412,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealingText: {fileID: 5684010185105514991, guid: 7cf8a0e29e11540858ba49ecc029dd12,
     type: 3}
+--- !u!114 &215923598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215923592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae21fac761444b1692219ba2f0e4ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
 --- !u!1 &271345683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,6 +1062,7 @@ GameObject:
   - component: {fileID: 1062998595}
   - component: {fileID: 1062998596}
   - component: {fileID: 1062998597}
+  - component: {fileID: 1062998598}
   m_Layer: 0
   m_Name: SludgeMonster
   m_TagString: Untagged
@@ -1101,7 +1130,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.27, y: -0.2, z: 0}
   m_LocalScale: {x: 0.33, y: 0.33, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1695195159}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1117,7 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37f472b698e470ba9dfd70f0a1aa33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1600
+  hp: 400
   stamina: 300
   mp: 200
   strength: 70
@@ -1181,6 +1211,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
+--- !u!114 &1062998598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062998591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762fe3f4bde7b4842897621d713bd2fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1075647396
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1236,7 @@ GameObject:
   - component: {fileID: 1075647399}
   - component: {fileID: 1075647400}
   - component: {fileID: 1075647401}
+  - component: {fileID: 1075647402}
   m_Layer: 0
   m_Name: LorbertRest
   m_TagString: Untagged
@@ -1319,6 +1362,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealingText: {fileID: 5684010185105514991, guid: 7cf8a0e29e11540858ba49ecc029dd12,
     type: 3}
+--- !u!114 &1075647402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075647396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae21fac761444b1692219ba2f0e4ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
 --- !u!1 &1112436201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1696,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1695195158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1695195159}
+  m_Layer: 0
+  m_Name: SludgeMonsterAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1695195159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695195158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1062998593}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1733490558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1736,7 +1822,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1898509225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff6f340afdb4a4ee986ca5a716701060, type: 3}
+  m_Script: {fileID: 11500000, guid: 21756a3b59a5c48e0a1cda40e6e56262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LorbertRest: {fileID: 1075647396}
@@ -1745,10 +1831,15 @@ MonoBehaviour:
   LorbertActive: {fileID: 1112436201}
   ArtroActive: {fileID: 763725196}
   IOActive: {fileID: 271345683}
-  Enemy: {fileID: 1062998591}
-  EnemyActive: {fileID: 2038290218}
+  Enemy1Rest: {fileID: 1062998591}
+  Enemy1Active: {fileID: 2038290218}
+  Enemy2Rest: {fileID: 0}
+  Enemy2Active: {fileID: 0}
+  Enemy3Rest: {fileID: 0}
+  Enemy3Active: {fileID: 0}
+  Enemy4Rest: {fileID: 0}
+  Enemy4Active: {fileID: 0}
   battleManager: {fileID: 1271262042}
-  boxAsset: {fileID: 4900000, guid: ba884ffb7400e41a285beb52bc5bfb5b, type: 3}
 --- !u!212 &1898509227
 SpriteRenderer:
   m_ObjectHideFlags: 0
