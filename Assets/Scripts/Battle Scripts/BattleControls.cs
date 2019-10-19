@@ -1,18 +1,225 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleControls : MonoBehaviour
 {
+    public GameObject LorbertRest;
+    public GameObject ArtroRest;
+    public GameObject IORest;
+    public GameObject LorbertActive;
+    public GameObject ArtroActive;
+    public GameObject IOActive;
+    public GameObject Enemy1Rest;
+    public GameObject Enemy1Active;
+    public GameObject Enemy2Rest;
+    public GameObject Enemy2Active;
+    public GameObject Enemy3Rest;
+    public GameObject Enemy3Active;
+    public GameObject Enemy4Rest;
+    public GameObject Enemy4Active;
+
+    public GameObject battleManager;
+
+    private GameObject AlienWithPriority;
+    private GameObject SpellBeingDragged;
+    private bool isDraggingSpell;
+    private Vector3 spellStartingPosition;
+    private Vector2 lastPosition;
+
+    private float enemy1Timer;
+    private float enemy2Timer;
+    private float enemy3Timer;
+    private float enemy4Timer;
+    private float enemyThreshold = 2.0f;
+
+    private float battleIsOverTimer;
+    private float battleIsOverDuration = 3.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    private void HandleTap(RaycastHit2D hitInfo)
+    {
+        string hitName = hitInfo.transform.gameObject.name;
+        if(hitName == "LorbertRest")
+        {
+            LorbertRest.SetActive(false);
+            LorbertActive.SetActive(true);
+            ArtroRest.SetActive(true);
+            ArtroActive.SetActive(false);
+            IORest.SetActive(true);
+            IOActive.SetActive(false);
+            AlienWithPriority = LorbertActive;
+        } else if(hitName == "ArtroRest")
+        {
+            LorbertRest.SetActive(true);
+            LorbertActive.SetActive(false);
+            ArtroRest.SetActive(false);
+            ArtroActive.SetActive(true);
+            IORest.SetActive(true);
+            IOActive.SetActive(false);
+            AlienWithPriority = ArtroActive;
+        } else if(hitName == "IORest")
+        {
+            LorbertRest.SetActive(true);
+            LorbertActive.SetActive(false);
+            ArtroRest.SetActive(true);
+            ArtroActive.SetActive(false);
+            IORest.SetActive(false);
+            IOActive.SetActive(true);
+            AlienWithPriority = IOActive;
+        } else if(hitName == Enemy1Rest.name || hitName == Enemy1Active.name)
+        {
+            int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy1Rest);
+            AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy1Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+        } else if(hitName == Enemy2Rest.name || hitName == Enemy2Active.name)
+        {
+            int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy2Rest);
+            AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy2Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+        }
+        else if (hitName == Enemy3Rest.name || hitName == Enemy3Active.name)
+        {
+            int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy3Rest);
+            AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy3Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+        }
+        else if (hitName == Enemy4Rest.name || hitName == Enemy4Active.name)
+        {
+            int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy4Rest);
+            AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy4Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+        }
+    }
+
+    void RelaxEnemy(GameObject enemy)
+    {
+        if(enemy.name == Enemy1Rest.name || enemy.name == Enemy1Active.name)
+        {
+            Enemy1Rest.SetActive(true);
+            Enemy1Active.SetActive(false);
+        } else if (enemy.name == Enemy2Rest.name || enemy.name == Enemy2Active.name)
+        {
+            Enemy2Rest.SetActive(true);
+            Enemy2Active.SetActive(false);
+        }
+        else if (enemy.name == Enemy3Rest.name || enemy.name == Enemy3Active.name)
+        {
+            Enemy3Rest.SetActive(true);
+            Enemy3Active.SetActive(false);
+        }
+        else if (enemy.name == Enemy4Rest.name || enemy.name == Enemy4Active.name)
+        {
+            Enemy4Rest.SetActive(true);
+            Enemy4Active.SetActive(false);
+        }
+    }
+
+    void SpellIsDropped()
+    {
+        isDraggingSpell = false;
+        SpellBeingDragged.transform.position = spellStartingPosition;
+        CircleCollider2D spellCollider = SpellBeingDragged.GetComponent<CircleCollider2D>();
+        Collider2D[] overlap = Physics2D.OverlapAreaAll(spellCollider.bounds.min, spellCollider.bounds.max);
+        if (overlap.Length == 2)
+        {
+            Debug.Log(overlap.Length);
+            Debug.Log(overlap[0].gameObject == SpellBeingDragged);
+            Debug.Log(overlap[1].gameObject == SpellBeingDragged);
+            GameObject target = overlap[0].gameObject == SpellBeingDragged ? overlap[1].gameObject : overlap[0].gameObject;
+            if (target == Enemy1Rest || target == Enemy1Active ||
+                target == Enemy2Rest || target == Enemy2Active ||
+                target == Enemy3Rest || target == Enemy3Active ||
+                target == Enemy4Rest || target == Enemy4Active)
+            {
+                switch (SpellBeingDragged.name)
+                {
+                    case "LorbertLiquid":
+                    case "ArtroLiquid":
+                    case "IOLiquid":
+                        int damage = BattleManager.manager.EntityUsesWaterToAttackEntity(AlienWithPriority, target);
+                        AlienWithPriority.GetComponent<Liquid>().AttackEntity(target, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+                        break;
+                }
+            }
+            else if(target == LorbertRest || target == LorbertActive ||
+                target == ArtroRest || target == ArtroActive ||
+                target == IORest || target == IOActive)
+            {
+                int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
+                AlienWithPriority.GetComponent<Liquid>().HealEntity(target, target.transform.position, healing);
+            }
+
+        }
+    }
+
+    void StartDragging()
+    {
+        lastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (hitInfo)
+        {
+            switch (hitInfo.transform.gameObject.name)
+            {
+                case "LorbertLiquid":
+                case "ArtroLiquid":
+                case "IOLiquid":
+                    isDraggingSpell = true;
+                    SpellBeingDragged = hitInfo.transform.gameObject;
+                    spellStartingPosition = SpellBeingDragged.transform.position;
+                    break;
+            }
+        }
+    }
+
+    void DragSpell()
+    {
+        Vector2 currentPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 delta = new Vector2(currentPosition.x - lastPosition.x, currentPosition.y - lastPosition.y);
+        SpellBeingDragged.transform.position = new Vector3(SpellBeingDragged.transform.position.x + delta.x, SpellBeingDragged.transform.position.y + delta.y, SpellBeingDragged.transform.position.z);
+        lastPosition = currentPosition;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if ((Enemy1Rest != null || Enemy1Rest.GetComponent<EnemyDeath>().isDead) &&
+            (Enemy2Rest != null || Enemy2Rest.GetComponent<EnemyDeath>().isDead) &&
+            (Enemy3Rest != null || Enemy3Rest.GetComponent<EnemyDeath>().isDead) &&
+            (Enemy4Rest != null || Enemy4Rest.GetComponent<EnemyDeath>().isDead))
+        {
+            BattleManager.manager.battleIsOver = true;
+            battleIsOverTimer += Time.deltaTime;
+            if (battleIsOverTimer >= battleIsOverDuration && Input.GetMouseButtonUp(0))
+            {
+                StoryManager.manager.shouldWrite = true;
+                StoryManager.manager.isFading = true;
+                SceneManager.LoadScene("IntroductionScene");
+            }
+            return;
+        }
+        if(Input.GetMouseButtonDown(0))
+        {
+            StartDragging();
+        }
+        if(isDraggingSpell)
+        {
+            if(Input.GetMouseButtonUp(0))
+            {
+                SpellIsDropped();
+            } else
+            {
+                DragSpell();
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if(hitInfo)
+            {
+                HandleTap(hitInfo);
+            }
+        }
     }
-}
