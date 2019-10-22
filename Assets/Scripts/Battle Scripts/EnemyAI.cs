@@ -9,7 +9,8 @@ public enum EnemyActions
     Projectile,
     Sludge,
     StealMP,
-    DischargeStoredEnergy
+    DischargeStoredEnergy,
+    Bit
 }
 
 public class EnemyAI : MonoBehaviour
@@ -19,6 +20,32 @@ public class EnemyAI : MonoBehaviour
 
     public void Start()
     {
+        /*int zeros = 0;
+        int ones = 0;
+        int twos = 0;
+        int threes = 0;
+        int fours = 0;
+        for(int i = 0; i < 1000; i++)
+        {
+            switch(Randomness.GetIntBetween(0, 5))
+            {
+                case 0: zeros++;
+                    break;
+                case 1: ones++;
+                    break;
+                case 2: twos++;
+                    break;
+                case 3: threes++;
+                    break;
+                case 4: fours++;
+                    break;
+            }
+        }
+        Debug.Log("zeros: " + zeros);
+        Debug.Log("ones: " + ones);
+        Debug.Log("twos: " + twos);
+        Debug.Log("threes: " + threes);
+        Debug.Log("fours: " + fours);*/
         //I feel that there's a better way to do this, but I can't figure out what it is.
         if (gameObject.name.Contains("SludgeMonster"))
         {
@@ -27,12 +54,20 @@ public class EnemyAI : MonoBehaviour
         else if (gameObject.name.Contains("MPStealer"))
         {
             ai = new MPStealerAI();
+        } else if(gameObject.name.Contains("AttackBot"))
+        {
+            ai = new AttackBotAI();
         }
         else
         {
             ai = new SludgeMonsterAI();
         }
         
+    }
+
+    public void Attacked(GameObject attacker)
+    {
+        ai.Attacked(attacker);
     }
 
     public void DecideWhatToDo(List<GameObject> characters, List<GameObject> enemies, Action<bool> callback)
@@ -58,6 +93,14 @@ public class EnemyAI : MonoBehaviour
                 break;
             case EnemyActions.DischargeStoredEnergy:
                 Debug.Log("Discharge energy here");
+                activeSelf.SetActive(true);
+                int dischargeDamage = BattleManager.manager.EntityDischargesMPAtEntity(gameObject, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().DischargeMPWithCallback(actionAndTarget.target, actionAndTarget.target.transform.position, dischargeDamage, callback);
+                break;
+            case EnemyActions.Bit:
+                Debug.Log("Should deploy the bit here");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().AttackWithBit(actionAndTarget.target, activeSelf, callback);
                 break;
         }
     }

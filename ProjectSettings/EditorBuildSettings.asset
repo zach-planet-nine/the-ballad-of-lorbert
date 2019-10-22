@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ScienceLabScene2.unity
     guid: 038d9a2b450c24939addc5a87599a9b9
+  - enabled: 1
+    path: Assets/Scenes/ScienceLabScene3.unity
+    guid: dfaae4cbb377449e4bb916d2809bf4bb
   m_configObjects: {}

@@ -7,6 +7,8 @@ public class MPStealerAI : BattleAI
 
     private bool hasStoredMP;
     private int storedRounds = 0;
+    private int storingCountdown;
+    private bool hasBeenAttackedSinceStoringMP;
 
     private GameObject GetTargetForMPSteal(List<GameObject> characters)
     {
@@ -25,9 +27,22 @@ public class MPStealerAI : BattleAI
         return target;
     }
 
+    public override void Attacked(GameObject attacker)
+    {
+       if(hasStoredMP)
+        {
+            if(hasBeenAttackedSinceStoringMP)
+            {
+                hasStoredMP = false;
+            }
+            hasBeenAttackedSinceStoringMP = true;
+        }
+    }
+
     public override ActionAndTarget ChooseActionAndTarget(List<GameObject> characters, List<GameObject> enemies)
     {
         storedRounds += 1;
+        storingCountdown -= 1;
         ActionAndTarget response = new ActionAndTarget();
         if(hasStoredMP && storedRounds >= 3)
         {
@@ -44,9 +59,10 @@ public class MPStealerAI : BattleAI
             {
                 return response;
             }
-            if(!hasStoredMP && stealerRoll == 0)
+            if(!hasStoredMP && stealerRoll == 0 && storingCountdown <= 0)
             {
                 storedRounds = 0;
+                storingCountdown = 8;
                 hasStoredMP = true;
                 response.action = EnemyActions.StealMP;
                 response.target = GetTargetForMPSteal(characters);

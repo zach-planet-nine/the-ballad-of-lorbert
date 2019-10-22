@@ -33,6 +33,19 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunStealMP>().SetTargetWithCallback(target, gameObject.transform.position, mpDamage, callback);
     }
 
+    public void DischargeMPWithCallback(GameObject target, Vector3 destination, int damage, Action<bool> callback)
+    {
+        var clone = (GameObject)Instantiate(Ability2, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunDischargeMP>().SetTargetWithCallback(target, gameObject.transform.position, destination, damage, callback);
+    }
+
+    public void AttackWithBit(GameObject target, GameObject attacker, Action<bool> callback)
+    {
+        Vector3 position = new Vector3(-0.39f + Randomness.GetValueBetween(-0.3f, 0.3f), 3.14f + Randomness.GetValueBetween(-0.3f, 0.3f), 0);
+        var clone = (GameObject)Instantiate(Ability1, position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunBit>().SetTargetWithCallback(target, attacker, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

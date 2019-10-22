@@ -29,6 +29,8 @@ public class WorldManager : MonoBehaviour
             index = value;
             StopMovingAndMoveToDestination();
             CheckForDirections(value);
+            CharacterStats.characterStats.partyData.storyIndex = value;
+            CharacterStats.characterStats.Save(CharacterStats.characterStats.continueFile);
             Debug.Log("Set storyIndex to " + value);
         }
     }
@@ -81,7 +83,6 @@ public class WorldManager : MonoBehaviour
 
     void CheckForDirections(int newIndex)
     {
-        Debug.Log("Do this with " + newIndex);
         MovementDirections directions = Story.directions[newIndex];
         if(directions.HasDirections())
         {

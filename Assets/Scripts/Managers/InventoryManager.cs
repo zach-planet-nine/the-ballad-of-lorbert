@@ -310,12 +310,12 @@ public class InventoryManager : MonoBehaviour
             }
             Rect topButtonRect = new Rect(rect.xMin + (width * i), rect.yMin, width, height);
             Rect bottomButtonRect = new Rect(rect.xMin + (width * i), rect.yMin + height, width, height);
-            if (GUI.Button(topButtonRect, GUIContent.none, new GUIStyle())) {
+            if (!selectingUser && GUI.Button(topButtonRect, GUIContent.none, new GUIStyle())) {
                 Debug.Log("Should handle tap here");
                 greenBoxRect = topButtonRect;
                 TableViewController.SetEquipmentSlotTo(i);
             }
-            if(GUI.Button(bottomButtonRect, GUIContent.none, new GUIStyle()))
+            if(!selectingUser && GUI.Button(bottomButtonRect, GUIContent.none, new GUIStyle()))
             {
                 Debug.Log("Should handle tap below here");
                 greenBoxRect = bottomButtonRect;

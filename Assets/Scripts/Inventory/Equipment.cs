@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public enum EquipmentLevels
     Mythical
 }
 
+
+[Serializable]
 public class Equipment
 {
     public EquipLocations location;
@@ -91,8 +94,8 @@ public class Equipment
                 break;
         }
 
-        EquipmentLevels level = GetLevelForNineum(ninea);
-        switch(level)
+        EquipmentLevels tempLevel = GetLevelForNineum(ninea);
+        switch(tempLevel)
         {
             case EquipmentLevels.Common: rarityModifier = 0;
                 break;

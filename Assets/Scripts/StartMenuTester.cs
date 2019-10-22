@@ -29,7 +29,8 @@ public class StartMenuTester : MonoBehaviour
         }
         if(GUI.Button(new Rect(50, 210, 400, 100), "Continue"))
         {
-
+            CharacterStats.characterStats.Load(CharacterStats.characterStats.continueFile);
+            StartCoroutine(FadeToScene("IntroductionScene"));
         }
         if(GUI.Button(new Rect(50, 320, 400, 100), "Load"))
         {

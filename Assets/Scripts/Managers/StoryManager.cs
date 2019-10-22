@@ -46,6 +46,11 @@ public class StoryManager : MonoBehaviour
 
     void Start()
     {
+        int characterStatsIndex = CharacterStats.characterStats.partyData.storyIndex;
+        if(storyIndex < characterStatsIndex)
+        {
+            storyIndex = characterStatsIndex;
+        }
         currentDialog = Story.story[storyIndex];
         if(WorldManager.manager != null)
         {
@@ -164,6 +169,7 @@ public class StoryManager : MonoBehaviour
             debounce = true;
             AdvanceStory();
         }
+        CharacterStats.characterStats.Save(CharacterStats.characterStats.continueFile);
     }
 
     private void OnEnable()
@@ -178,7 +184,12 @@ public class StoryManager : MonoBehaviour
 
     private void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
-        if(WorldManager.manager != null)
+        int characterStatsIndex = CharacterStats.characterStats.partyData.storyIndex;
+        if (storyIndex < characterStatsIndex)
+        {
+            storyIndex = characterStatsIndex;
+        }
+        if (WorldManager.manager != null)
         {
             JumpToStoryIndex(storyIndex);
         }

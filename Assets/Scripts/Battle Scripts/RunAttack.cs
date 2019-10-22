@@ -30,7 +30,7 @@ public class RunAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BattleManager.manager.battleIsOver && gameObject != null)
+        if ((BattleManager.manager.battleIsOver && gameObject != null) || (BattleManager.manager.CheckIfEntityIsDead(Entity) && gameObject != null))
         {
             Destroy(gameObject);
             return;

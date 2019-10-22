@@ -41,6 +41,7 @@ public class CharacterStats : MonoBehaviour
 
     public static CharacterStats characterStats;
     public PartyData partyData = new PartyData();
+    public string continueFile = "continue.dat";
     public List<string> Nineum
     {
         set
@@ -68,18 +69,19 @@ public class CharacterStats : MonoBehaviour
 
         bf.Serialize(file, partyData);
         file.Close();
-        Debug.Log("File saved");
+        Debug.Log("File saved with storyIndex " + partyData.storyIndex);
     }
 
     public void Load(string fileName)
     {
+        
         if(File.Exists(Application.persistentDataPath + "/" + fileName))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/" + fileName, FileMode.Open);
             partyData = (PartyData)bf.Deserialize(file);
             file.Close();
-            Debug.Log("File loaded");
+            Debug.Log("File loaded with Story index: " + partyData.storyIndex);
         } else
         {
             Debug.Log("File could not be found.");
@@ -308,6 +310,8 @@ public class PartyData
     public CharacterData IOData = new CharacterData("I-O");
 
     public List<string> Nineum = new List<string>();
+
+    public int storyIndex;
 }
 
 [Serializable]

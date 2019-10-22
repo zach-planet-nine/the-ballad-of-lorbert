@@ -12,6 +12,11 @@ public struct ActionAndTarget
 
 public class BattleAI
 {
+    public virtual void Attacked(GameObject attacker)
+    {
+
+    }
+
     public virtual ActionAndTarget ChooseActionAndTarget(List<GameObject> characters, List<GameObject> enemies)
     {
         return new ActionAndTarget();

@@ -80,21 +80,25 @@ public class BattleControls : MonoBehaviour
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy1Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy1Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+            Enemy1Rest.GetComponent<EnemyAI>().Attacked(AlienWithPriority);
         }
         else if (Enemy2Rest != null && (hitName == Enemy2Rest.name || hitName == Enemy2Active.name))
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy2Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy2Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+            Enemy2Rest.GetComponent<EnemyAI>().Attacked(AlienWithPriority);
         }
         else if (Enemy3Rest != null && (hitName == Enemy3Rest.name || hitName == Enemy3Active.name))
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy3Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy3Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+            Enemy3Rest.GetComponent<EnemyAI>().Attacked(AlienWithPriority);
         }
         else if (Enemy4Rest != null && (hitName == Enemy4Rest.name || hitName == Enemy4Active.name))
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy4Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy4Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
+            Enemy4Rest.GetComponent<EnemyAI>().Attacked(AlienWithPriority);
         }
     }
 

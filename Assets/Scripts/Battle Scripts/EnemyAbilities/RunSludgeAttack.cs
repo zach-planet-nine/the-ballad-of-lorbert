@@ -36,7 +36,7 @@ public class RunSludgeAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BattleManager.manager.battleIsOver && gameObject != null)
+        if (BattleManager.manager.CheckIfEntityIsDead(Entity) && gameObject != null)
         {
             Destroy(gameObject);
             return;

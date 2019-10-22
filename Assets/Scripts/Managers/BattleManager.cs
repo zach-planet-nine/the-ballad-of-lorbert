@@ -240,6 +240,16 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public bool CheckIfEntityIsDead(GameObject entity)
+    {
+        BattleStats stats = GetStatsForEntity(entity);
+        if(stats.currentHP <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private bool CheckIfGameOver()
     {
         return Lorbert.GetComponent<CharacterDeath>().isDead &&
@@ -359,6 +369,29 @@ public class BattleManager : MonoBehaviour
 
         int mpDamage = attackerStats.wisdom * 4 + Randomness.GetIntBetween(0, attackerStats.luck) - (defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck));
         return mpDamage;
+    }
+
+    public int EntityDischargesMPAtEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = 106 + (attackerStats.wisdom * 3) + ((defenderStats.wisdom - defenderStats.aura) * 3) - (defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck));
+        return damage;
+    }
+
+    public int GetBitDamageThreshold(GameObject attacker, GameObject defender)
+    {
+        return BitAttacksEntity(attacker, defender) * 4;
+    }
+
+    public int BitAttacksEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.strength + attackerStats.wisdom + (Randomness.GetIntBetween(0, attackerStats.luck + 20)) - (defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck));
+        return damage;
     }
 
     public int EntityUsesWaterToHealEntity(GameObject healer, GameObject healed)

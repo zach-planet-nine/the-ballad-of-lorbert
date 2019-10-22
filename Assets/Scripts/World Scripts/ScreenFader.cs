@@ -33,7 +33,10 @@ public class ScreenFader : MonoBehaviour
     {
         Debug.Log("Fading to black");
         isFading = true;
-        StoryManager.manager.isFading = true;
+        if(StoryManager.manager != null)
+        {
+            StoryManager.manager.isFading = true;
+        }
         anim.SetBool("ShouldFade", true);
         anim.SetTrigger("FadeOut");
 
@@ -44,6 +47,9 @@ public class ScreenFader : MonoBehaviour
     void AnimationComplete()
     {
         isFading = false;
-        StoryManager.manager.isFading = false;
+        if(StoryManager.manager != null)
+        {
+            StoryManager.manager.isFading = false;
+        }
     }
 }

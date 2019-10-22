@@ -14,7 +14,7 @@ public class TakeDamage : MonoBehaviour
         Vector3 rightPosition = new Vector3(position.x, position.y, 0);
         var clone = (GameObject)Instantiate(DamageText, rightPosition, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<DisplayDamage>().damageNumber = damage;
-        BattleManager.manager.ApplyDamage(gameObject, damage);
+        //BattleManager.manager.ApplyDamage(gameObject, damage);
     }
 
     public void TakeStaminaDamage(int damage)
