@@ -45,12 +45,12 @@ public class Story : MonoBehaviour
     "",
     "",
     "Head Scientist: Oh Lorbert you're here!", // 30 Science Lab
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "Head Scientist: Things have been quite crazy here. We're under attack from the Seventians.",
+    "Head Scientist: Lookout! There's some enemies now!",
+    "ScienceLabScene1",
+    "Head Scientist: Oh you did it! Those Seventians are tough aren't they?",
+    "ScienceLabScene2",
+    "Head Scientist: Hoo boy! They just keep coming don't they? Are you sure you've got the right Nineum equipped?",
     "",
     "",
     "",
@@ -229,9 +229,27 @@ public class Story : MonoBehaviour
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -4.2f, -83.0f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
         MovementDirections.GetEmptyMD(),
-        MovementDirections.GetEmptyMD(),
-        MovementDirections.GetEmptyMD(),
+        new MovementDirections(new List<Directions> {
+            Directions.Position
+        }, new List<float>
+            {
+            -4.2f, -83.0f
+            },
+            new List<float>
+            {
+                -1.0f
+            }),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),

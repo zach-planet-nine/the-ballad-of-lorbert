@@ -6,6 +6,7 @@ public class Storm : MonoBehaviour
 {
     public GameObject Bolt;
     private GameObject Target;
+    private EnemyDeath TargetEnemyDeath;
 	Vector3 destination;
     int damagePortion;
     public float duration = 8.0f;
@@ -19,12 +20,18 @@ public class Storm : MonoBehaviour
 		Target = entity;
 		damagePortion = damage / 4;
 		durationThreshold = duration / 2.0f;
+        TargetEnemyDeath = Target.GetComponent<EnemyDeath>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (BattleManager.manager.battleIsOver && gameObject != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        if(TargetEnemyDeath.isDead)
         {
             Destroy(gameObject);
             return;

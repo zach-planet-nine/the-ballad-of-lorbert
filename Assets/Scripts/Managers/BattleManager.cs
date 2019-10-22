@@ -16,7 +16,17 @@ public class BattleManager : MonoBehaviour
     public GameObject Enemy3;
     public GameObject Enemy4;
 
+    public bool solidLearned;
+    public bool gasLearned;
+    public bool plasmaLearned;
+
     public bool battleIsOver;
+    public bool gameOver;
+
+    public int liquidCost = 70;
+    public int solidCost = 100;
+    public int gasCost = 130;
+    public int plasmaCost = 160;
 
     private BattleStats LorbertStats;
     private BattleStats ArtroStats;
@@ -177,7 +187,7 @@ public class BattleManager : MonoBehaviour
         GUI.Box(new Rect(x, y + 2 * barHeight, magicWidth, barHeight), GUIContent.none, magicBarStyle);
     }
 
-    BattleStats GetStatsForEntity(GameObject entity)
+    public BattleStats GetStatsForEntity(GameObject entity)
     {
         if(entity.name == "LorbertRest" || entity.name == "LorbertActive")
         {
@@ -209,6 +219,35 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private bool IsCharacter(GameObject entity)
+    {
+        return entity.name == "LorbertRest" || entity.name == "LorbertActive" ||
+               entity.name == "ArtroRest" || entity.name == "ArtroActive" ||
+               entity.name == "IORest" || entity.name == "IOActive";
+    }
+
+    private GameObject GetCharacterForEntity(GameObject entity)
+    {
+        if(entity.name == "LorbertRest" || entity.name == "LorbertActive")
+        {
+            return Lorbert;
+        } else if(entity.name == "ArtroRest" || entity.name == "ArtroActive")
+        {
+            return Artro;
+        } else
+        {
+            return IO;
+        }
+    }
+
+    private bool CheckIfGameOver()
+    {
+        return Lorbert.GetComponent<CharacterDeath>().isDead &&
+            Artro.GetComponent<CharacterDeath>().isDead &&
+            IO.GetComponent<CharacterDeath>().isDead;
+        
+    }
+
     public void ApplyDamage(GameObject entity, int damage)
     {
         if(damage <= 0)
@@ -220,11 +259,46 @@ public class BattleManager : MonoBehaviour
         if(stats.currentHP <= 0)
         {
             Debug.Log("Handle dying here");
+            if(IsCharacter(entity))
+            {
+                GameObject character = GetCharacterForEntity(entity);
+                character.GetComponent<CharacterDeath>().Die();
+                if(CheckIfGameOver())
+                {
+                    Debug.Log("Handle GameOver here");
+                    gameOver = true;
+                }
+            }
             if(entity == Enemy1)
             {
                 Enemy1.GetComponent<EnemyDeath>().Die();
             }
+            if(entity == Enemy2)
+            {
+                Enemy2.GetComponent<EnemyDeath>().Die();
+            }
+            if(entity == Enemy3)
+            {
+                Enemy3.GetComponent<EnemyDeath>().Die();
+            }
+            if(entity == Enemy4)
+            {
+                Enemy4.GetComponent<EnemyDeath>().Die();
+            }
         }
+    }
+
+    public void ApplyStaminaDamage(GameObject entity, int damage)
+    {
+        BattleStats stats = GetStatsForEntity(entity);
+        stats.currentStamina -= damage;
+        Debug.Log("Stamina is now: " + stats.currentStamina);
+    }
+
+    public void ApplyMPDamage(GameObject entity, int damage)
+    {
+        BattleStats stats = GetStatsForEntity(entity);
+        stats.currentMP -= damage;
     }
 
     public void ApplyHealing(GameObject entity, int healing)
@@ -268,14 +342,33 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityStaminaAttacksEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int staminaDamage = attackerStats.vitality + Randomness.GetIntBetween(0, attackerStats.luck) - (defenderStats.agility / 2);
+
+        return staminaDamage;
+    }
+
+    public int EntityMPAttacksEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int mpDamage = attackerStats.wisdom * 4 + Randomness.GetIntBetween(0, attackerStats.luck) - (defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck));
+        return mpDamage;
+    }
+
     public int EntityUsesWaterToHealEntity(GameObject healer, GameObject healed)
     {
         BattleStats healerStats = GetStatsForEntity(healer);
 
-        int baseHealingPower = healerStats.aura * 3;
+        int baseHealingPower = healerStats.aura * 5;
         int healing = Randomness.GetIntBetween(baseHealingPower * 3 / 4, baseHealingPower + (baseHealingPower * 1 / 3));
 
-        healerStats.currentMP -= 70;
+        healerStats.currentMP -= liquidCost;
 
         return healing;
     }
@@ -283,10 +376,14 @@ public class BattleManager : MonoBehaviour
     public int EntityUsesWaterToAttackEntity(GameObject attacker, GameObject target)
     {
         BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(target);
 
-        attackerStats.currentMP -= 120;
+        int damage = 100 + attackerStats.wisdom + Randomness.GetIntBetween(0, attackerStats.wisdom) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
 
-        return 240;
+        attackerStats.currentMP -= liquidCost;
+
+        return damage;
     }
 
     public int ApplyStamina(BattleStats stats, int value)

@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TutorialScene.unity
     guid: c03893e0cae4b4bbbad8e61f0a5e9789
+  - enabled: 1
+    path: Assets/Scenes/ScienceLabScene1.unity
+    guid: 140d374f1fc7145fd8505e916cee8dc7
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: 19e4c54680ba2410288cb30b255b1b22
+  - enabled: 1
+    path: Assets/Scenes/ScienceLabScene2.unity
+    guid: 038d9a2b450c24939addc5a87599a9b9
   m_configObjects: {}

@@ -16,4 +16,14 @@ public class TakeDamage : MonoBehaviour
         clone.GetComponent<DisplayDamage>().damageNumber = damage;
         BattleManager.manager.ApplyDamage(gameObject, damage);
     }
+
+    public void TakeStaminaDamage(int damage)
+    {
+        BattleManager.manager.ApplyStaminaDamage(gameObject, damage);
+    }
+
+    public void TakeMPDamage(int damage)
+    {
+        BattleManager.manager.ApplyMPDamage(gameObject, damage);
+    }
 }

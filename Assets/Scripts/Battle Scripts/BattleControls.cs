@@ -166,16 +166,31 @@ public class BattleControls : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hitInfo)
         {
+            Debug.Log(hitInfo.transform.gameObject.name);
             switch (hitInfo.transform.gameObject.name)
             {
                 case "LorbertLiquid":
                 case "ArtroLiquid":
                 case "IOLiquid":
+                case "LorbertSolid":
+                case "ArtroSolid":
+                case "IOSolid":
+                case "LorbertGas":
+                case "ArtroGas":
+                case "IOGas":
+                case "LorbertPlasma":
+                case "ArtroPlasma":
+                case "IOPlasma":
+                    Debug.Log("Should start dragging spell");
+                    Debug.Log(hitInfo.transform.gameObject.name);
                     isDraggingSpell = true;
                     SpellBeingDragged = hitInfo.transform.gameObject;
                     spellStartingPosition = SpellBeingDragged.transform.position;
                     break;
             }
+        } else
+        {
+            Debug.Log("No hitInfo");
         }
     }
 
@@ -243,14 +258,24 @@ public class BattleControls : MonoBehaviour
         return potentialTargets;
     }
 
+    bool CheckIfBattleOver()
+    {
+        return CheckIfNullOrDead(Enemy1Rest) && CheckIfNullOrDead(Enemy2Rest) && CheckIfNullOrDead(Enemy3Rest) && CheckIfNullOrDead(Enemy4Rest);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (CheckIfNullOrDead(Enemy1Rest) && CheckIfNullOrDead(Enemy2Rest) && CheckIfNullOrDead(Enemy3Rest) && CheckIfNullOrDead(Enemy4Rest))
+        if(battleManager.GetComponent<BattleManager>().gameOver)
+        {
+            SceneManager.LoadScene("GameOverScene");
+            return;
+        }
+        if (CheckIfBattleOver())
         {
             BattleManager.manager.battleIsOver = true;
             battleIsOverTimer += Time.deltaTime;
-            if (battleIsOverTimer >= battleIsOverDuration && Input.GetMouseButtonUp(0))
+            if (battleIsOverTimer >= battleIsOverDuration)
             {
                 StoryManager.manager.shouldWrite = true;
                 StoryManager.manager.isFading = true;
@@ -281,7 +306,7 @@ public class BattleControls : MonoBehaviour
                 HandleTap(hitInfo);
             }
         }
-        if (!CheckIfNullOrDead(Enemy1Rest))
+        if (!CheckIfBattleOver())
         {
             enemy1Timer += Time.deltaTime;
             enemy2Timer += Time.deltaTime;
@@ -304,6 +329,7 @@ public class BattleControls : MonoBehaviour
             }
             if(enemy2Timer > enemyThreshold)
             {
+                Debug.Log("Met enemy2 threshold");
                 enemy2Timer = 0;
                 if (!CheckIfNullOrDead(Enemy2Rest))
                 {

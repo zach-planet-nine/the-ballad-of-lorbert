@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealingLiquid : MonoBehaviour
 {
     GameObject HealedCharacter;
+    CharacterDeath HealedCharacterDeath;
     Vector3 destination;
     int healingAmount;
     public float duration = 6.0f;
@@ -21,6 +22,7 @@ public class HealingLiquid : MonoBehaviour
     {
         this.destination = destination;
         HealedCharacter = entity;
+        HealedCharacterDeath = entity.GetComponent<CharacterDeath>();
         healingAmount = healing / 3;
         durationThreshold = duration / 3.0f;
     }
@@ -29,6 +31,11 @@ public class HealingLiquid : MonoBehaviour
     void Update()
     {
         if(BattleManager.manager.battleIsOver && gameObject != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        if(HealedCharacterDeath.isDead)
         {
             Destroy(gameObject);
             return;

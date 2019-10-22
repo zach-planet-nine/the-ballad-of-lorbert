@@ -180,7 +180,7 @@ public class StoryManager : MonoBehaviour
     {
         if(WorldManager.manager != null)
         {
-            WorldManager.manager.storyIndex = storyIndex;
+            JumpToStoryIndex(storyIndex);
         }
        
     }
@@ -224,6 +224,11 @@ public class StoryManager : MonoBehaviour
             /*NineumManager.manager.AddNineum("01000000010201010102030100000001");
             NineumManager.manager.AddNineum("01000000010201010102060100000001");
             NineumManager.manager.AddNineum("01000000010203010104080100000001");*/
+        }
+        if(currentDialog.Contains("Scene"))
+        {
+            storyIndex += 1;
+            SceneManager.LoadScene(currentDialog);
         }
     }
 

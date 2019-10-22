@@ -73,21 +73,21 @@ public class Equipment
 
         switch (substring)
         {
-            case "01": shapeModifier = 2;
+            case "01": shapeModifier = 1;
                 break;
-            case "02": shapeModifier = 4;
+            case "02": shapeModifier = 2;
                 break;
-            case "03": shapeModifier = 6;
+            case "03": shapeModifier = 3;
                 break;
-            case "04": shapeModifier = 8;
+            case "04": shapeModifier = 4;
                 break;
-            case "05": shapeModifier = 10;
+            case "05": shapeModifier = 5;
                 break;
-            case "06": shapeModifier = 12;
+            case "06": shapeModifier = 6;
                 break;
-            case "07": shapeModifier = 14;
+            case "07": shapeModifier = 7;
                 break;
-            case "08": shapeModifier = 16;
+            case "08": shapeModifier = 8;
                 break;
         }
 
@@ -100,19 +100,19 @@ public class Equipment
                 rarityModifier = -20;
                 break;
             case EquipmentLevels.Uncommon:
-                rarityModifier = 10;
+                rarityModifier = 3;
                 break;
             case EquipmentLevels.Rare:
-                rarityModifier = 20;
+                rarityModifier = 7;
                 break;
             case EquipmentLevels.Epic:
-                rarityModifier = 30;
+                rarityModifier = 12;
                 break;
             case EquipmentLevels.Legendary:
-                rarityModifier = 40;
+                rarityModifier = 18;
                 break;
             case EquipmentLevels.Mythical:
-                rarityModifier = 50;
+                rarityModifier = 25;
                 break;
         }
 
