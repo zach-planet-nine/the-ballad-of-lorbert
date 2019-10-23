@@ -46,6 +46,12 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunBit>().SetTargetWithCallback(target, attacker, callback);
     }
 
+    public void AttackWithMachineGun(List<GameObject> characters, GameObject attacker, Action<bool> callback)
+    {
+        var clone = (GameObject)Instantiate(Ability1, attacker.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunMachineGun>().SetTargetWithCallback(characters, attacker, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

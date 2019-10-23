@@ -12,6 +12,8 @@ public class AttackBotAI : BattleAI
 {
 
     private List<AttackerAmounts> amounts = new List<AttackerAmounts>();
+    private int bitCooldown;
+    private int actionEnsurer;
 
     private bool AttackerAmountsContainsAttacker(GameObject attacker)
     {
@@ -51,7 +53,7 @@ public class AttackBotAI : BattleAI
                 shouldBit = true;
             }
         });
-        return shouldBit;
+        return (bitCooldown < 1 && shouldBit);
     }
 
     private EnemyActions ChooseProjectileOrBit(List<GameObject> characters)
@@ -61,6 +63,7 @@ public class AttackBotAI : BattleAI
         if (bitRoll == 0 && CheckIfShouldBit())
         {
             Debug.Log("Should return bit");
+            bitCooldown = 10;
             return EnemyActions.Bit;
         } else
         {
@@ -76,7 +79,16 @@ public class AttackBotAI : BattleAI
         {
             characters.ForEach(character =>
             {
-                if (character == amount.attacker && amount.attackAmount > maxAmount)
+                if (character.name.Contains("Lorbert") && amount.attacker.name.Contains("Lorbert") && amount.attackAmount > maxAmount)
+                {
+                    maxAmount = amount.attackAmount;
+                    target = character;
+                } else if (character.name.Contains("Artro") && amount.attacker.name.Contains("Artro") && amount.attackAmount > maxAmount)
+                {
+                    maxAmount = amount.attackAmount;
+                    target = character;
+                }
+                else if (character.name.Contains("IO") && amount.attacker.name.Contains("IO") && amount.attackAmount > maxAmount)
                 {
                     maxAmount = amount.attackAmount;
                     target = character;
@@ -89,7 +101,7 @@ public class AttackBotAI : BattleAI
 
     public override void Attacked(GameObject attacker)
     {
-        Debug.Log("Attacked!");
+        Debug.Log("Attacked! by " + attacker);
         AttackerAmounts amount = GetAttackerAmountsForAttacker(attacker);
         if(amount == null)
         {
@@ -107,6 +119,7 @@ public class AttackBotAI : BattleAI
 
     public override ActionAndTarget ChooseActionAndTarget(List<GameObject> characters, List<GameObject> enemies)
     {
+        bitCooldown -= 1;
         ActionAndTarget actionAndTarget = new ActionAndTarget();
         if(enemies.Count == 4)
         {
@@ -129,6 +142,9 @@ public class AttackBotAI : BattleAI
             {
                 actionAndTarget.action = ChooseProjectileOrBit(characters);
             }
+        } else
+        {
+            actionAndTarget.action = ChooseProjectileOrBit(characters);
         }
 
         if(actionAndTarget.action == EnemyActions.Projectile)
@@ -136,7 +152,21 @@ public class AttackBotAI : BattleAI
             actionAndTarget.target = characters[Randomness.GetIntBetween(0, characters.Count)];
         } else if(actionAndTarget.action == EnemyActions.Bit)
         {
-            ChooseTargetForBit(characters);
+            actionAndTarget.target = ChooseTargetForBit(characters);
+        }
+
+        if(actionAndTarget.action == EnemyActions.None)
+        {
+            actionEnsurer += 1;
+            if(actionEnsurer >= 3)
+            {
+                actionAndTarget.action = EnemyActions.Projectile;
+                actionAndTarget.target = characters[Randomness.GetIntBetween(0, characters.Count)];
+                actionEnsurer = 0;
+            }
+        } else
+        {
+            actionEnsurer = 0;
         }
 
         return actionAndTarget;

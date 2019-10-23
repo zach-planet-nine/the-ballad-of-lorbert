@@ -394,6 +394,17 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityAttacksEntityWithMachineGun(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.agility + attackerStats.dexterity + attackerStats.perception + Randomness.GetIntBetween(0, attackerStats.luck) -
+            ((defenderStats.agility + defenderStats.perception) / 2 + Randomness.GetIntBetween(0, defenderStats.luck));
+        damage = damage / 10;
+        return damage;
+    }
+
     public int EntityUsesWaterToHealEntity(GameObject healer, GameObject healed)
     {
         BattleStats healerStats = GetStatsForEntity(healer);

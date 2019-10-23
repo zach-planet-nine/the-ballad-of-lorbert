@@ -10,7 +10,9 @@ public enum EnemyActions
     Sludge,
     StealMP,
     DischargeStoredEnergy,
-    Bit
+    Bit,
+    BigBullet,
+    MachineGun
 }
 
 public class EnemyAI : MonoBehaviour
@@ -57,6 +59,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("AttackBot"))
         {
             ai = new AttackBotAI();
+        } else if(gameObject.name.Contains("Tank"))
+        {
+            ai = new TankAI();
         }
         else
         {
@@ -101,6 +106,14 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Should deploy the bit here");
                 activeSelf.SetActive(true);
                 activeSelf.GetComponent<EnemyAbilities>().AttackWithBit(actionAndTarget.target, activeSelf, callback);
+                break;
+            case EnemyActions.BigBullet:
+                Debug.Log("Should shoot big bullet here");
+                break;
+            case EnemyActions.MachineGun:
+                Debug.Log("Should shoot machine gun here now");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().AttackWithMachineGun(characters, activeSelf, callback);
                 break;
         }
     }
