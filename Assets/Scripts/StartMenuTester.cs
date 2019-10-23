@@ -20,25 +20,31 @@ public class StartMenuTester : MonoBehaviour
     private void OnGUI()
     {
 
-        GUI.depth = -1;        
+        GUI.depth = -1;
 
-        if(GUI.Button(new Rect(50, 100, 400, 100), "Start New"))
+        GUIStyle buttonStyle = new GUIStyle("button");
+        buttonStyle.fontSize = 72;
+        //buttonStyle.normal.textColor = Color.black;
+        //Texture2D buttonTexture = (Texture2D)Resources.Load("roundedcorners");
+        //buttonStyle.normal.background = buttonTexture;        
+
+        if (GUI.Button(new Rect(50, 100, 400, 180), "Start New", buttonStyle))
         {
             Debug.Log("Calling the button");
             StartCoroutine(FadeToScene("IntroductionScene"));
         }
-        if(GUI.Button(new Rect(50, 210, 400, 100), "Continue"))
+        if(GUI.Button(new Rect(50, 350, 400, 180), "Continue", buttonStyle))
         {
             CharacterStats.characterStats.Load(CharacterStats.characterStats.continueFile);
             StartCoroutine(FadeToScene("IntroductionScene"));
         }
-        if(GUI.Button(new Rect(50, 320, 400, 100), "Load"))
+        if(GUI.Button(new Rect(50, 600, 400, 180), "Load", buttonStyle))
         {
             CharacterStats.characterStats.LogPartyData();
             CharacterStats.characterStats.Load("testfile.dat");
             CharacterStats.characterStats.LogPartyData();
         }
-        if(GUI.Button(new Rect(50, 430, 400, 100), "Settings"))
+        if(GUI.Button(new Rect(50, 850, 400, 180), "Settings", buttonStyle))
         {
             Debug.Log("Settings");
         }

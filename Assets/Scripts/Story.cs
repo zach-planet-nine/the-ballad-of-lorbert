@@ -53,7 +53,7 @@ public class Story : MonoBehaviour
     "Head Scientist: Hoo boy! They just keep coming don't they? Are you sure you've got the right Nineum equipped?",
     "ScienceLabScene3",
     "Head Scientist: Yeehaw that's how we do it! Keep the hits coming!",
-    "",
+    "ScienceLabScene4",
     "Pilot: Well shoot me sideways! Some help.", // 40 Hangar
     "",
     "",

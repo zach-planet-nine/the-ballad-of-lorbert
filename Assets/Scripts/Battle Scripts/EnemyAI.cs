@@ -108,7 +108,10 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.GetComponent<EnemyAbilities>().AttackWithBit(actionAndTarget.target, activeSelf, callback);
                 break;
             case EnemyActions.BigBullet:
-                Debug.Log("Should shoot big bullet here");
+                Debug.Log("Should shoot big bullet here now");
+                activeSelf.SetActive(true);
+                int bigBulletDamage = BattleManager.manager.EntityShootsBigBulletAtEntity(gameObject, actionAndTarget.target);
+                activeSelf.GetComponent<Attack>().AttackEntityWithCallback(actionAndTarget.target, actionAndTarget.target.transform.position, bigBulletDamage, callback);
                 break;
             case EnemyActions.MachineGun:
                 Debug.Log("Should shoot machine gun here now");

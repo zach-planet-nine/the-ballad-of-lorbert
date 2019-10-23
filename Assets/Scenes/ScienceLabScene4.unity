@@ -1720,16 +1720,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f37f472b698e470ba9dfd70f0a1aa33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 400
+  hp: 1600
   stamina: 300
   mp: 200
-  strength: 60
-  vitality: 50
-  agility: 50
+  strength: 50
+  vitality: 65
+  agility: 60
   dexterity: 50
   wisdom: 50
   aura: 50
-  perception: 50
+  perception: 70
   luck: 20
 --- !u!61 &1062998595
 BoxCollider2D:
@@ -3056,7 +3056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bcda49452fa471f9ff2394bdcf0937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackObject: {fileID: 4633130801065393218, guid: ab5455da552034bf5b339afef0859694,
+  AttackObject: {fileID: 1903514826157650704, guid: a85ec24aae27b4753b11d733d05e45fa,
     type: 3}
   startPosition: {x: 5.2, y: -0.4, z: 0}
 --- !u!212 &2038290220

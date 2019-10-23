@@ -394,6 +394,16 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityShootsBigBulletAtEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = 60 + attackerStats.strength + attackerStats.agility + attackerStats.perception + Randomness.GetIntBetween(0, attackerStats.luck) -
+            ((defenderStats.agility + defenderStats.perception) / 2 + Randomness.GetIntBetween(0, defenderStats.luck));
+        return damage;
+    }
+
     public int EntityAttacksEntityWithMachineGun(GameObject attacker, GameObject defender)
     {
         BattleStats attackerStats = GetStatsForEntity(attacker);

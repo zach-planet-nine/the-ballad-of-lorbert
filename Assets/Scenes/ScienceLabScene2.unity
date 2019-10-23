@@ -1544,11 +1544,11 @@ MonoBehaviour:
   hp: 400
   stamina: 300
   mp: 200
-  strength: 60
+  strength: 45
   vitality: 50
   agility: 50
   dexterity: 50
-  wisdom: 50
+  wisdom: 40
   aura: 50
   perception: 50
   luck: 20
@@ -2014,11 +2014,11 @@ MonoBehaviour:
   hp: 400
   stamina: 300
   mp: 200
-  strength: 60
+  strength: 45
   vitality: 50
   agility: 50
   dexterity: 50
-  wisdom: 50
+  wisdom: 40
   aura: 50
   perception: 50
   luck: 20

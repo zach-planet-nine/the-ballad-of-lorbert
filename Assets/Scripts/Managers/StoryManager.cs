@@ -54,7 +54,7 @@ public class StoryManager : MonoBehaviour
         currentDialog = Story.story[storyIndex];
         if(WorldManager.manager != null)
         {
-            WorldManager.manager.storyIndex = storyIndex;
+            JumpToStoryIndex(storyIndex);
         }
     }
 
@@ -198,9 +198,14 @@ public class StoryManager : MonoBehaviour
 
     void JumpToStoryIndex(int index)
     {
+        currentDialog = Story.story[index];
+        if(currentDialog.Contains("Scene"))
+        {
+            JumpToStoryIndex(index - 1);
+            return;
+        }
         storyIndex = index;
         WorldManager.manager.storyIndex = storyIndex;
-        currentDialog = Story.story[storyIndex];
         dialogIndex = 1;
         if (dialogIndex < currentDialog.Length)
         {

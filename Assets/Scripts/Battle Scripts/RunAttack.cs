@@ -6,10 +6,14 @@ using UnityEngine;
 public class RunAttack : MonoBehaviour
 {
     public float duration = 1.0f;
+    public bool shouldExplode;
+    public GameObject Explosion;
     private GameObject Entity;
     private Vector3 destination;
     private int targetDamage;
     private Action<bool> callback;
+    private float explosionTimer;
+    private float explosionDuration = 0.3f;
 
     public void SetTarget(GameObject entity, Vector3 destination, int damage)
     {
@@ -43,6 +47,10 @@ public class RunAttack : MonoBehaviour
             if(callback != null)
             {
                 callback(true);
+            }
+            if(shouldExplode && Explosion != null)
+            {
+                var clone = (GameObject)Instantiate(Explosion, destination, Quaternion.Euler(Vector3.zero));
             }
             Destroy(gameObject);
         }
