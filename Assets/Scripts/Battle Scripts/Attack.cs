@@ -8,6 +8,14 @@ public class Attack : MonoBehaviour
     public GameObject AttackObject;
     public Vector3 startPosition;
 
+    private SpriteRenderer myRenderer;
+    private Shader shaderGUItext;
+    private Shader shaderSpritesDefault;
+    private float flashTimer;
+    private float flashDuration = 0.08f;
+    private int flashTimes = 4;
+    private bool isWhite;
+
     public void AttackEntity(GameObject entity, Vector3 destination, int damage)
     {
         var clone = (GameObject)Instantiate(AttackObject, startPosition, Quaternion.Euler(Vector3.zero));
@@ -19,4 +27,45 @@ public class Attack : MonoBehaviour
         var clone = (GameObject)Instantiate(AttackObject, startPosition, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<RunAttack>().SetTargetWithCallback(entity, destination, damage, callback);
     }
+
+    /*private void turnWhite()
+    {
+        myRenderer.material.shader = shaderGUItext;
+        myRenderer.color = Color.white;
+        isWhite = true;
+    }
+
+    private void turnBack()
+    {
+        myRenderer.material.shader = shaderSpritesDefault;
+        myRenderer.color = Color.white;
+        isWhite = false;
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("Should set color white");
+        myRenderer = gameObject.GetComponent<SpriteRenderer>();
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default"); // or whatever sprite shader is being used
+        turnWhite();
+        flashTimes = 3;
+    }
+
+    private void Update()
+    {
+        flashTimer += Time.deltaTime;
+        if(flashTimes > 0 && flashTimer > flashDuration)
+        {
+            flashTimes -= 1;
+            flashTimer = 0;
+            if(isWhite)
+            {
+                turnBack();
+            } else
+            {
+                turnWhite();
+            }
+        }
+    }*/
 }

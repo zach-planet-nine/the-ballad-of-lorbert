@@ -14,7 +14,8 @@ public enum EnemyActions
     BigBullet,
     MachineGun,
     Scythe,
-    Healing
+    Healing,
+    Hourglass
 }
 
 public class EnemyAI : MonoBehaviour
@@ -73,6 +74,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("MadScientist"))
         {
             ai = new MadScientistAI();
+        } else if(gameObject.name.Contains("SlowPlant"))
+        {
+            ai = new SlowPlantAI();
         }
         else
         {
@@ -139,6 +143,12 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int healing = BattleManager.manager.EntityUsesCureToHealEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().HealTarget(actionAndTarget.target, activeSelf, healing, callback);
+                break;
+            case EnemyActions.Hourglass:
+                Debug.Log("Should do hourglass here");
+                activeSelf.SetActive(true);
+                float duration = BattleManager.manager.EntityUsesHourglassOnEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().UseHourglass(actionAndTarget.target, duration, callback);
                 break;
         }
     }

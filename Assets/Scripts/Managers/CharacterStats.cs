@@ -312,6 +312,10 @@ public class PartyData
     public List<string> Nineum = new List<string>();
 
     public int storyIndex;
+
+    public bool haveLearnedSolid;
+    public bool haveLeanedGas;
+    public bool haveLearnedPlasma;
 }
 
 [Serializable]

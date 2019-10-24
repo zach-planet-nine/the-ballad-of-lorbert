@@ -49,6 +49,22 @@ public class BattleAI
         return target;
     }
 
+    public GameObject GetEntityWithLeastStamina(List<GameObject> entities)
+    {
+        int minStamina = 1000;
+        GameObject target = entities[0];
+        entities.ForEach(entity =>
+        {
+            BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+            if (stats.currentStamina < minStamina)
+            {
+                minStamina = stats.currentStamina;
+                target = entity;
+            }
+        });
+        return target;
+    }
+
     public GameObject GetEntityWithMostMP(List<GameObject> entities)
     {
         int maxMP = 0;

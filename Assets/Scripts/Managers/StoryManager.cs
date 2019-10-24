@@ -13,7 +13,7 @@ public class StoryManager : MonoBehaviour
     public bool debounce = false;
 
     private string currentDialog = "";
-    private int storyIndex = 24;
+    private int storyIndex = 44;
     private int dialogIndex;
     private float writeDelay;
     private float writeDelayMax = 0.07f;
@@ -70,24 +70,48 @@ public class StoryManager : MonoBehaviour
         }
         if(GUI.Button(new Rect(200, 900, 400, 200), "Observation Room"))
         {
-            JumpToStoryIndex(60);
+            JumpToStoryIndex(70);
         }
         if(GUI.Button(new Rect(800, 300, 400, 200), "Hydroponics"))
         {
-            JumpToStoryIndex(70);
+            JumpToStoryIndex(90);
         }
         if(GUI.Button(new Rect(800, 600, 400, 200), "Recycling Center"))
         {
-            JumpToStoryIndex(80);
+            JumpToStoryIndex(110);
         }
         if(GUI.Button(new Rect(800, 900, 400, 200), "Engine Room"))
         {
-            JumpToStoryIndex(90);
+            JumpToStoryIndex(130);
+        }
+    }
+
+    private void DisplayLearnedSpellMessage(string spell)
+    {
+        if(GUI.Button(new Rect(400, 400, 800, 600), "You learned " + spell))
+        {
+            AdvanceStory();
         }
     }
 
     private void OnGUI()
     {
+        if(currentDialog.Contains("LearnedSpell"))
+        {
+            DialogBox.dialog = "";
+            char[] separator = { ' ' };
+            string spell = currentDialog.Split(separator)[1];
+            switch(spell)
+            {
+                case "Solid": CharacterStats.characterStats.partyData.haveLearnedSolid = true;
+                    break;
+                case "Gas": CharacterStats.characterStats.partyData.haveLeanedGas = true;
+                    break;
+                case "Plasma": CharacterStats.characterStats.partyData.haveLearnedPlasma = true;
+                    break;
+            }
+            DisplayLearnedSpellMessage(spell);
+        }
         if(currentDialog == "SelectionScreen")
         {
             DialogBox.dialog = "";
@@ -199,7 +223,7 @@ public class StoryManager : MonoBehaviour
     void JumpToStoryIndex(int index)
     {
         currentDialog = Story.story[index];
-        if(currentDialog.Contains("Scene"))
+        if(currentDialog.Contains("Scene") || currentDialog.Contains("SelectionScreen"))
         {
             JumpToStoryIndex(index - 1);
             return;
@@ -251,7 +275,7 @@ public class StoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(inInventory || currentDialog == "SelectionScreen")
+        if(inInventory || currentDialog == "SelectionScreen" || currentDialog.Contains("LearnedSpell"))
         {
             return;
         }

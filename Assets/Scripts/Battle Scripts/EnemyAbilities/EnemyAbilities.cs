@@ -88,6 +88,13 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunHealing>().SetTargetWithCallback(target, healingAmount, callback);
     }
 
+    public void UseHourglass(GameObject target, float duration, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Hourglass");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunHourglass>().SetTargetWithCallback(target, duration, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

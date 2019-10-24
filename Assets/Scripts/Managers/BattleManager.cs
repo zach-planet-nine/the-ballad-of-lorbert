@@ -101,18 +101,32 @@ public class BattleManager : MonoBehaviour
 
         magicBarStyle = new GUIStyle();
         magicBarStyle.normal.background = magicBar;
+
+        solidLearned = CharacterStats.characterStats.partyData.haveLearnedSolid;
+        gasLearned = CharacterStats.characterStats.partyData.haveLeanedGas;
+        plasmaLearned = CharacterStats.characterStats.partyData.haveLearnedPlasma;
     }
 
     private void UpdateStaminaForCharacter(BattleStats stats, ref float characterTimer)
     {
         if(stats.currentStamina < stats.maxStamina)
         {
-            if(characterTimer > 0.1)
+            if(!stats.isSlowedStamina)
             {
-                characterTimer = 0;
-                stats.currentStamina += 2;
+                if (characterTimer > 0.1)
+                {
+                    characterTimer = 0;
+                    stats.currentStamina += 2;
+                }
+            } else
+            {
+                if(characterTimer > 0.1)
+                {
+                    characterTimer = 0;
+                    stats.currentStamina += 1;
+                }
             }
-            if(stats.currentStamina > stats.maxStamina)
+            if (stats.currentStamina > stats.maxStamina)
             {
                 stats.currentStamina = stats.maxStamina;
             }
@@ -123,10 +137,20 @@ public class BattleManager : MonoBehaviour
     {
         if(stats.currentMP < stats.maxMP)
         {
-            if(characterTimer > 0.1)
+            if(!stats.isSlowedMP)
             {
-                characterTimer = 0;
-                stats.currentMP += 1;
+                if (characterTimer > 0.1)
+                {
+                    characterTimer = 0;
+                    stats.currentMP += 1;
+                }
+            } else
+            {
+                if(characterTimer > 0.2)
+                {
+                    characterTimer = 0;
+                    stats.currentMP += 1;
+                }
             }
             if(stats.currentMP > stats.maxMP)
             {
@@ -274,6 +298,8 @@ public class BattleManager : MonoBehaviour
                 GameObject character = GetCharacterForEntity(entity);
                 character.GetComponent<CharacterDeath>().Die();
                 stats.isInCountdown = false;
+                stats.isSlowedStamina = false;
+                stats.isSlowedMP = false;
                 if(CheckIfGameOver())
                 {
                     Debug.Log("Handle GameOver here");
@@ -450,6 +476,26 @@ public class BattleManager : MonoBehaviour
         return healing;
     }
 
+    public float EntityUsesHourglassOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int intDuration = attackerStats.dexterity + Randomness.GetIntBetween(0, attackerStats.luck) - (defenderStats.dexterity / 2);
+        Debug.Log("intDuration is: " + intDuration);
+        float duration = (float)intDuration / 10.0f;
+        //duration += 5.0f;
+
+        if(duration > 0)
+        {
+            defenderStats.isSlowedStamina = true;
+        }
+
+        Debug.Log("Duration is: " + duration);
+
+        return duration;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)
@@ -484,6 +530,8 @@ public class BattleStats
     public int attackStaminaCost;
 
     public bool isInCountdown;
+    public bool isSlowedStamina;
+    public bool isSlowedMP;
 
     public void Attack()
     {

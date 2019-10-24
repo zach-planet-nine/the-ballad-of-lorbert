@@ -54,16 +54,16 @@ public class Story : MonoBehaviour
     "ScienceLabScene3",
     "Head Scientist: Yeehaw that's how we do it! Keep the hits coming!",
     "ScienceLabScene4",
-    "", // 40
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
+    "Head Scientist: Looks like you've almost got them all. Keep going Lorbert!", // 40
+    "ScienceLabScene5",
+    "Head Scientist: Oh no, this doesn't look good. Make sure you've got that Nineum equipped before taking these guys down.",
+    "ScienceLabScene6",
+    "Head Scientist: Good job clearing out the science lab! Those were some nasty bad guys.",
+    "Head Scientist: I've been messing around with a new spell, and I think it's ready to try out. Here you go.",
+    "LearnedSpell Solid",
+    "Head Scientist: There you go! That should help you clear out the rest of the bad guys around here.",
+    "Head Scientist: Now you should head back to the bridge and decide where to go next.",
+    "SelectionScreen",
     "Pilot: Well shoot me sideways! Some help.", // 50 Hangar
     "",
     "",
@@ -74,7 +74,7 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "Young Scientist: It's beautiful isn't it.", // 60 Observation Room
+    "", // 60
     "",
     "",
     "",
@@ -84,7 +84,7 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "Gardener: My plants! What'll happen to my plants?!", // 70 Hydroponics
+    "Young Scientist: It's beautiful isn't it.", // 70 Observation Room
     "",
     "",
     "",
@@ -94,7 +94,7 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "RecycleBOT: Beep boop recycleBOT online!", // 80 Recycling Center
+    "", // 80
     "",
     "",
     "",
@@ -104,10 +104,10 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "Scottie: I can't Lorbert. There's not enough Power!", // 90 Engine Room
-    "",
-    "",
-    "",
+    "Gardener: My plants! What'll happen to my plants?!", // 90 Hydroponics
+    "Gardener: The Seventians are sending their own killer plants to try and take them out!",
+    "Gardener: I need your help Lorbert. You've got to save my plants!!",
+    "HydroponicsScene1",
     "",
     "",
     "",
@@ -115,7 +115,58 @@ public class Story : MonoBehaviour
     "",
     "",
     "", // 100
-    ""
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "RecycleBOT: Beep boop recycleBOT online!", // 110 Recycling Center
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "", // 120
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "Scottie: I can't Lorbert. There's not enough Power!", // 130 Engine Room
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "", // 140
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""  // 150
     };
     public static List<MovementDirections> directions = new List<MovementDirections>
     {
@@ -301,6 +352,16 @@ public class Story : MonoBehaviour
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(), // 60
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
         new MovementDirections(new List<Directions> {
             Directions.Position
         }, new List<float>
@@ -310,7 +371,17 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }), // 60 Observation Room
+            }), // 70 Observation Room
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(), // 80
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -329,7 +400,17 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }),  // 70 Hydroponics
+            }),  // 90 Hydroponics
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(), // 100
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -348,7 +429,17 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }), // 80 Recycling Center
+            }), // 110 Recycling Center
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(), // 120
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -367,7 +458,7 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }), // 90 Engine Room
+            }), // 130 Engine Room
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -377,8 +468,17 @@ public class Story : MonoBehaviour
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
-        MovementDirections.GetEmptyMD(), // 100
-        MovementDirections.GetEmptyMD()
+        MovementDirections.GetEmptyMD(), // 140
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD()   // 150
 
     };
 }
