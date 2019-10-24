@@ -157,6 +157,16 @@ public class BattleControls : MonoBehaviour
                 target == ArtroRest || target == ArtroActive ||
                 target == IORest || target == IOActive)
             {
+                if(target == LorbertActive)
+                {
+                    target = LorbertRest;
+                } else if(target == ArtroActive)
+                {
+                    target = ArtroRest;
+                } else if(target == IOActive)
+                {
+                    target = IORest;
+                }
                 int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
                 AlienWithPriority.GetComponent<Liquid>().HealEntity(target, target.transform.position, healing);
             }

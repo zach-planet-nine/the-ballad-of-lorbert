@@ -12,7 +12,9 @@ public enum EnemyActions
     DischargeStoredEnergy,
     Bit,
     BigBullet,
-    MachineGun
+    MachineGun,
+    Scythe,
+    Healing
 }
 
 public class EnemyAI : MonoBehaviour
@@ -62,6 +64,15 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("Tank"))
         {
             ai = new TankAI();
+        } else if(gameObject.name.Contains("Reaper"))
+        {
+            ai = new ReaperAI();
+        } else if(gameObject.name.Contains("MadRobot"))
+        {
+            ai = new MadRobotAI();
+        } else if(gameObject.name.Contains("MadScientist"))
+        {
+            ai = new MadScientistAI();
         }
         else
         {
@@ -117,6 +128,17 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Should shoot machine gun here now");
                 activeSelf.SetActive(true);
                 activeSelf.GetComponent<EnemyAbilities>().AttackWithMachineGun(characters, activeSelf, callback);
+                break;
+            case EnemyActions.Scythe:
+                Debug.Log("Should Scythe here");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().AttackWithScythe(actionAndTarget.target, activeSelf, callback);
+                break;
+            case EnemyActions.Healing:
+                Debug.Log("Should do healing here");
+                activeSelf.SetActive(true);
+                int healing = BattleManager.manager.EntityUsesCureToHealEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().HealTarget(actionAndTarget.target, activeSelf, healing, callback);
                 break;
         }
     }

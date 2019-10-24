@@ -66,23 +66,23 @@ public class StoryManager : MonoBehaviour
         }
         if(GUI.Button(new Rect(200, 600, 400, 200), "Hangar"))
         {
-            JumpToStoryIndex(40);
+            JumpToStoryIndex(50);
         }
         if(GUI.Button(new Rect(200, 900, 400, 200), "Observation Room"))
         {
-            JumpToStoryIndex(50);
+            JumpToStoryIndex(60);
         }
         if(GUI.Button(new Rect(800, 300, 400, 200), "Hydroponics"))
         {
-            JumpToStoryIndex(60);
+            JumpToStoryIndex(70);
         }
         if(GUI.Button(new Rect(800, 600, 400, 200), "Recycling Center"))
         {
-            JumpToStoryIndex(70);
+            JumpToStoryIndex(80);
         }
         if(GUI.Button(new Rect(800, 900, 400, 200), "Engine Room"))
         {
-            JumpToStoryIndex(80);
+            JumpToStoryIndex(90);
         }
     }
 

@@ -32,4 +32,36 @@ public class BattleAI
     {
         return potentialTargets[0];
     }
+
+    public GameObject GetEntityWithMostHP(List<GameObject> entities)
+    {
+        int maxHP = 0;
+        GameObject target = entities[0];
+        entities.ForEach(entity =>
+        {
+            BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+            if (stats.currentHP > maxHP)
+            {
+                target = entity;
+                maxHP = stats.currentHP;
+            }
+        });
+        return target;
+    }
+
+    public GameObject GetEntityWithMostMP(List<GameObject> entities)
+    {
+        int maxMP = 0;
+        GameObject target = entities[0];
+        entities.ForEach(entity =>
+        {
+            BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+            if (stats.currentMP > maxMP)
+            {
+                target = entity;
+                maxMP = stats.currentMP;
+            }
+        });
+        return target;
+    }
 }

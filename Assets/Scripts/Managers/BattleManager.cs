@@ -273,6 +273,7 @@ public class BattleManager : MonoBehaviour
             {
                 GameObject character = GetCharacterForEntity(entity);
                 character.GetComponent<CharacterDeath>().Die();
+                stats.isInCountdown = false;
                 if(CheckIfGameOver())
                 {
                     Debug.Log("Handle GameOver here");
@@ -352,6 +353,31 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityUsesWaterToHealEntity(GameObject healer, GameObject healed)
+    {
+        BattleStats healerStats = GetStatsForEntity(healer);
+
+        int baseHealingPower = healerStats.aura * 4;
+        int healing = Randomness.GetIntBetween(baseHealingPower * 3 / 4, baseHealingPower + (baseHealingPower * 1 / 3));
+
+        healerStats.currentMP -= liquidCost;
+
+        return healing;
+    }
+
+    public int EntityUsesWaterToAttackEntity(GameObject attacker, GameObject target)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(target);
+
+        int damage = 100 + attackerStats.wisdom + Randomness.GetIntBetween(0, attackerStats.wisdom) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        attackerStats.currentMP -= liquidCost;
+
+        return damage;
+    }
+
     public int EntityStaminaAttacksEntity(GameObject attacker, GameObject defender)
     {
         BattleStats attackerStats = GetStatsForEntity(attacker);
@@ -415,29 +441,13 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
-    public int EntityUsesWaterToHealEntity(GameObject healer, GameObject healed)
+    public int EntityUsesCureToHealEntity(GameObject healer, GameObject healed)
     {
         BattleStats healerStats = GetStatsForEntity(healer);
+        BattleStats healedStats = GetStatsForEntity(healed);
 
-        int baseHealingPower = healerStats.aura * 5;
-        int healing = Randomness.GetIntBetween(baseHealingPower * 3 / 4, baseHealingPower + (baseHealingPower * 1 / 3));
-
-        healerStats.currentMP -= liquidCost;
-
+        int healing = healerStats.aura * 3 + Randomness.GetIntBetween(0, healedStats.luck);
         return healing;
-    }
-
-    public int EntityUsesWaterToAttackEntity(GameObject attacker, GameObject target)
-    {
-        BattleStats attackerStats = GetStatsForEntity(attacker);
-        BattleStats defenderStats = GetStatsForEntity(target);
-
-        int damage = 100 + attackerStats.wisdom + Randomness.GetIntBetween(0, attackerStats.wisdom) + Randomness.GetIntBetween(0, attackerStats.luck);
-        damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
-
-        attackerStats.currentMP -= liquidCost;
-
-        return damage;
     }
 
     public int ApplyStamina(BattleStats stats, int value)
@@ -472,6 +482,8 @@ public class BattleStats
     public int luck;
 
     public int attackStaminaCost;
+
+    public bool isInCountdown;
 
     public void Attack()
     {

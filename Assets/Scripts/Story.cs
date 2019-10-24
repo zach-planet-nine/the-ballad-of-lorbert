@@ -54,7 +54,7 @@ public class Story : MonoBehaviour
     "ScienceLabScene3",
     "Head Scientist: Yeehaw that's how we do it! Keep the hits coming!",
     "ScienceLabScene4",
-    "Pilot: Well shoot me sideways! Some help.", // 40 Hangar
+    "", // 40
     "",
     "",
     "",
@@ -64,7 +64,7 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "Young Scientist: It's beautiful isn't it.", // 50 Observation Room
+    "Pilot: Well shoot me sideways! Some help.", // 50 Hangar
     "",
     "",
     "",
@@ -74,7 +74,7 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "Gardener: My plants! What'll happen to my plants?!", // 60 Hydroponics
+    "Young Scientist: It's beautiful isn't it.", // 60 Observation Room
     "",
     "",
     "",
@@ -84,7 +84,7 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "RecycleBOT: Beep boop recycleBOT online!", // 70 Recycling Center
+    "Gardener: My plants! What'll happen to my plants?!", // 70 Hydroponics
     "",
     "",
     "",
@@ -94,7 +94,7 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "Scottie: I can't Lorbert. There's not enough Power!", // 80 Engine Room
+    "RecycleBOT: Beep boop recycleBOT online!", // 80 Recycling Center
     "",
     "",
     "",
@@ -104,7 +104,17 @@ public class Story : MonoBehaviour
     "",
     "",
     "",
-    "", // 90
+    "Scottie: I can't Lorbert. There's not enough Power!", // 90 Engine Room
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "", // 100
     ""
     };
     public static List<MovementDirections> directions = new List<MovementDirections>
@@ -262,6 +272,16 @@ public class Story : MonoBehaviour
                 -1.0f
             }),
         MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(), // 40
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
+        MovementDirections.GetEmptyMD(),
         new MovementDirections(new List<Directions> {
             Directions.Position
         }, new List<float>
@@ -271,7 +291,7 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }), // 40 Hangar
+            }), // 50 Hangar
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -290,7 +310,7 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }), // 50 Observation Room
+            }), // 60 Observation Room
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -309,7 +329,7 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }),  // 60 Hydroponics
+            }),  // 70 Hydroponics
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -328,7 +348,7 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }), // 70 Recycling Center
+            }), // 80 Recycling Center
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -347,7 +367,7 @@ public class Story : MonoBehaviour
             new List<float>
             {
                 -1.0f
-            }), // 80 Engine Room
+            }), // 90 Engine Room
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
@@ -357,7 +377,7 @@ public class Story : MonoBehaviour
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
         MovementDirections.GetEmptyMD(),
-        MovementDirections.GetEmptyMD(), // 90
+        MovementDirections.GetEmptyMD(), // 100
         MovementDirections.GetEmptyMD()
 
     };
