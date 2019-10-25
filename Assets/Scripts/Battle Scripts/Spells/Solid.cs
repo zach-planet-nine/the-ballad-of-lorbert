@@ -5,6 +5,8 @@ using UnityEngine;
 public class Solid : MonoBehaviour
 {
     public GameObject SolidObject;
+    public GameObject WallObject;
+    public GameObject AttackObject;
 
     private void OnEnable()
     {
@@ -17,6 +19,13 @@ public class Solid : MonoBehaviour
     private void OnDisable()
     {
         SolidObject.SetActive(false);
+    }
+
+    public void UseWall(GameObject target, float duration)
+    {
+        BattleManager.manager.GetStatsForEntity(target).isProtectedByWall = true;
+        var clone = (GameObject)Instantiate(WallObject, target.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunBrickWall>().SetTarget(target, duration);
     }
 
     private void Update()

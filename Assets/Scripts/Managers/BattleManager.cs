@@ -102,7 +102,8 @@ public class BattleManager : MonoBehaviour
         magicBarStyle = new GUIStyle();
         magicBarStyle.normal.background = magicBar;
 
-        solidLearned = CharacterStats.characterStats.partyData.haveLearnedSolid;
+        //solidLearned = CharacterStats.characterStats.partyData.haveLearnedSolid;
+        solidLearned = true;
         gasLearned = CharacterStats.characterStats.partyData.haveLeanedGas;
         plasmaLearned = CharacterStats.characterStats.partyData.haveLearnedPlasma;
     }
@@ -404,6 +405,17 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public float EntityUsesSolidForWall(GameObject caster)
+    {
+        BattleStats casterStats = GetStatsForEntity(caster);
+
+        float duration = Randomness.GetValueBetween(0, 3) + (casterStats.wisdom / 8) + (Randomness.GetIntBetween(0, casterStats.luck) / 12);
+
+        casterStats.currentMP -= solidCost;
+
+        return duration;
+    }
+
     public int EntityStaminaAttacksEntity(GameObject attacker, GameObject defender)
     {
         BattleStats attackerStats = GetStatsForEntity(attacker);
@@ -528,6 +540,8 @@ public class BattleStats
     public int luck;
 
     public int attackStaminaCost;
+
+    public bool isProtectedByWall;
 
     public bool isInCountdown;
     public bool isSlowedStamina;

@@ -11,6 +11,10 @@ public class TakeDamage : MonoBehaviour
 
     public void DisplayDamage(int damage, Vector3 position)
     {
+        if(BattleManager.manager.GetStatsForEntity(gameObject).isProtectedByWall )
+        {
+            damage = (int)((float)damage * 0.66f);
+        }
         Vector3 rightPosition = new Vector3(position.x, position.y, 0);
         var clone = (GameObject)Instantiate(DamageText, rightPosition, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<DisplayDamage>().damageNumber = damage;

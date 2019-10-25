@@ -737,6 +737,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 670250351}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 0}
 --- !u!1 &272020151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,6 +1431,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 1258258315}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 0}
 --- !u!114 &763725206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2150,6 +2156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 531857267}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 0}
 --- !u!114 &1112436211
 MonoBehaviour:
   m_ObjectHideFlags: 0
