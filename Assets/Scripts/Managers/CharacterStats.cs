@@ -341,6 +341,9 @@ public class CharacterData
     public string shield = "";
     public string feet = "";
 
+    private int baseHealth;
+    private int baseStamina;
+    private int baseMP;
     private int baseStrength;
     private int baseVitality;
     private int baseAgility;
@@ -359,9 +362,9 @@ public class CharacterData
         this.name = name;
         switch(name)
         {
-            case "Lorbert": health = 600;
-                stamina = 350;
-                mp = 120;
+            case "Lorbert": baseHealth = health = 600;
+                baseStamina = stamina = 300;
+                baseMP = mp = 150;
                 baseStrength = strength = 64;
                 baseVitality = vitality = 55;
                 baseAgility = agility = 45;
@@ -371,9 +374,9 @@ public class CharacterData
                 basePerception = perception = 50;
                 baseLuck = luck = 50;
                 break;
-            case "Artro": health = 650;
-                stamina = 280;
-                mp = 240;
+            case "Artro": baseHealth = health = 650;
+                baseStamina = stamina = 280;
+                baseMP = mp = 220;
                 baseStrength = strength = 45;
                 baseVitality = vitality = 43;
                 baseAgility = agility = 55;
@@ -384,9 +387,9 @@ public class CharacterData
                 baseLuck = luck = 50;
                 break;
             case "I-O":
-                health = 550;
-                stamina = 320;
-                mp = 210;
+                baseHealth = health = 550;
+                baseStamina = stamina = 320;
+                baseMP = mp = 185;
                 baseStrength = strength = 53;
                 baseVitality = vitality = 45;
                 baseAgility = agility = 59;
@@ -448,5 +451,9 @@ public class CharacterData
         aura = baseAura + auraModifier;
         perception = basePerception + perceptionModifier;
         luck = baseLuck + luckModifier;
+
+        health = baseHealth + vitality;
+        stamina = baseStamina + (dexterity / 2);
+        mp = baseMP + (wisdom / 2);
     }
 }

@@ -17,6 +17,14 @@ public class EnemyDeath : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        if(isDead)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     public void Die()
     {
         Debug.Log("Should die");

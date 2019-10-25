@@ -80,4 +80,118 @@ public class BattleAI
         });
         return target;
     }
+
+    public GameObject GetEntityWithLeastMP(List<GameObject> entities)
+    {
+        int minMP = 10000;
+        GameObject target = entities[0];
+        entities.ForEach(entity =>
+        {
+            BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+            if (stats.currentMP < minMP)
+            {
+                target = entity;
+                minMP = stats.currentMP;
+            }
+        });
+        return target;
+    }
+
+    public GameObject GetEntityWithMost(List<GameObject> entities, Stats stat)
+    {
+        int maxStat = 0;
+        GameObject target = entities[0];
+        switch (stat)
+        {
+            case Stats.Strength:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.strength > maxStat)
+                    {
+                        maxStat = stats.strength;
+                        target = entity;
+                    }
+                });
+                break;
+            case Stats.Vitality:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.vitality > maxStat)
+                    {
+                        maxStat = stats.vitality;
+                        target = entity;
+                    }
+                });
+                break;
+            case Stats.Agility:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.agility > maxStat)
+                    {
+                        maxStat = stats.strength;
+                        target = entity;
+                    }
+                });
+                break;
+            case Stats.Dexterity:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.dexterity > maxStat)
+                    {
+                        maxStat = stats.dexterity;
+                        target = entity;
+                    }
+                });
+                break;
+            case Stats.Wisdom:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.wisdom > maxStat)
+                    {
+                        maxStat = stats.wisdom;
+                        target = entity;
+                    }
+                });
+                break;
+            case Stats.Aura:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.aura > maxStat)
+                    {
+                        maxStat = stats.aura;
+                        target = entity;
+                    }
+                });
+                break;
+            case Stats.Perception:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.perception > maxStat)
+                    {
+                        maxStat = stats.perception;
+                        target = entity;
+                    }
+                });
+                break;
+            case Stats.Luck:
+                entities.ForEach(entity =>
+                {
+                    BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+                    if (stats.luck > maxStat)
+                    {
+                        maxStat = stats.luck;
+                        target = entity;
+                    }
+                });
+                break;
+        }
+        return target;
+    }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Plasma : MonoBehaviour
 {
     public GameObject PlasmaObject;
+    public GameObject CharacterObject;
+    public GameObject AttackObject;
 
     private void OnEnable()
     {

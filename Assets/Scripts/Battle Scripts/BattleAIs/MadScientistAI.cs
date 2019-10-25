@@ -5,6 +5,7 @@ using UnityEngine;
 public class MadScientistAI : BattleAI
 {
     private bool hasStolenMP;
+    private int mpStealAttacks;
     private int healingCooldown;
 
     private ActionAndTarget ChooseStealMPDischargeOrHealing(List<GameObject> characters, List<GameObject> enemies)
@@ -18,14 +19,28 @@ public class MadScientistAI : BattleAI
             actionAndTarget.target = enemies[0];
         } else if (hasStolenMP)
         {
+            hasStolenMP = false;
             actionAndTarget.action = EnemyActions.DischargeStoredEnergy;
             actionAndTarget.target = characters[Randomness.GetIntBetween(0, characters.Count)];
         } else { 
             hasStolenMP = true;
+            mpStealAttacks = 0;
             actionAndTarget.action = EnemyActions.StealMP;
             actionAndTarget.target = GetEntityWithMostMP(characters);
         }
         return actionAndTarget;
+    }
+
+    public override void Attacked(GameObject attacker)
+    {
+        if(hasStolenMP)
+        {
+            mpStealAttacks += 1;
+            if(mpStealAttacks >= 3)
+            {
+                hasStolenMP = false;
+            }
+        }
     }
 
     public override ActionAndTarget ChooseActionAndTarget(List<GameObject> characters, List<GameObject> enemies)

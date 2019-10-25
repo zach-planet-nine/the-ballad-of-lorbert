@@ -18,12 +18,28 @@ public class Attack : MonoBehaviour
 
     public void AttackEntity(GameObject entity, Vector3 destination, int damage)
     {
+        if(BattleManager.manager.GetStatsForEntity(gameObject).isBlinded)
+        {
+            int coinToss = Randomness.GetIntBetween(0, 2);
+            if(coinToss == 0)
+            {
+                damage = 0;
+            }
+        }
         var clone = (GameObject)Instantiate(AttackObject, startPosition, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<RunAttack>().SetTarget(entity, destination, damage);
     }
 
     public void AttackEntityWithCallback(GameObject entity, Vector3 destination, int damage, Action<bool> callback)
     {
+        if (BattleManager.manager.GetStatsForEntity(gameObject).isBlinded)
+        {
+            int coinToss = Randomness.GetIntBetween(0, 2);
+            if (coinToss == 0)
+            {
+                damage = 0;
+            }
+        }
         var clone = (GameObject)Instantiate(AttackObject, startPosition, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<RunAttack>().SetTargetWithCallback(entity, destination, damage, callback);
     }

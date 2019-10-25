@@ -28,6 +28,12 @@ public class Solid : MonoBehaviour
         clone.GetComponent<RunBrickWall>().SetTarget(target, duration);
     }
 
+    public void AttackEntity(GameObject entity, int damage)
+    {
+        var clone = (GameObject)Instantiate(AttackObject, new Vector3(entity.transform.position.x, entity.transform.position.y + 1.7f, 0), Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunCylinder>().SetTarget(entity, damage);
+    }
+
     private void Update()
     {
         int currentMP = BattleManager.manager.GetStatsForEntity(gameObject).currentMP;

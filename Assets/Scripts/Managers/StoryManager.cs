@@ -13,7 +13,8 @@ public class StoryManager : MonoBehaviour
     public bool debounce = false;
 
     private string currentDialog = "";
-    private int storyIndex = 44;
+    //private int storyIndex = 44;
+    private int storyIndex = 24;
     private int dialogIndex;
     private float writeDelay;
     private float writeDelayMax = 0.07f;

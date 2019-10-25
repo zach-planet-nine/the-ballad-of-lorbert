@@ -711,6 +711,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GasObject: {fileID: 1940978554}
+  CharacterObject: {fileID: 3639845901555910109, guid: 7e1db37dbbbcd4c42b6c61b4899c07c0,
+    type: 3}
+  AttackObject: {fileID: 4369515666601362618, guid: 5cc1d8008b8ed4edeab7a8685a479834,
+    type: 3}
 --- !u!114 &271345692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,6 +728,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlasmaObject: {fileID: 272020151}
+  CharacterObject: {fileID: 7597622042233506754, guid: b696cd4bc620343f8b161c0338489433,
+    type: 3}
+  AttackObject: {fileID: 3562533417327945446, guid: 559fc503faef1438082301f77b92cbce,
+    type: 3}
 --- !u!114 &271345693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,6 +745,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 670250351}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 3747958079690772068, guid: 96fbad4efd21644eba11ac48a77f2c56,
+    type: 3}
 --- !u!1 &272020151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,6 +1427,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GasObject: {fileID: 269217920}
+  CharacterObject: {fileID: 3639845901555910109, guid: 7e1db37dbbbcd4c42b6c61b4899c07c0,
+    type: 3}
+  AttackObject: {fileID: 4369515666601362618, guid: 5cc1d8008b8ed4edeab7a8685a479834,
+    type: 3}
 --- !u!114 &763725205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1444,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 1258258315}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 3747958079690772068, guid: 96fbad4efd21644eba11ac48a77f2c56,
+    type: 3}
 --- !u!114 &763725206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1441,6 +1461,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlasmaObject: {fileID: 1441042423}
+  CharacterObject: {fileID: 7597622042233506754, guid: b696cd4bc620343f8b161c0338489433,
+    type: 3}
+  AttackObject: {fileID: 3562533417327945446, guid: 559fc503faef1438082301f77b92cbce,
+    type: 3}
 --- !u!1 &846360731
 GameObject:
   m_ObjectHideFlags: 0
@@ -2427,6 +2451,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GasObject: {fileID: 963671781}
+  CharacterObject: {fileID: 3639845901555910109, guid: 7e1db37dbbbcd4c42b6c61b4899c07c0,
+    type: 3}
+  AttackObject: {fileID: 4369515666601362618, guid: 5cc1d8008b8ed4edeab7a8685a479834,
+    type: 3}
 --- !u!114 &1112436210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2440,6 +2468,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 531857267}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 3747958079690772068, guid: 96fbad4efd21644eba11ac48a77f2c56,
+    type: 3}
 --- !u!114 &1112436211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2453,6 +2485,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlasmaObject: {fileID: 1168825213}
+  CharacterObject: {fileID: 7597622042233506754, guid: b696cd4bc620343f8b161c0338489433,
+    type: 3}
+  AttackObject: {fileID: 3562533417327945446, guid: 559fc503faef1438082301f77b92cbce,
+    type: 3}
 --- !u!1 &1168825213
 GameObject:
   m_ObjectHideFlags: 0

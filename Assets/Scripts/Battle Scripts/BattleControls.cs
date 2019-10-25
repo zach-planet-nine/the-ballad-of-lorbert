@@ -151,6 +151,12 @@ public class BattleControls : MonoBehaviour
                         int damage = BattleManager.manager.EntityUsesWaterToAttackEntity(AlienWithPriority, target);
                         AlienWithPriority.GetComponent<Liquid>().AttackEntity(target, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
                         break;
+                    case "LorbertSolid":
+                    case "ArtroSolid":
+                    case "IOSolid":
+                        int solidDamage = BattleManager.manager.EntityUsesSolidToAttackEntity(AlienWithPriority, target);
+                        AlienWithPriority.GetComponent<Solid>().AttackEntity(target, solidDamage);
+                        break;
                 }
             }
             else if (target == LorbertRest || target == LorbertActive ||

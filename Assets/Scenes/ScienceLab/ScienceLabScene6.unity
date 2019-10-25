@@ -711,6 +711,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GasObject: {fileID: 1940978554}
+  CharacterObject: {fileID: 3639845901555910109, guid: 7e1db37dbbbcd4c42b6c61b4899c07c0,
+    type: 3}
+  AttackObject: {fileID: 4369515666601362618, guid: 5cc1d8008b8ed4edeab7a8685a479834,
+    type: 3}
 --- !u!114 &271345692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,6 +728,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlasmaObject: {fileID: 272020151}
+  CharacterObject: {fileID: 7597622042233506754, guid: b696cd4bc620343f8b161c0338489433,
+    type: 3}
+  AttackObject: {fileID: 3562533417327945446, guid: 559fc503faef1438082301f77b92cbce,
+    type: 3}
 --- !u!114 &271345693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,6 +745,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 670250351}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 3747958079690772068, guid: 96fbad4efd21644eba11ac48a77f2c56,
+    type: 3}
 --- !u!1 &272020151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1415,6 +1427,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GasObject: {fileID: 269217920}
+  CharacterObject: {fileID: 3639845901555910109, guid: 7e1db37dbbbcd4c42b6c61b4899c07c0,
+    type: 3}
+  AttackObject: {fileID: 4369515666601362618, guid: 5cc1d8008b8ed4edeab7a8685a479834,
+    type: 3}
 --- !u!114 &763725205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1444,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 1258258315}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 3747958079690772068, guid: 96fbad4efd21644eba11ac48a77f2c56,
+    type: 3}
 --- !u!114 &763725206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1441,6 +1461,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlasmaObject: {fileID: 1441042423}
+  CharacterObject: {fileID: 7597622042233506754, guid: b696cd4bc620343f8b161c0338489433,
+    type: 3}
+  AttackObject: {fileID: 3562533417327945446, guid: 559fc503faef1438082301f77b92cbce,
+    type: 3}
 --- !u!1 &846360731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,8 +1480,9 @@ GameObject:
   - component: {fileID: 846360734}
   - component: {fileID: 846360733}
   - component: {fileID: 846360732}
+  - component: {fileID: 846360739}
   m_Layer: 0
-  m_Name: MPStealer2
+  m_Name: MadScientist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1616,6 +1641,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846360739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846360731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3564713b23e4c4049b033ad12c642dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealingText: {fileID: 5684010185105514991, guid: 7cf8a0e29e11540858ba49ecc029dd12,
+    type: 3}
 --- !u!1 &936577683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,7 +1668,7 @@ GameObject:
   - component: {fileID: 936577684}
   - component: {fileID: 936577687}
   m_Layer: 0
-  m_Name: MPStealer2Active
+  m_Name: MadScientistActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1730,7 +1769,7 @@ MonoBehaviour:
     type: 3}
   Ability2: {fileID: 4559912617813419944, guid: 1cbc5da35d1b5428b9de37176cfbaf1a,
     type: 3}
-  Ability3: {fileID: 0}
+  Ability3: {fileID: 64175104917910903, guid: de199e1d1e27f493ea546e3efd46c990, type: 3}
   Ability4: {fileID: 0}
 --- !u!1 &963671781
 GameObject:
@@ -1928,8 +1967,9 @@ GameObject:
   - component: {fileID: 1062998596}
   - component: {fileID: 1062998597}
   - component: {fileID: 1062998598}
+  - component: {fileID: 1062998599}
   m_Layer: 0
-  m_Name: MPStealer1
+  m_Name: MadRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2088,6 +2128,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSelf: {fileID: 2038290218}
+--- !u!114 &1062998599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062998591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3564713b23e4c4049b033ad12c642dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealingText: {fileID: 5684010185105514991, guid: 7cf8a0e29e11540858ba49ecc029dd12,
+    type: 3}
 --- !u!1 &1075647396
 GameObject:
   m_ObjectHideFlags: 0
@@ -2428,6 +2482,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GasObject: {fileID: 963671781}
+  CharacterObject: {fileID: 3639845901555910109, guid: 7e1db37dbbbcd4c42b6c61b4899c07c0,
+    type: 3}
+  AttackObject: {fileID: 4369515666601362618, guid: 5cc1d8008b8ed4edeab7a8685a479834,
+    type: 3}
 --- !u!114 &1112436210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2441,6 +2499,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SolidObject: {fileID: 531857267}
+  WallObject: {fileID: 677989443975000982, guid: 544be27bb055e46baa58907d33f30228,
+    type: 3}
+  AttackObject: {fileID: 3747958079690772068, guid: 96fbad4efd21644eba11ac48a77f2c56,
+    type: 3}
 --- !u!114 &1112436211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2454,6 +2516,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlasmaObject: {fileID: 1168825213}
+  CharacterObject: {fileID: 7597622042233506754, guid: b696cd4bc620343f8b161c0338489433,
+    type: 3}
+  AttackObject: {fileID: 3562533417327945446, guid: 559fc503faef1438082301f77b92cbce,
+    type: 3}
 --- !u!1 &1168825213
 GameObject:
   m_ObjectHideFlags: 0
@@ -3329,7 +3395,7 @@ GameObject:
   - component: {fileID: 2038290219}
   - component: {fileID: 2038290222}
   m_Layer: 0
-  m_Name: MPStealer1Active
+  m_Name: MadRobotActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3426,9 +3492,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09f7ab9c71f64df48c5da6f910b87e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ability1: {fileID: 4559912617813419944, guid: a3bce7ce802c04b4eaa08cfd95c74070,
+  Ability1: {fileID: 2161556522208656703, guid: f0da4fdb0652949008fc6d7882a5b1b9,
     type: 3}
-  Ability2: {fileID: 4559912617813419944, guid: 1cbc5da35d1b5428b9de37176cfbaf1a,
+  Ability2: {fileID: 1190995286306505842, guid: 6ecb37be899bd4e9488430f0f96cbdb2,
     type: 3}
   Ability3: {fileID: 0}
   Ability4: {fileID: 0}

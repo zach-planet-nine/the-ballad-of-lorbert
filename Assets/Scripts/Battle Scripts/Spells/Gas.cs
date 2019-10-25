@@ -5,6 +5,8 @@ using UnityEngine;
 public class Gas : MonoBehaviour
 {
     public GameObject GasObject;
+    public GameObject CharacterObject;
+    public GameObject AttackObject;
 
     private void OnEnable()
     {

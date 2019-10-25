@@ -15,7 +15,12 @@ public enum EnemyActions
     MachineGun,
     Scythe,
     Healing,
-    Hourglass
+    Hourglass,
+    Pollen,
+    Fire,
+    Bash,
+    Branch,
+    MPSlow
 }
 
 public class EnemyAI : MonoBehaviour
@@ -77,6 +82,15 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("SlowPlant"))
         {
             ai = new SlowPlantAI();
+        } else if(gameObject.name.Contains("Seedling"))
+        {
+            ai = new SeedlingAI();
+        } else if(gameObject.name.Contains("Oakenemy"))
+        {
+            ai = new OakenemyAI();
+        } else if(gameObject.name.Contains("WizenTree"))
+        {
+            ai = new WizenTreeAI();
         }
         else
         {
@@ -149,6 +163,35 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 float duration = BattleManager.manager.EntityUsesHourglassOnEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().UseHourglass(actionAndTarget.target, duration, callback);
+                break;
+            case EnemyActions.Pollen:
+                Debug.Log("Should do pollen here");
+                activeSelf.SetActive(true);
+                float pollenDuration = BattleManager.manager.EntityUsesPollenOnEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().UsePollen(actionAndTarget.target, pollenDuration, callback);
+                break;
+            case EnemyActions.Fire:
+                Debug.Log("Should do fire here");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().UseFire(characters, callback);
+                break;
+            case EnemyActions.Bash:
+                Debug.Log("Should bash here");
+                activeSelf.SetActive(true);
+                int bashDamage = BattleManager.manager.EntityBashesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().BashEntity(actionAndTarget.target, bashDamage, callback);
+                break;
+            case EnemyActions.Branch:
+                Debug.Log("Should bash here");
+                activeSelf.SetActive(true);
+                int branchDamage = BattleManager.manager.EntityBashesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().BranchEntity(actionAndTarget.target, branchDamage, callback);
+                break;
+            case EnemyActions.MPSlow:
+                Debug.Log("Should MP Slow here");
+                activeSelf.SetActive(true);
+                float slowDuration = BattleManager.manager.EntityMPSlowsEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().MPSlowEntity(actionAndTarget.target, slowDuration, callback);
                 break;
         }
     }

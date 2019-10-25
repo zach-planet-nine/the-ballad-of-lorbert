@@ -95,9 +95,59 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunHourglass>().SetTargetWithCallback(target, duration, callback);
     }
 
+    public void UsePollen(GameObject target, float duration, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("PollenEmitter");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunPollen>().SetTargetWithCallback(target, duration, callback);
+    }
+
+    public void UseFire(List<GameObject> characters, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("FireEmitterObject");
+        characters.ForEach(character =>
+        {
+            int damage = BattleManager.manager.EntityUsesFireOnEntity(gameObject, character);
+            //var clone = (GameObject)Instantiate(ability, new Vector3(character.transform.position.x, character.transform.position.y - 0.6f, 0), Quaternion.Euler(Vector3.zero));
+            var clone = (GameObject)Instantiate(ability, new Vector3(character.transform.position.x, character.transform.position.y - 0.6f, 0), Quaternion.identity);
+            /*ParticleSystem ps = clone.GetComponent<ParticleSystem>();
+            Debug.Log("Particle System data");
+            Debug.Log("" + ps.emissionRate);
+            Debug.Log("" + ps.rotationOverLifetime);
+            Debug.Log(ps.startSpeed);
+            Debug.Log(ps.startRotation);*/
+            clone.GetComponent<RunFire>().SetTargetWithCallback(character, damage, callback);
+        });
+    }
+
+    public void BashEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Bash");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunBash>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void BranchEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("TreeBranch");
+        //var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(Vector3.zero));
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(new Vector3(0, 0, -45)));
+        clone.GetComponent<RunBash>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void MPSlowEntity(GameObject target, float duration, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("MPSlow");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(new Vector3(0, 0, -45)));
+        clone.GetComponent<RunMPSlow>().SetTargetWithCallback(target, duration, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if(BattleManager.manager.CheckIfEntityIsDead(gameObject))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -24,9 +24,9 @@ public class BattleManager : MonoBehaviour
     public bool gameOver;
 
     public int liquidCost = 70;
-    public int solidCost = 100;
-    public int gasCost = 130;
-    public int plasmaCost = 160;
+    public int solidCost = 110;
+    public int gasCost = 150;
+    public int plasmaCost = 190;
 
     private BattleStats LorbertStats;
     private BattleStats ArtroStats;
@@ -384,7 +384,7 @@ public class BattleManager : MonoBehaviour
     {
         BattleStats healerStats = GetStatsForEntity(healer);
 
-        int baseHealingPower = healerStats.aura * 4;
+        int baseHealingPower = healerStats.aura * 3;
         int healing = Randomness.GetIntBetween(baseHealingPower * 3 / 4, baseHealingPower + (baseHealingPower * 1 / 3));
 
         healerStats.currentMP -= liquidCost;
@@ -397,7 +397,7 @@ public class BattleManager : MonoBehaviour
         BattleStats attackerStats = GetStatsForEntity(attacker);
         BattleStats defenderStats = GetStatsForEntity(target);
 
-        int damage = 100 + attackerStats.wisdom + Randomness.GetIntBetween(0, attackerStats.wisdom) + Randomness.GetIntBetween(0, attackerStats.luck);
+        int damage = (attackerStats.wisdom * 3) + Randomness.GetIntBetween(0, attackerStats.wisdom) + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
 
         attackerStats.currentMP -= liquidCost;
@@ -414,6 +414,19 @@ public class BattleManager : MonoBehaviour
         casterStats.currentMP -= solidCost;
 
         return duration;
+    }
+
+    public int EntityUsesSolidToAttackEntity(GameObject attacker, GameObject target)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(target);
+
+        int damage = (attackerStats.wisdom * 3) + Randomness.GetIntBetween(attackerStats.wisdom - 30, attackerStats.wisdom + 20) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.vitality + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        attackerStats.currentMP -= solidCost;
+
+        return damage;
     }
 
     public int EntityStaminaAttacksEntity(GameObject attacker, GameObject defender)
@@ -508,6 +521,77 @@ public class BattleManager : MonoBehaviour
         return duration;
     }
 
+    public float EntityMPSlowsEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int intDuration = attackerStats.aura + Randomness.GetIntBetween(0, attackerStats.luck) - (defenderStats.aura / 2);
+        float duration = (float)intDuration / 10.0f;
+
+        if(duration > 0)
+        {
+            defenderStats.isSlowedMP = true;
+        }
+
+        return duration;
+    }
+
+    public float EntityUsesPollenOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int intDuration = attackerStats.wisdom + attackerStats.perception + Randomness.GetIntBetween(0, attackerStats.luck) -
+            ((defenderStats.perception + defenderStats.aura) / 2 + Randomness.GetIntBetween(0, defenderStats.luck));
+        float duration = (float)intDuration / 8.0f;
+        if(duration > 0)
+        {
+            defenderStats.isBlinded = true;
+        }
+
+        return duration;
+    }
+
+    public int EntityUsesFireOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.wisdom + Randomness.GetIntBetween(0, attackerStats.luck) -
+            (defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck)) / 2;
+        return damage;
+    }
+
+    public int EntityBashesEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int baseAttackPower = attackerStats.strength + (attackerStats.perception / 2);
+        int attackAttempts = attackerStats.agility / 20;
+
+        int defensePower = (defenderStats.vitality + ((defenderStats.agility + defenderStats.dexterity) / 2)) / 2;
+
+        int damage = 0;
+
+        for (var i = 0; i < attackAttempts; i++)
+        {
+            int attemptDamage = baseAttackPower - defensePower + Randomness.GetIntBetween(0, (attackerStats.luck / 5));
+            damage += attemptDamage;
+        }
+
+        damage = Randomness.GetIntBetween(damage * 4 / 5, (damage + (damage / 3)));
+
+        damage = damage * 125 / 100;
+
+        //damage = ApplyStamina(attackerStats, damage);
+
+        //attackerStats.Attack();
+
+        return damage;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)
@@ -546,6 +630,7 @@ public class BattleStats
     public bool isInCountdown;
     public bool isSlowedStamina;
     public bool isSlowedMP;
+    public bool isBlinded;
 
     public void Attack()
     {
