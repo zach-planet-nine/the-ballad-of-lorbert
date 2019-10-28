@@ -468,7 +468,7 @@ public class BattleManager : MonoBehaviour
         int damage = (attackerStats.wisdom * 3) + Randomness.GetIntBetween(attackerStats.wisdom - 10, attackerStats.wisdom + 40) + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
 
-        damage = damage / 10 + Randomness.GetIntBetween(0, 5);
+        damage = damage / 8 + Randomness.GetIntBetween(5, 15);
 
         return damage;
     }
