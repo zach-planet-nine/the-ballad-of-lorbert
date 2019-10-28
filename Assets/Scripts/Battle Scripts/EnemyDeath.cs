@@ -31,4 +31,10 @@ public class EnemyDeath : MonoBehaviour
         isDead = true;
         gameObject.SetActive(false);
     }
+
+    public void Revive()
+    {
+        isDead = false;
+        gameObject.SetActive(true);
+    }
 }

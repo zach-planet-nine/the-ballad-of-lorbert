@@ -48,6 +48,10 @@ public class Solid : MonoBehaviour
         }
         else
         {
+            var col = SolidObject.GetComponent<SpriteRenderer>().material.color;
+            col.a = 1.0f;
+            SolidObject.GetComponent<SpriteRenderer>().material.color = col;
+            SolidObject.GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
             SolidObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }

@@ -104,7 +104,8 @@ public class BattleManager : MonoBehaviour
 
         //solidLearned = CharacterStats.characterStats.partyData.haveLearnedSolid;
         solidLearned = true;
-        gasLearned = CharacterStats.characterStats.partyData.haveLeanedGas;
+        //gasLearned = CharacterStats.characterStats.partyData.haveLeanedGas;
+        gasLearned = true;
         plasmaLearned = CharacterStats.characterStats.partyData.haveLearnedPlasma;
     }
 
@@ -275,6 +276,29 @@ public class BattleManager : MonoBehaviour
         return false;
     }
 
+    public List<GameObject> GetDeadEnemies()
+    {
+        List<GameObject> deadEnemies = new List<GameObject>();
+        if(Enemy1 != null && CheckIfEntityIsDead(Enemy1))
+        {
+            deadEnemies.Add(Enemy1);
+        }
+        if (Enemy2 != null && CheckIfEntityIsDead(Enemy2))
+        {
+            deadEnemies.Add(Enemy2);
+        }
+        if (Enemy3 != null && CheckIfEntityIsDead(Enemy3))
+        {
+            deadEnemies.Add(Enemy3);
+        }
+        if (Enemy4 != null && CheckIfEntityIsDead(Enemy4))
+        {
+            deadEnemies.Add(Enemy4);
+        }
+
+        return deadEnemies;
+    }
+
     private bool CheckIfGameOver()
     {
         return Lorbert.GetComponent<CharacterDeath>().isDead &&
@@ -291,6 +315,8 @@ public class BattleManager : MonoBehaviour
         }
         BattleStats stats = GetStatsForEntity(entity);
         stats.currentHP -= damage;
+
+       
         if(stats.currentHP <= 0)
         {
             Debug.Log("Handle dying here");
@@ -425,6 +451,24 @@ public class BattleManager : MonoBehaviour
         damage -= defenderStats.vitality + Randomness.GetIntBetween(0, defenderStats.luck);
 
         attackerStats.currentMP -= solidCost;
+
+        return damage;
+    }
+
+    public void EntityUsesGasOnEntity(GameObject caster)
+    {
+        GetStatsForEntity(caster).currentMP -= gasCost;
+    }
+
+    public int GasEmitterExplodesOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = (attackerStats.wisdom * 3) + Randomness.GetIntBetween(attackerStats.wisdom - 10, attackerStats.wisdom + 40) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        damage = damage / 10 + Randomness.GetIntBetween(0, 5);
 
         return damage;
     }
@@ -592,6 +636,34 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public float EntityUsesStopOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int intDuration =  (attackerStats.wisdom * 2) + Randomness.GetIntBetween(0, attackerStats.luck / 8) -
+            ((defenderStats.aura + defenderStats.dexterity) / 2 + Randomness.GetIntBetween(0, defenderStats.luck / 10));
+        float duration = (float)intDuration / 8.0f;
+        if(duration > 0)
+        {
+            defenderStats.isStopped = true;
+        }
+        if(duration > 8.0f)
+        {
+            duration = 8.0f;
+        }
+        return duration;
+    }
+
+    public int EntityIgnoreDefenseWithMagicAttack(GameObject attacker)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+
+        int damage = attackerStats.wisdom + (attackerStats.perception / 2);
+
+        return damage;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)
@@ -631,6 +703,9 @@ public class BattleStats
     public bool isSlowedStamina;
     public bool isSlowedMP;
     public bool isBlinded;
+    public bool isStopped;
+
+    public GameObject GasEmitter;
 
     public void Attack()
     {

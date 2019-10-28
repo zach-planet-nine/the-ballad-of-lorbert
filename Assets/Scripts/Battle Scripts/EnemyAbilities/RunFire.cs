@@ -27,6 +27,10 @@ public class RunFire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Target == null)
+        {
+            return;
+        }
         if(BattleManager.manager.CheckIfEntityIsDead(Target) && gameObject != null)
         {
             if(callback != null)

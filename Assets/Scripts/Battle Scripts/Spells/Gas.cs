@@ -21,6 +21,14 @@ public class Gas : MonoBehaviour
         GasObject.SetActive(false);
     }
 
+    public void AttackEntity(GameObject target)
+    {
+        Debug.Log("Running attack in Gas");
+        var clone = (GameObject)Instantiate(AttackObject, target.transform.position, Quaternion.Euler(Vector3.zero));
+        BattleManager.manager.GetStatsForEntity(target).GasEmitter = clone;
+        clone.GetComponent<RunGasAttack>().SetTarget(gameObject, target);
+    }
+
     private void Update()
     {
         int currentMP = BattleManager.manager.GetStatsForEntity(gameObject).currentMP;
@@ -35,6 +43,10 @@ public class Gas : MonoBehaviour
         }
         else
         {
+            var col = GasObject.GetComponent<SpriteRenderer>().material.color;
+            col.a = 1.0f;
+            GasObject.GetComponent<SpriteRenderer>().material.color = col;
+            GasObject.GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
             GasObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }

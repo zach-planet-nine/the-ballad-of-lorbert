@@ -35,6 +35,10 @@ public class Plasma : MonoBehaviour
         }
         else
         {
+            var col = PlasmaObject.GetComponent<SpriteRenderer>().material.color;
+            col.a = 1.0f;
+            PlasmaObject.GetComponent<SpriteRenderer>().material.color = col;
+            PlasmaObject.GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
             PlasmaObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }

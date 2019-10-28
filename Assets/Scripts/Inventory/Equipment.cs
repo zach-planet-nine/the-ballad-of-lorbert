@@ -128,12 +128,12 @@ public class Equipment
         switch(substring)
         {
             case "01": return EquipmentLevels.Common;
-            case "02": return EquipmentLevels.Nine;
-            case "03": return EquipmentLevels.Uncommon;
-            case "04": return EquipmentLevels.Rare;
-            case "05": return EquipmentLevels.Epic;
-            case "06": return EquipmentLevels.Legendary;
-            case "07": return EquipmentLevels.Mythical;
+            case "09": return EquipmentLevels.Nine;
+            case "02": return EquipmentLevels.Uncommon;
+            case "03": return EquipmentLevels.Rare;
+            case "04": return EquipmentLevels.Epic;
+            case "05": return EquipmentLevels.Legendary;
+            case "06": return EquipmentLevels.Mythical;
         }
         return EquipmentLevels.Common;
     }

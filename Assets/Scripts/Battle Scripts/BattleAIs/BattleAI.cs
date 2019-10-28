@@ -49,6 +49,51 @@ public class BattleAI
         return target;
     }
 
+    public GameObject GetEntityWithLeastHP(List<GameObject> entities)
+    {
+        int minHP = 0;
+        GameObject target = entities[0];
+        entities.ForEach(entity =>
+        {
+            BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+            if (stats.currentHP < minHP)
+            {
+                target = entity;
+                minHP = stats.currentHP;
+            }
+        });
+        return target;
+    }
+
+    public GameObject GetEntityWithHPBelowThreshold(List<GameObject> entities, float threshold)
+    {
+        GameObject entityWithLowestHP = GetEntityWithLeastHP(entities);
+        BattleStats stats = BattleManager.manager.GetStatsForEntity(entityWithLowestHP);
+        if(stats.currentHP / stats.maxHP < threshold)
+        {
+            return entityWithLowestHP;
+        } else
+        {
+            return null;
+        }
+    }
+
+    public GameObject GetEntityWithMostStamina(List<GameObject> entities)
+    {
+        int maxStamina = 0;
+        GameObject target = entities[0];
+        entities.ForEach(entity =>
+        {
+            BattleStats stats = BattleManager.manager.GetStatsForEntity(entity);
+            if (stats.currentStamina > maxStamina)
+            {
+                maxStamina = stats.currentStamina;
+                target = entity;
+            }
+        });
+        return target;
+    }
+
     public GameObject GetEntityWithLeastStamina(List<GameObject> entities)
     {
         int minStamina = 1000;

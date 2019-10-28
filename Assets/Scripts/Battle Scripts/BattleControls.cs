@@ -46,7 +46,7 @@ public class BattleControls : MonoBehaviour
     private void HandleTap(RaycastHit2D hitInfo)
     {
         string hitName = hitInfo.transform.gameObject.name;
-        if (hitName == "LorbertRest")
+        if (hitName == "LorbertRest" && !BattleManager.manager.GetStatsForEntity(LorbertRest).isStopped)
         {
             LorbertRest.SetActive(false);
             LorbertActive.SetActive(true);
@@ -56,7 +56,7 @@ public class BattleControls : MonoBehaviour
             IOActive.SetActive(false);
             AlienWithPriority = LorbertActive;
         }
-        else if (hitName == "ArtroRest")
+        else if (hitName == "ArtroRest" && !BattleManager.manager.GetStatsForEntity(ArtroRest).isStopped)
         {
             LorbertRest.SetActive(true);
             LorbertActive.SetActive(false);
@@ -66,7 +66,7 @@ public class BattleControls : MonoBehaviour
             IOActive.SetActive(false);
             AlienWithPriority = ArtroActive;
         }
-        else if (hitName == "IORest")
+        else if (hitName == "IORest" && !BattleManager.manager.GetStatsForEntity(IORest).isStopped)
         {
             LorbertRest.SetActive(true);
             LorbertActive.SetActive(false);
@@ -76,25 +76,25 @@ public class BattleControls : MonoBehaviour
             IOActive.SetActive(true);
             AlienWithPriority = IOActive;
         }
-        else if (hitName == Enemy1Rest.name || hitName == Enemy1Active.name)
+        else if ((hitName == Enemy1Rest.name || hitName == Enemy1Active.name) && !BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy1Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy1Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
             Enemy1Rest.GetComponent<EnemyAI>().Attacked(AlienWithPriority);
         }
-        else if (Enemy2Rest != null && (hitName == Enemy2Rest.name || hitName == Enemy2Active.name))
+        else if (Enemy2Rest != null && (hitName == Enemy2Rest.name || hitName == Enemy2Active.name) && !BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy2Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy2Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
             Enemy2Rest.GetComponent<EnemyAI>().Attacked(AlienWithPriority);
         }
-        else if (Enemy3Rest != null && (hitName == Enemy3Rest.name || hitName == Enemy3Active.name))
+        else if (Enemy3Rest != null && (hitName == Enemy3Rest.name || hitName == Enemy3Active.name) && !BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy3Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy3Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
             Enemy3Rest.GetComponent<EnemyAI>().Attacked(AlienWithPriority);
         }
-        else if (Enemy4Rest != null && (hitName == Enemy4Rest.name || hitName == Enemy4Active.name))
+        else if (Enemy4Rest != null && (hitName == Enemy4Rest.name || hitName == Enemy4Active.name) && !BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)
         {
             int damage = battleManager.GetComponent<BattleManager>().EntityAttacksEntity(AlienWithPriority, Enemy4Rest);
             AlienWithPriority.GetComponent<Attack>().AttackEntity(Enemy4Rest, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
@@ -132,7 +132,7 @@ public class BattleControls : MonoBehaviour
         SpellBeingDragged.transform.position = spellStartingPosition;
         CircleCollider2D spellCollider = SpellBeingDragged.GetComponent<CircleCollider2D>();
         Collider2D[] overlap = Physics2D.OverlapAreaAll(spellCollider.bounds.min, spellCollider.bounds.max);
-        if (overlap.Length == 2)
+        if (overlap.Length == 2 && !BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)
         {
             Debug.Log(overlap.Length);
             Debug.Log(overlap[0].gameObject == SpellBeingDragged);
@@ -156,6 +156,13 @@ public class BattleControls : MonoBehaviour
                     case "IOSolid":
                         int solidDamage = BattleManager.manager.EntityUsesSolidToAttackEntity(AlienWithPriority, target);
                         AlienWithPriority.GetComponent<Solid>().AttackEntity(target, solidDamage);
+                        break;
+                    case "LorbertGas":
+                    case "ArtroGas":
+                    case "IOGas":
+                        Debug.Log("Should attack entity with gas");
+                        BattleManager.manager.EntityUsesGasOnEntity(AlienWithPriority);
+                        AlienWithPriority.GetComponent<Gas>().AttackEntity(target);
                         break;
                 }
             }
@@ -198,7 +205,7 @@ public class BattleControls : MonoBehaviour
     {
         lastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hitInfo)
+        if (hitInfo && !BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)
         {
             Debug.Log(hitInfo.transform.gameObject.name);
             switch (hitInfo.transform.gameObject.name)
@@ -230,6 +237,10 @@ public class BattleControls : MonoBehaviour
 
     void DragSpell()
     {
+        if(BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)
+        {
+            SpellIsDropped();
+        }
         Vector2 currentPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 delta = new Vector2(currentPosition.x - lastPosition.x, currentPosition.y - lastPosition.y);
         SpellBeingDragged.transform.position = new Vector3(SpellBeingDragged.transform.position.x + delta.x, SpellBeingDragged.transform.position.y + delta.y, SpellBeingDragged.transform.position.z);
@@ -302,6 +313,7 @@ public class BattleControls : MonoBehaviour
     {
         if(battleManager.GetComponent<BattleManager>().gameOver)
         {
+            StoryManager.manager.GameOver();
             SceneManager.LoadScene("GameOverScene");
             return;
         }

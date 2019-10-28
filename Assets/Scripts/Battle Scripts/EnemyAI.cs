@@ -20,7 +20,10 @@ public enum EnemyActions
     Fire,
     Bash,
     Branch,
-    MPSlow
+    MPSlow,
+    Tangle,
+    Needle,
+    CarnifloraRevive
 }
 
 public class EnemyAI : MonoBehaviour
@@ -91,6 +94,15 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("WizenTree"))
         {
             ai = new WizenTreeAI();
+        } else if(gameObject.name.Contains("TangleWeed"))
+        {
+            ai = new TangleWeedAI();
+        } else if(gameObject.name.Contains("Fireling"))
+        {
+            ai = new FirelingAI();
+        } else if(gameObject.name.Contains("Carniflora"))
+        {
+            ai = new CarnifloraAI();
         }
         else
         {
@@ -192,6 +204,23 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 float slowDuration = BattleManager.manager.EntityMPSlowsEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().MPSlowEntity(actionAndTarget.target, slowDuration, callback);
+                break;
+            case EnemyActions.Tangle:
+                Debug.Log("Should Tangle here");
+                activeSelf.SetActive(true);
+                float tangleDuration = BattleManager.manager.EntityUsesStopOnEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().TangleEntity(actionAndTarget.target, tangleDuration, callback);
+                break;
+            case EnemyActions.Needle:
+                Debug.Log("Should Needle here");
+                activeSelf.SetActive(true);
+                int needleDamage = BattleManager.manager.EntityIgnoreDefenseWithMagicAttack(activeSelf);
+                activeSelf.GetComponent<EnemyAbilities>().NeedleEntity(actionAndTarget.target, needleDamage, callback);
+                break;
+            case EnemyActions.CarnifloraRevive:
+                Debug.Log("Should revive here");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().ReviveAllies(callback);
                 break;
         }
     }

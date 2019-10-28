@@ -46,10 +46,17 @@ public class RunScythe : MonoBehaviour
             if (scytheDuration <= 0)
             {
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-                BattleManager.manager.GetStatsForEntity(Target).isInCountdown = true;
-                Vector3 countdownPosition = new Vector3(Target.transform.position.x - 0.4f, Target.transform.position.y + 0.5f, 0);
-                Count = (GameObject)Instantiate(CountDown, countdownPosition, Quaternion.Euler(Vector3.zero));
-                Count.GetComponent<DisplayCountdown>().DisplayCountdownOfValue(10);
+                int coinToss = Randomness.GetIntBetween(0, 2);
+                if(coinToss == 0)
+                {
+                    BattleManager.manager.GetStatsForEntity(Target).isInCountdown = true;
+                    Vector3 countdownPosition = new Vector3(Target.transform.position.x - 0.4f, Target.transform.position.y + 0.5f, 0);
+                    Count = (GameObject)Instantiate(CountDown, countdownPosition, Quaternion.Euler(Vector3.zero));
+                    Count.GetComponent<DisplayCountdown>().DisplayCountdownOfValue(20);
+                } else
+                {
+                    Target.GetComponent<TakeDamage>().DisplayDamage(0, Target.transform.position);
+                }
             }
         }
         else if (gameObject != null)

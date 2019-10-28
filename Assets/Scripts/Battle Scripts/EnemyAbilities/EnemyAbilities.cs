@@ -105,17 +105,11 @@ public class EnemyAbilities : MonoBehaviour
     public void UseFire(List<GameObject> characters, Action<bool> callback)
     {
         GameObject ability = GetGameObjectForAbilityNamed("FireEmitterObject");
+        Debug.Log("Characters count: " + characters.Count);
         characters.ForEach(character =>
         {
             int damage = BattleManager.manager.EntityUsesFireOnEntity(gameObject, character);
-            //var clone = (GameObject)Instantiate(ability, new Vector3(character.transform.position.x, character.transform.position.y - 0.6f, 0), Quaternion.Euler(Vector3.zero));
             var clone = (GameObject)Instantiate(ability, new Vector3(character.transform.position.x, character.transform.position.y - 0.6f, 0), Quaternion.identity);
-            /*ParticleSystem ps = clone.GetComponent<ParticleSystem>();
-            Debug.Log("Particle System data");
-            Debug.Log("" + ps.emissionRate);
-            Debug.Log("" + ps.rotationOverLifetime);
-            Debug.Log(ps.startSpeed);
-            Debug.Log(ps.startRotation);*/
             clone.GetComponent<RunFire>().SetTargetWithCallback(character, damage, callback);
         });
     }
@@ -140,6 +134,34 @@ public class EnemyAbilities : MonoBehaviour
         GameObject ability = GetGameObjectForAbilityNamed("MPSlow");
         var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(new Vector3(0, 0, -45)));
         clone.GetComponent<RunMPSlow>().SetTargetWithCallback(target, duration, callback);
+    }
+
+    public void TangleEntity(GameObject target, float duration, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("TangleEmitter");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunTangle>().SetTargetWithCallback(target, duration, callback);
+    }
+
+    public void NeedleEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("NeedleEmitter");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunNeedles>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void ReviveAllies(Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("HealingParticles");
+        List<GameObject> deadEnemies = BattleManager.manager.GetDeadEnemies();
+        deadEnemies.ForEach(enemy =>
+        {
+            enemy.GetComponent<EnemyDeath>().Revive();
+            Debug.Log("Reviving: " + enemy);
+            var clone = (GameObject)Instantiate(ability, enemy.transform.position, Quaternion.Euler(Vector3.zero));
+            int healAmount = BattleManager.manager.GetStatsForEntity(enemy).maxHP;
+            clone.GetComponent<RunHealing>().SetTargetWithCallback(enemy, healAmount, callback);
+        });
     }
 
     // Update is called once per frame

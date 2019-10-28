@@ -10,10 +10,27 @@ public class ReaperAI : BattleAI
         return characters[Randomness.GetIntBetween(0, characters.Count)];
     }
 
+    private bool characterIsInCountdown(List<GameObject> characters)
+    {
+        bool isInCountdown = false;
+        characters.ForEach(character =>
+        {
+            if(BattleManager.manager.GetStatsForEntity(character).isInCountdown)
+            {
+                isInCountdown = true;
+            }
+        });
+        return true;
+    }
+
     private GameObject GetTargetForScythe(List<GameObject> characters)
     {
         int maxHP = 0;
         GameObject target = null;
+        if(characterIsInCountdown(characters))
+        {
+            return target;
+        }
         characters.ForEach(character =>
         {
             BattleStats stats = BattleManager.manager.GetStatsForEntity(character);

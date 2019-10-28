@@ -59,6 +59,12 @@ public class StoryManager : MonoBehaviour
         }
     }
 
+    public void GameOver()
+    {
+        storyIndex -= 1;
+        WorldManager.manager.storyIndex = storyIndex;
+    }
+
     private void DisplaySelectionScreen()
     {
         if(GUI.Button(new Rect(200, 300, 400, 200), "Science Lab"))
