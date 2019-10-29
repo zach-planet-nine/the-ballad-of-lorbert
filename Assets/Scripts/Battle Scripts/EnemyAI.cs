@@ -13,6 +13,7 @@ public enum EnemyActions
     Bit,
     BigBullet,
     MachineGun,
+    MachineGunSingle,
     Scythe,
     Healing,
     Hourglass,
@@ -27,7 +28,8 @@ public enum EnemyActions
     Needle,
     CarnifloraRevive,
     SmallBomb,
-    Laser
+    Laser,
+    Grenade
 }
 
 public class EnemyAI : MonoBehaviour
@@ -116,6 +118,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("SpiderBot"))
         {
             ai = new SpiderBotAI();
+        } else if(gameObject.name.Contains("Infantry"))
+        {
+            ai = new InfantryAI();
         }
         else
         {
@@ -171,6 +176,13 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Should shoot machine gun here now");
                 activeSelf.SetActive(true);
                 activeSelf.GetComponent<EnemyAbilities>().AttackWithMachineGun(characters, activeSelf, callback);
+                break;
+            case EnemyActions.MachineGunSingle:
+                Debug.Log("Should shoot machine gun here now");
+                activeSelf.SetActive(true);
+                List<GameObject> mgCharacters = new List<GameObject>();
+                mgCharacters.Add(actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().AttackWithMachineGun(mgCharacters, activeSelf, callback);
                 break;
             case EnemyActions.Scythe:
                 Debug.Log("Should Scythe here");
@@ -255,6 +267,11 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int laserDamage = BattleManager.manager.EntityLasersEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().LaserEntity(actionAndTarget.target, laserDamage, callback);
+                break;
+            case EnemyActions.Grenade:
+                Debug.Log("Should grenade here");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().GrenadeEntities(characters, callback);
                 break;
         }
     }

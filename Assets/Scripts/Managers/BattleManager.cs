@@ -729,6 +729,14 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int GrenadeHitsEntity(GameObject defender)
+    {
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = 250 - (defenderStats.agility + defenderStats.dexterity + defenderStats.vitality + Randomness.GetIntBetween(0, defenderStats.luck));
+        return damage;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)

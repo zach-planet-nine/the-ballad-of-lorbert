@@ -201,6 +201,13 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunLaser>().SetTargetWithCallback(target, damage, callback);
     }
 
+    public void GrenadeEntities(List<GameObject> characters, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Grenade");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunGrenade>().SetTargetsWithCallback(characters, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

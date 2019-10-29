@@ -11,7 +11,7 @@ public class RunMachineGun : MonoBehaviour
 
     private float targetTimer;
     private float machineGunDuration = 1.2f;
-    private float targetDuration;
+    private float targetDuration = 0.4f;
     private int targetsHit;
     private float damageTimer;
     private float damageThreshold = 0.045f;
@@ -33,7 +33,7 @@ public class RunMachineGun : MonoBehaviour
         targets = characters;
         this.attacker = attacker;
         this.callback = callback;
-        targetDuration = machineGunDuration / (float)characters.Count;
+        machineGunDuration = targetDuration * characters.Count;
         currentTargetPosition = characters[0].transform.position;
         Debug.Log("Targets count is: " + targets.Count);
     }
