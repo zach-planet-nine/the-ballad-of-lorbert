@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class RunLaser : MonoBehaviour
     private int targetDamage;
     private float beamTimer;
     private float beamDuration = 0.5f;
+    private Action<bool> callback;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,14 @@ public class RunLaser : MonoBehaviour
         line = gameObject.GetComponent<LineRenderer>();
         line.enabled = false;
         //line.enabled = true;
-        
+
+    }
+
+    public void SetTargetWithCallback(GameObject target, int damage, Action<bool> callback)
+    {
+        FireLaserAt(target, damage);
+        this.callback = callback;
+        beamDuration = 0.3f;
     }
 
     public void FireLaserAt(GameObject target, int damage)
@@ -50,6 +59,16 @@ public class RunLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(BattleManager.manager.CheckIfEntityIsDead(target) && gameObject != null)
+        {
+            StopAllCoroutines();
+            if(callback != null)
+            {
+                callback(false);
+            }
+            Destroy(gameObject);
+            return;
+        }
         if(shouldFireBeam)
         {
             beamTimer += Time.deltaTime;

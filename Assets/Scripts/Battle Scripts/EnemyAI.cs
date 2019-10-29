@@ -26,7 +26,8 @@ public enum EnemyActions
     Tangle,
     Needle,
     CarnifloraRevive,
-    SmallBomb
+    SmallBomb,
+    Laser
 }
 
 public class EnemyAI : MonoBehaviour
@@ -112,6 +113,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("Magimech"))
         {
             ai = new MagimechAI();
+        } else if(gameObject.name.Contains("SpiderBot"))
+        {
+            ai = new SpiderBotAI();
         }
         else
         {
@@ -245,6 +249,12 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int smallBombDamage = BattleManager.manager.EntitySmallBombsEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().SmallBombEntity(actionAndTarget.target, smallBombDamage, callback);
+                break;
+            case EnemyActions.Laser:
+                Debug.Log("Should laser here");
+                activeSelf.SetActive(true);
+                int laserDamage = BattleManager.manager.EntityLasersEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().LaserEntity(actionAndTarget.target, laserDamage, callback);
                 break;
         }
     }

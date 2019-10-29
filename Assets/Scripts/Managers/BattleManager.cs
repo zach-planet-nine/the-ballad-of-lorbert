@@ -718,6 +718,17 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityLasersEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.agility + attackerStats.perception + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.agility + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)
