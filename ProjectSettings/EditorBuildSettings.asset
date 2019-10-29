@@ -59,4 +59,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hangar/HangarScene2.unity
     guid: 8f17f308261414a3ebd7621681c738e0
+  - enabled: 1
+    path: Assets/Scenes/Hangar/HangarScene3.unity
+    guid: 621fd1e7af9a94873a57c2bf1116e3e6
+  - enabled: 1
+    path: Assets/Scenes/Hangar/HangarScene4.unity
+    guid: fff85f6301b444afa924316a1d023e4e
   m_configObjects: {}

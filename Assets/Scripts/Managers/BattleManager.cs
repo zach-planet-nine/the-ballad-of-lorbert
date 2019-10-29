@@ -102,6 +102,7 @@ public class BattleManager : MonoBehaviour
         magicBarStyle = new GUIStyle();
         magicBarStyle.normal.background = magicBar;
 
+
         //solidLearned = CharacterStats.characterStats.partyData.haveLearnedSolid;
         solidLearned = true;
         //gasLearned = CharacterStats.characterStats.partyData.haveLeanedGas;
@@ -480,7 +481,7 @@ public class BattleManager : MonoBehaviour
         int damage = (attackerStats.wisdom * 3) + Randomness.GetIntBetween(attackerStats.wisdom - 10, attackerStats.wisdom + 40) + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
 
-        damage = damage / 8 + Randomness.GetIntBetween(5, 15);
+        damage = damage / 12 + Randomness.GetIntBetween(5, 15);
 
         return damage;
     }
