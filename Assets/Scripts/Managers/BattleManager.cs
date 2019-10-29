@@ -619,6 +619,37 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityUsesIceOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.wisdom + Randomness.GetIntBetween(0, attackerStats.luck) -
+            (defenderStats.vitality + Randomness.GetIntBetween(0, defenderStats.luck)) / 2;
+        return damage;
+    }
+
+    public int EntityUsesBoltOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int hits = 0;
+        int attempts = attackerStats.wisdom / 10;
+        for(int i = 0; i < attempts; i++)
+        {
+            if(Randomness.GetIntBetween(0, 100) < attackerStats.luck)
+            {
+                hits += 1;
+            }
+        }
+
+        int damage = 15 + attackerStats.wisdom + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= (defenderStats.aura + defenderStats.dexterity) / 2 + (Randomness.GetIntBetween(0, defenderStats.luck) - 20);
+        damage = damage * hits;
+        return damage;
+    }
+
     public int EntityBashesEntity(GameObject attacker, GameObject defender)
     {
         BattleStats attackerStats = GetStatsForEntity(attacker);

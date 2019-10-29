@@ -18,6 +18,8 @@ public enum EnemyActions
     Hourglass,
     Pollen,
     Fire,
+    Ice,
+    Bolt,
     Bash,
     Branch,
     MPSlow,
@@ -107,6 +109,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("SmallBomber"))
         {
             ai = new SmallBomberAI();
+        } else if(gameObject.name.Contains("Magimech"))
+        {
+            ai = new MagimechAI();
         }
         else
         {
@@ -190,6 +195,15 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Should do fire here");
                 activeSelf.SetActive(true);
                 activeSelf.GetComponent<EnemyAbilities>().UseFire(characters, callback);
+                break;
+            case EnemyActions.Ice:
+                Debug.Log("Should do ice here");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().UseIce(characters, callback);
+                break;
+            case EnemyActions.Bolt:
+                Debug.Log("Should do bolt here");
+                activeSelf.GetComponent<EnemyAbilities>().UseBolt(characters, callback);
                 break;
             case EnemyActions.Bash:
                 Debug.Log("Should bash here");

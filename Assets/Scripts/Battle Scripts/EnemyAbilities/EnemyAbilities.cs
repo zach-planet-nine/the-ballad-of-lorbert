@@ -114,6 +114,28 @@ public class EnemyAbilities : MonoBehaviour
         });
     }
 
+    public void UseIce(List<GameObject> characters, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("IceObject");
+        characters.ForEach(character =>
+        {
+            int damage = BattleManager.manager.EntityUsesIceOnEntity(gameObject, character);
+            var clone = (GameObject)Instantiate(ability, new Vector3(character.transform.position.x, character.transform.position.y - 0.6f, 0), Quaternion.identity);
+            clone.GetComponent<RunIce>().SetTargetWithCallback(character, damage, callback);
+        });
+    }
+
+    public void UseBolt(List<GameObject> characters, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("BoltObject");
+        characters.ForEach(character =>
+        {
+            int damage = BattleManager.manager.EntityUsesBoltOnEntity(gameObject, character);
+            var clone = (GameObject)Instantiate(ability, new Vector3(character.transform.position.x, character.transform.position.y - 0.6f, 0), Quaternion.identity);
+            clone.GetComponent<RunBolt>().SetTargetWithCallback(character, damage, callback);
+        });
+    }
+
     public void BashEntity(GameObject target, int damage, Action<bool> callback)
     {
         GameObject ability = GetGameObjectForAbilityNamed("Bash");

@@ -62,7 +62,9 @@ public class StoryManager : MonoBehaviour
     public void GameOver()
     {
         storyIndex -= 1;
-        WorldManager.manager.storyIndex = storyIndex;
+        CharacterStats.characterStats.partyData.storyIndex = storyIndex;
+        CharacterStats.characterStats.Save(CharacterStats.characterStats.continueFile);
+        //WorldManager.manager.storyIndex = storyIndex;
     }
 
     private void DisplaySelectionScreen()

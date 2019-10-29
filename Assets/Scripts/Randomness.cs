@@ -25,4 +25,33 @@ public class Randomness : MonoBehaviour
         int randValueInt = (int) Mathf.Floor(randValue);
         return startValue + randValueInt;
     }
+
+    public static bool OneOfThree()
+    {
+        int roll = GetIntBetween(0, 3);
+        return roll == 0;
+    }
+
+    public static bool TwoOfThree()
+    {
+        int roll = GetIntBetween(0, 3);
+        return roll != 0;
+    }
+
+    public static bool OneOfFour()
+    {
+        int roll = GetIntBetween(0, 4);
+        return roll == 0;
+    }
+
+    public static bool ThreeOfFour()
+    {
+        int roll = GetIntBetween(0, 4);
+        return roll != 0;
+    }
+
+    public static bool CoinToss()
+    {
+        return GetIntBetween(0, 2) == 0;
+    }
 }
