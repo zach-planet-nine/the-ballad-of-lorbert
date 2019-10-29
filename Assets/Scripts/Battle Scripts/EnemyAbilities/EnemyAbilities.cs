@@ -164,6 +164,14 @@ public class EnemyAbilities : MonoBehaviour
         });
     }
 
+    public void SmallBombEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("SmallBomb");
+        Vector3 startPosition = new Vector3(target.transform.position.x + Randomness.GetValueBetween(-1.8f, -0.8f), target.transform.position.y + 1.5f, 0);
+        var clone = (GameObject)Instantiate(ability, startPosition, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunSmallBomb>().SetTargetWithCallback(target, damage, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

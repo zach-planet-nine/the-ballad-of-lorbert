@@ -23,4 +23,10 @@ public class CharacterDeath : MonoBehaviour
         isDead = true;
         gameObject.transform.RotateAround(gameObject.transform.position, new Vector3(0, 0, 1), 90.0f);
     }
+
+    public void Revive()
+    {
+        isDead = false;
+        gameObject.transform.RotateAround(gameObject.transform.position, new Vector3(0, 0, 1), -90.0f);
+    }
 }

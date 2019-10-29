@@ -21,6 +21,17 @@ public class Gas : MonoBehaviour
         GasObject.SetActive(false);
     }
 
+    public void HealEntity(GameObject target, int healing)
+    {
+        var clone = (GameObject)Instantiate(CharacterObject, target.transform.position, Quaternion.Euler(Vector3.zero));
+        if(BattleManager.manager.GetStatsForEntity(target).currentHP <= 0)
+        {
+            target.GetComponent<CharacterDeath>().Revive();
+        }
+        target.GetComponent<TakeHealing>().DisplayHealing(healing, target.transform.position);
+        //clone.GetComponent<RunGasHealing>().SetTarget(target);
+    }
+
     public void AttackEntity(GameObject target)
     {
         Debug.Log("Running attack in Gas");

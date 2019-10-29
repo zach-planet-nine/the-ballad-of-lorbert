@@ -23,7 +23,8 @@ public enum EnemyActions
     MPSlow,
     Tangle,
     Needle,
-    CarnifloraRevive
+    CarnifloraRevive,
+    SmallBomb
 }
 
 public class EnemyAI : MonoBehaviour
@@ -103,6 +104,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("Carniflora"))
         {
             ai = new CarnifloraAI();
+        } else if(gameObject.name.Contains("SmallBomber"))
+        {
+            ai = new SmallBomberAI();
         }
         else
         {
@@ -221,6 +225,12 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Should revive here");
                 activeSelf.SetActive(true);
                 activeSelf.GetComponent<EnemyAbilities>().ReviveAllies(callback);
+                break;
+            case EnemyActions.SmallBomb:
+                Debug.Log("Should bomb here");
+                activeSelf.SetActive(true);
+                int smallBombDamage = BattleManager.manager.EntitySmallBombsEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().SmallBombEntity(actionAndTarget.target, smallBombDamage, callback);
                 break;
         }
     }

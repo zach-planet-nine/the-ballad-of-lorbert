@@ -185,14 +185,26 @@ public class BattleControls : MonoBehaviour
                     case "LorbertLiquid":
                     case "ArtroLiquid":
                     case "IOLiquid":
-                        int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
-                        AlienWithPriority.GetComponent<Liquid>().HealEntity(target, target.transform.position, healing);
+                        if(!BattleManager.manager.CheckIfEntityIsDead(target))
+                        {
+                            int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
+                            AlienWithPriority.GetComponent<Liquid>().HealEntity(target, target.transform.position, healing);
+                        }
                         break;
                     case "LorbertSolid":
                     case "ArtroSolid":
                     case "IOSolid":
-                        float duration = BattleManager.manager.EntityUsesSolidForWall(AlienWithPriority);
-                        AlienWithPriority.GetComponent<Solid>().UseWall(target, duration);
+                        if(!BattleManager.manager.CheckIfEntityIsDead(target))
+                        {
+                            float duration = BattleManager.manager.EntityUsesSolidForWall(AlienWithPriority);
+                            AlienWithPriority.GetComponent<Solid>().UseWall(target, duration);
+                        }
+                        break;
+                    case "LorbertGas":
+                    case "ArtroGas":
+                    case "IOGas":
+                        int gasHealing = BattleManager.manager.EntityUsesGasToHealEntity(AlienWithPriority, target);
+                        AlienWithPriority.GetComponent<Gas>().HealEntity(target, gasHealing);
                         break;
                 }
                 

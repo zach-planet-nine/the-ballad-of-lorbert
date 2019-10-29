@@ -455,6 +455,18 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityUsesGasToHealEntity(GameObject healer, GameObject healed)
+    {
+        BattleStats healerStats = GetStatsForEntity(healer);
+
+        int baseHealingPower = healerStats.aura * 3 + Randomness.GetIntBetween(0, healerStats.luck);
+        int healing = Randomness.GetIntBetween(baseHealingPower, baseHealingPower + (baseHealingPower * 1 / 2));
+
+        healerStats.currentMP -= gasCost;
+
+        return healing;
+    }
+
     public void EntityUsesGasOnEntity(GameObject caster)
     {
         GetStatsForEntity(caster).currentMP -= gasCost;
@@ -660,6 +672,17 @@ public class BattleManager : MonoBehaviour
         BattleStats attackerStats = GetStatsForEntity(attacker);
 
         int damage = attackerStats.wisdom + (attackerStats.perception / 2);
+
+        return damage;
+    }
+
+    public int EntitySmallBombsEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = (attackerStats.perception + Randomness.GetIntBetween(0, attackerStats.luck)) * 3;
+        damage -= defenderStats.agility + defenderStats.dexterity + Randomness.GetIntBetween(0, defenderStats.luck);
 
         return damage;
     }
