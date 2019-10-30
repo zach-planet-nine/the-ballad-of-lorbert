@@ -30,7 +30,8 @@ public enum EnemyActions
     SmallBomb,
     Laser,
     Grenade,
-    SummonAutoTurret
+    SummonAutoTurret,
+    Trash
 }
 
 public class EnemyAI : MonoBehaviour
@@ -131,6 +132,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("FighterShip"))
         {
             ai = new FighterShipAI();
+        } else if(gameObject.name.Contains("Clunker"))
+        {
+            ai = new ClunkerAI();
         }
         else
         {
@@ -290,6 +294,12 @@ public class EnemyAI : MonoBehaviour
                 List<GameObject> deadEnemies = BattleManager.manager.GetDeadEnemies();
                 Debug.Log(deadEnemies.Count);
                 activeSelf.GetComponent<EnemyAbilities>().SummonAutoTurret(deadEnemies, callback);
+                break;
+            case EnemyActions.Trash:
+                Debug.Log("Should trash here");
+                activeSelf.SetActive(true);
+                int trashDamage = BattleManager.manager.EntityTrashesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().TrashEntity(actionAndTarget.target, trashDamage, callback);
                 break;
         }
     }

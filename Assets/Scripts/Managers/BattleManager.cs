@@ -743,6 +743,17 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityTrashesEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.strength + attackerStats.perception + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= (defenderStats.agility + defenderStats.dexterity) / 2 + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)

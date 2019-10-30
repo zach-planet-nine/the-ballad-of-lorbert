@@ -247,7 +247,8 @@ public class BattleControls : MonoBehaviour
             }
         } else
         {
-            Debug.Log("No hitInfo");
+            
+            Debug.Log(Input.mousePosition + " No hitInfo");
         }
     }
 
