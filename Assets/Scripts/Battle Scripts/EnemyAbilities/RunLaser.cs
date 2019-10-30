@@ -59,7 +59,7 @@ public class RunLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(BattleManager.manager.CheckIfEntityIsDead(target) && gameObject != null)
+        if(target != null && BattleManager.manager.CheckIfEntityIsDead(target) && gameObject != null)
         {
             StopAllCoroutines();
             if(callback != null)

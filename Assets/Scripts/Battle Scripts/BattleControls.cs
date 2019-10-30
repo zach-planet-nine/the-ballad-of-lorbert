@@ -215,6 +215,10 @@ public class BattleControls : MonoBehaviour
 
     void StartDragging()
     {
+        if(AlienWithPriority == null)
+        {
+            return;
+        }
         lastPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hitInfo && !BattleManager.manager.GetStatsForEntity(AlienWithPriority).isStopped)

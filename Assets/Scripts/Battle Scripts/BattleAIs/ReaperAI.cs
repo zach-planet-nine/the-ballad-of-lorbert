@@ -20,7 +20,7 @@ public class ReaperAI : BattleAI
                 isInCountdown = true;
             }
         });
-        return true;
+        return isInCountdown;
     }
 
     private GameObject GetTargetForScythe(List<GameObject> characters)

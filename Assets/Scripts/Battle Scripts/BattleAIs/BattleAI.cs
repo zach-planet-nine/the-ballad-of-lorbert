@@ -142,6 +142,20 @@ public class BattleAI
         return target;
     }
 
+    public GameObject GetEntityWithMPBelowThreshold(List<GameObject> entities, float threshold)
+    {
+        GameObject entityWithLowestMP = GetEntityWithLeastMP(entities);
+        BattleStats stats = BattleManager.manager.GetStatsForEntity(entityWithLowestMP);
+        if (stats.currentMP / stats.maxMP < threshold)
+        {
+            return entityWithLowestMP;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     public GameObject GetEntityWithMost(List<GameObject> entities, Stats stat)
     {
         int maxStat = 0;

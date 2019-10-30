@@ -274,6 +274,11 @@ public class BattleManager : MonoBehaviour
         {
             return true;
         }
+        EnemyDeath ed = entity.GetComponent<EnemyDeath>();
+        if(ed != null && ed.isDead)
+        {
+            return true;
+        }
         return false;
     }
 

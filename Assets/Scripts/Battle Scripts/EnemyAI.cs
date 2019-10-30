@@ -29,7 +29,8 @@ public enum EnemyActions
     CarnifloraRevive,
     SmallBomb,
     Laser,
-    Grenade
+    Grenade,
+    SummonAutoTurret
 }
 
 public class EnemyAI : MonoBehaviour
@@ -121,6 +122,15 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("Infantry"))
         {
             ai = new InfantryAI();
+        } else if(gameObject.name.Contains("DefenseBot"))
+        {
+            ai = new DefenseBotAI();
+        } else if(gameObject.name.Contains("AutoTurret"))
+        {
+            ai = new AutoTurretAI();
+        } else if(gameObject.name.Contains("FighterShip"))
+        {
+            ai = new FighterShipAI();
         }
         else
         {
@@ -136,6 +146,7 @@ public class EnemyAI : MonoBehaviour
 
     public void DecideWhatToDo(List<GameObject> characters, List<GameObject> enemies, Action<bool> callback)
     {
+        Debug.Log(enemies.Count);
         ActionAndTarget actionAndTarget = ai.ChooseActionAndTarget(characters, enemies);
         switch(actionAndTarget.action)
         {
@@ -272,6 +283,13 @@ public class EnemyAI : MonoBehaviour
                 Debug.Log("Should grenade here");
                 activeSelf.SetActive(true);
                 activeSelf.GetComponent<EnemyAbilities>().GrenadeEntities(characters, callback);
+                break;
+            case EnemyActions.SummonAutoTurret:
+                Debug.Log("Should summon auto turret here");
+                activeSelf.SetActive(true);
+                List<GameObject> deadEnemies = BattleManager.manager.GetDeadEnemies();
+                Debug.Log(deadEnemies.Count);
+                activeSelf.GetComponent<EnemyAbilities>().SummonAutoTurret(deadEnemies, callback);
                 break;
         }
     }

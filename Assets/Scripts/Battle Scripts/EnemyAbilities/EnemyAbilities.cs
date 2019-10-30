@@ -62,7 +62,7 @@ public class EnemyAbilities : MonoBehaviour
     public void AttackWithBit(GameObject target, GameObject attacker, Action<bool> callback)
     {
         GameObject ability = GetGameObjectForAbilityNamed("Bit");
-        Vector3 position = new Vector3(-0.39f + Randomness.GetValueBetween(-0.3f, 0.3f), 3.14f + Randomness.GetValueBetween(-0.3f, 0.3f), 0);
+        Vector3 position = new Vector3(-0.39f + Randomness.GetValueBetween(-0.6f, 0.6f), 3.14f + Randomness.GetValueBetween(-0.6f, 0.6f), 0);
         var clone = (GameObject)Instantiate(ability, position, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<RunBit>().SetTargetWithCallback(target, attacker, callback);
     }
@@ -206,6 +206,21 @@ public class EnemyAbilities : MonoBehaviour
         GameObject ability = GetGameObjectForAbilityNamed("Grenade");
         var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<RunGrenade>().SetTargetsWithCallback(characters, callback);
+    }
+
+    public void SummonAutoTurret(List<GameObject> deadEnemies, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("HealingParticles");
+        deadEnemies.ForEach(enemy =>
+        {
+            if (enemy.name.Contains("AutoTurret"))
+            {
+                enemy.GetComponent<EnemyDeath>().Revive();
+                var clone = (GameObject)Instantiate(ability, enemy.transform.position, Quaternion.Euler(Vector3.zero));
+                int healAmount = BattleManager.manager.GetStatsForEntity(enemy).maxHP;
+                clone.GetComponent<RunHealing>().SetTargetWithCallback(enemy, healAmount, callback);
+            }
+        });
     }
 
     // Update is called once per frame

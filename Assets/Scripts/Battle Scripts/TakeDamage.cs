@@ -5,6 +5,7 @@ using UnityEngine;
 public class TakeDamage : MonoBehaviour
 {
     public GameObject DamageText;
+    public bool isDefenseBot;
 
     private int damage;
     private Vector2 startPosition;
@@ -17,6 +18,12 @@ public class TakeDamage : MonoBehaviour
         {
             damage = (int)((float)damage * 0.66f);
         }
+        
+        if (isDefenseBot && damage > 12)
+        {
+            damage = 12;
+        }
+
         Vector3 rightPosition = new Vector3(position.x, position.y, 0);
         var clone = (GameObject)Instantiate(DamageText, rightPosition, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<DisplayDamage>().damageNumber = damage;
