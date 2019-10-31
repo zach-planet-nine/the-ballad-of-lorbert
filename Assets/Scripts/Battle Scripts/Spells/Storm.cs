@@ -57,7 +57,14 @@ public class Storm : MonoBehaviour
 		{
 			damageTimer = 0;
 			damageTimes += 1;
-			Target.GetComponent<TakeDamage>().DisplayDamage(damagePortion, destination);
+            if (damagePortion < 0)
+            {
+                Target.GetComponent<TakeHealing>().DisplayHealing(-damagePortion, destination);
+            }
+            else
+            {
+                Target.GetComponent<TakeDamage>().DisplayDamage(damagePortion, destination);
+            }
 			boltTimer = 0;
 			Bolt.SetActive(true);
 		}

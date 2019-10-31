@@ -434,6 +434,11 @@ public class BattleManager : MonoBehaviour
 
         damage = ApplyDamageModifier(defenderStats.liquidEffect, damage);
 
+        if(damage < 0 && defenderStats.liquidEffect != ElementalEffects.Absorb)
+        {
+            damage = 0;
+        }
+
         attackerStats.currentMP -= liquidCost;
 
         return damage;
@@ -459,6 +464,11 @@ public class BattleManager : MonoBehaviour
         damage -= defenderStats.vitality + Randomness.GetIntBetween(0, defenderStats.luck);
 
         damage = ApplyDamageModifier(defenderStats.solidEffect, damage);
+
+        if(damage < 0 && defenderStats.solidEffect != ElementalEffects.Absorb)
+        {
+            damage = 0;
+        }
 
         attackerStats.currentMP -= solidCost;
 
@@ -493,6 +503,11 @@ public class BattleManager : MonoBehaviour
         damage = damage / 12 + Randomness.GetIntBetween(5, 15);
 
         damage = ApplyDamageModifier(defenderStats.gasEffect, damage);
+
+        if(damage < 0 && defenderStats.gasEffect != ElementalEffects.Absorb)
+        {
+            damage = 0;
+        }
 
         return damage;
     }

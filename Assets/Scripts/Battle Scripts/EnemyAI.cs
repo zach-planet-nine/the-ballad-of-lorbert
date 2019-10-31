@@ -143,6 +143,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("LiquidElemental"))
         {
             ai = new LiquidElementalAI();
+        } else if(gameObject.name.Contains("Commando"))
+        {
+            ai = new CommandoAI();
         }
         else
         {

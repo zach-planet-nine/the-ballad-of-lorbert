@@ -1485,7 +1485,7 @@ GameObject:
   - component: {fileID: 846360733}
   - component: {fileID: 846360732}
   m_Layer: 0
-  m_Name: Commando2
+  m_Name: LiquidFlan2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1662,7 +1662,7 @@ GameObject:
   - component: {fileID: 936577684}
   - component: {fileID: 936577687}
   m_Layer: 0
-  m_Name: Commando2Active
+  m_Name: LiquidFlan2Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1759,10 +1759,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09f7ab9c71f64df48c5da6f910b87e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ability1: {fileID: 2161556522208656703, guid: f0da4fdb0652949008fc6d7882a5b1b9,
+  Ability1: {fileID: 9201546543636089538, guid: a899681b575624c9ab9644cb045e896e,
     type: 3}
-  Ability2: {fileID: 5057919445106537147, guid: f16991080c1aa4fcc8ce5dc7e2344ff0,
-    type: 3}
+  Ability2: {fileID: 0}
   Ability3: {fileID: 0}
   Ability4: {fileID: 0}
 --- !u!1 &963671781
@@ -1962,7 +1961,7 @@ GameObject:
   - component: {fileID: 1062998597}
   - component: {fileID: 1062998598}
   m_Layer: 0
-  m_Name: Commando1
+  m_Name: LiquidFlan1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3381,7 +3380,7 @@ GameObject:
   - component: {fileID: 2038290219}
   - component: {fileID: 2038290222}
   m_Layer: 0
-  m_Name: Commando1Active
+  m_Name: LiquidFlan1Active
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3478,9 +3477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09f7ab9c71f64df48c5da6f910b87e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ability1: {fileID: 2161556522208656703, guid: f0da4fdb0652949008fc6d7882a5b1b9,
+  Ability1: {fileID: 9201546543636089538, guid: a899681b575624c9ab9644cb045e896e,
     type: 3}
-  Ability2: {fileID: 5057919445106537147, guid: f16991080c1aa4fcc8ce5dc7e2344ff0,
-    type: 3}
+  Ability2: {fileID: 0}
   Ability3: {fileID: 0}
   Ability4: {fileID: 0}
