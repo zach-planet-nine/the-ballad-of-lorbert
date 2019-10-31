@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ElementalEffects
+{
+    None,
+    Weak,
+    Strong,
+    Absorb
+}
+
 public class EnemyStats : MonoBehaviour
 {
     public int hp;
@@ -15,6 +23,11 @@ public class EnemyStats : MonoBehaviour
     public int aura;
     public int perception;
     public int luck;
+
+    public ElementalEffects liquidEffect;
+    public ElementalEffects solidEffect;
+    public ElementalEffects gasEffect;
+    public ElementalEffects plasmaEffect;
 
     public BattleStats GetBattleStats()
     {
@@ -30,6 +43,11 @@ public class EnemyStats : MonoBehaviour
         stats.aura = aura;
         stats.perception = perception;
         stats.luck = luck;
+
+        stats.liquidEffect = liquidEffect;
+        stats.solidEffect = solidEffect;
+        stats.gasEffect = gasEffect;
+        stats.plasmaEffect = plasmaEffect;
 
         return stats;
     }

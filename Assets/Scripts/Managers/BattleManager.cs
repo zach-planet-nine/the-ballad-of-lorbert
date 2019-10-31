@@ -412,7 +412,7 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
-    public int EntityUsesWaterToHealEntity(GameObject healer, GameObject healed)
+    public int EntityUsesLiquidToHealEntity(GameObject healer, GameObject healed)
     {
         BattleStats healerStats = GetStatsForEntity(healer);
 
@@ -424,13 +424,15 @@ public class BattleManager : MonoBehaviour
         return healing;
     }
 
-    public int EntityUsesWaterToAttackEntity(GameObject attacker, GameObject target)
+    public int EntityUsesLiquidToAttackEntity(GameObject attacker, GameObject target)
     {
         BattleStats attackerStats = GetStatsForEntity(attacker);
         BattleStats defenderStats = GetStatsForEntity(target);
 
         int damage = (attackerStats.wisdom * 3) + Randomness.GetIntBetween(0, attackerStats.wisdom) + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        damage = ApplyDamageModifier(defenderStats.liquidEffect, damage);
 
         attackerStats.currentMP -= liquidCost;
 
@@ -455,6 +457,8 @@ public class BattleManager : MonoBehaviour
 
         int damage = (attackerStats.wisdom * 3) + Randomness.GetIntBetween(attackerStats.wisdom - 30, attackerStats.wisdom + 20) + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= defenderStats.vitality + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        damage = ApplyDamageModifier(defenderStats.solidEffect, damage);
 
         attackerStats.currentMP -= solidCost;
 
@@ -487,6 +491,8 @@ public class BattleManager : MonoBehaviour
         damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
 
         damage = damage / 12 + Randomness.GetIntBetween(5, 15);
+
+        damage = ApplyDamageModifier(defenderStats.gasEffect, damage);
 
         return damage;
     }
@@ -754,6 +760,17 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityWavesEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = (attackerStats.wisdom + attackerStats.wisdom / 2) + attackerStats.strength + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= (defenderStats.vitality + (defenderStats.agility / 2)) * 3 / 4 + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)
@@ -765,6 +782,25 @@ public class BattleManager : MonoBehaviour
         float modifiedValue = (float)value * (0.25f + modifier);
         int modifiedIntValue = (int)Mathf.Floor(modifiedValue);
         return modifiedIntValue;
+    }
+
+    public int ApplyDamageModifier(ElementalEffects effect, int damage)
+    {
+        switch(effect)
+        {
+            case ElementalEffects.None:
+                break;
+            case ElementalEffects.Weak:
+                damage = damage + (damage / 2);
+                break;
+            case ElementalEffects.Strong:
+                damage = damage / 2;
+                break;
+            case ElementalEffects.Absorb:
+                damage = -damage;
+                break;
+        }
+        return damage;
     }
 }
 
@@ -786,6 +822,11 @@ public class BattleStats
     public int luck;
 
     public int attackStaminaCost;
+
+    public ElementalEffects liquidEffect;
+    public ElementalEffects solidEffect;
+    public ElementalEffects gasEffect;
+    public ElementalEffects plasmaEffect;
 
     public bool isProtectedByWall;
 

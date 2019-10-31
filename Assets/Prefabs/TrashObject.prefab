@@ -803,7 +803,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 45
+      value: 20
       mode: 0
       spread: 0
       speed:
@@ -5558,7 +5558,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 45
+      value: 20
       mode: 0
       spread: 0
       speed:
@@ -10359,7 +10359,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 45
+      value: 20
       mode: 0
       spread: 0
       speed:

@@ -162,13 +162,13 @@ public class TutorialControls : MonoBehaviour
             GameObject target = overlap[0].gameObject == SpellBeingDragged ? overlap[1].gameObject : overlap[0].gameObject;
             if(target == Enemy || target == EnemyActive)
             {
-                int damage = BattleManager.manager.EntityUsesWaterToAttackEntity(AlienWithPriority, target);
+                int damage = BattleManager.manager.EntityUsesLiquidToAttackEntity(AlienWithPriority, target);
                 AlienWithPriority.GetComponent<Liquid>().AttackEntity(target, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
                 Debug.Log("Gonna put the cloud at");
                 Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             } else
             {
-                int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
+                int healing = BattleManager.manager.EntityUsesLiquidToHealEntity(AlienWithPriority, target);
                 AlienWithPriority.GetComponent<Liquid>().HealEntity(target, target.transform.position, healing);
                 tutorialIndex += 1;
             }

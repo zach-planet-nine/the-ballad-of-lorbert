@@ -31,7 +31,9 @@ public enum EnemyActions
     Laser,
     Grenade,
     SummonAutoTurret,
-    Trash
+    Trash,
+    LiquidAttack,
+    Wave
 }
 
 public class EnemyAI : MonoBehaviour
@@ -135,6 +137,12 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("Clunker"))
         {
             ai = new ClunkerAI();
+        } else if(gameObject.name.Contains("LiquidFlan"))
+        {
+            ai = new LiquidFlanAI();
+        } else if(gameObject.name.Contains("LiquidElemental"))
+        {
+            ai = new LiquidElementalAI();
         }
         else
         {
@@ -300,6 +308,18 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int trashDamage = BattleManager.manager.EntityTrashesEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().TrashEntity(actionAndTarget.target, trashDamage, callback);
+                break;
+            case EnemyActions.LiquidAttack:
+                Debug.Log("Should liquid attack here");
+                activeSelf.SetActive(true);
+                int liquidDamage = BattleManager.manager.EntityUsesLiquidToAttackEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().LiquidAttackEntity(actionAndTarget.target, liquidDamage, callback);
+                break;
+            case EnemyActions.Wave:
+                Debug.Log("Should wave here");
+                activeSelf.SetActive(true);
+                int waveDamage = BattleManager.manager.EntityWavesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().WaveEntity(actionAndTarget.target, waveDamage, callback);
                 break;
         }
     }

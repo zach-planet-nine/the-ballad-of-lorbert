@@ -230,6 +230,22 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunTrash>().SetTargetWithCallback(target, damage, callback);
     }
 
+    public void LiquidAttackEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("StormCloud");
+        Vector3 position = new Vector3(target.transform.position.x - 0.5f, target.transform.position.y + 1.2f, 0);
+        var clone = (GameObject)Instantiate(ability, position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<Storm>().SetTargetWithCallback(target, position, damage, callback);
+    }
+
+    public void WaveEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Wave");
+        Vector3 position = new Vector3(gameObject.transform.position.x, target.transform.position.y, 0);
+        var clone = (GameObject)Instantiate(ability, position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunWave>().SetTargetWithCallback(target, damage, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

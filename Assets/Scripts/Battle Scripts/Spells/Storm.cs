@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class Storm : MonoBehaviour
 {
     public GameObject Bolt;
     private GameObject Target;
-    private EnemyDeath TargetEnemyDeath;
+    private Action<bool> callback;
 	Vector3 destination;
     int damagePortion;
     public float duration = 8.0f;
@@ -20,7 +21,20 @@ public class Storm : MonoBehaviour
 		Target = entity;
 		damagePortion = damage / 4;
 		durationThreshold = duration / 2.0f;
-        TargetEnemyDeath = Target.GetComponent<EnemyDeath>();
+    }
+
+    public void SetTargetWithCallback(GameObject entity, Vector3 destination, int damage, Action<bool> callback)
+    {
+        SetTarget(entity, destination, damage);
+        this.callback = callback;
+    }
+
+    private void CheckAndCallCallback(bool result)
+    {
+        if(callback != null)
+        {
+            callback(result);
+        }
     }
 
     // Update is called once per frame
@@ -28,11 +42,13 @@ public class Storm : MonoBehaviour
     {
         if (BattleManager.manager.battleIsOver && gameObject != null)
         {
+            CheckAndCallCallback(false);
             Destroy(gameObject);
             return;
         }
-        if(TargetEnemyDeath.isDead)
+        if(BattleManager.manager.CheckIfEntityIsDead(Target) && gameObject != null)
         {
+            CheckAndCallCallback(false);
             Destroy(gameObject);
             return;
         }
@@ -52,6 +68,7 @@ public class Storm : MonoBehaviour
 		}
         if(damageTimes >= 4 && boltTimer >= 0.15f)
         {
+            CheckAndCallCallback(true);
             Destroy(gameObject);
         }
     }

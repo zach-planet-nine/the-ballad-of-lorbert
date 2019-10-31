@@ -148,7 +148,7 @@ public class BattleControls : MonoBehaviour
                     case "LorbertLiquid":
                     case "ArtroLiquid":
                     case "IOLiquid":
-                        int damage = BattleManager.manager.EntityUsesWaterToAttackEntity(AlienWithPriority, target);
+                        int damage = BattleManager.manager.EntityUsesLiquidToAttackEntity(AlienWithPriority, target);
                         AlienWithPriority.GetComponent<Liquid>().AttackEntity(target, Camera.main.ScreenToWorldPoint(Input.mousePosition), damage);
                         break;
                     case "LorbertSolid":
@@ -187,7 +187,7 @@ public class BattleControls : MonoBehaviour
                     case "IOLiquid":
                         if(!BattleManager.manager.CheckIfEntityIsDead(target))
                         {
-                            int healing = BattleManager.manager.EntityUsesWaterToHealEntity(AlienWithPriority, target);
+                            int healing = BattleManager.manager.EntityUsesLiquidToHealEntity(AlienWithPriority, target);
                             AlienWithPriority.GetComponent<Liquid>().HealEntity(target, target.transform.position, healing);
                         }
                         break;
