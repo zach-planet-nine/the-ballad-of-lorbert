@@ -267,6 +267,13 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public bool CheckIfEntityIsStoppedOrDead(GameObject entity)
+    {
+        BattleStats stats = GetStatsForEntity(entity);
+
+        return stats.isStopped || CheckIfEntityIsDead(entity);
+    }
+
     public bool CheckIfEntityIsDead(GameObject entity)
     {
         BattleStats stats = GetStatsForEntity(entity);
@@ -782,6 +789,17 @@ public class BattleManager : MonoBehaviour
 
         int damage = (attackerStats.wisdom + attackerStats.wisdom / 2) + attackerStats.strength + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= (defenderStats.vitality + (defenderStats.agility / 2)) * 3 / 4 + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
+    public int EntityOrkastBallsEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = ((attackerStats.wisdom + attackerStats.wisdom / 2) + attackerStats.dexterity) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= (defenderStats.aura + (defenderStats.agility / 2)) * 3 / 4 + Randomness.GetIntBetween(0, defenderStats.luck);
 
         return damage;
     }

@@ -33,7 +33,8 @@ public enum EnemyActions
     SummonAutoTurret,
     Trash,
     LiquidAttack,
-    Wave
+    Wave,
+    OrkastBall
 }
 
 public class EnemyAI : MonoBehaviour
@@ -146,6 +147,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("Commando"))
         {
             ai = new CommandoAI();
+        } else if(gameObject.name.Contains("OrkastBallPlayer"))
+        {
+            ai = new OrkastBallPlayerAI();
         }
         else
         {
@@ -323,6 +327,12 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int waveDamage = BattleManager.manager.EntityWavesEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().WaveEntity(actionAndTarget.target, waveDamage, callback);
+                break;
+            case EnemyActions.OrkastBall:
+                Debug.Log("Should OrkastBall here");
+                activeSelf.SetActive(true);
+                int orkastballDamage = BattleManager.manager.EntityOrkastBallsEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().OrkastBallEntity(actionAndTarget.target, orkastballDamage, callback);
                 break;
         }
     }

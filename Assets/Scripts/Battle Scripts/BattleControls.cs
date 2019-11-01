@@ -48,7 +48,7 @@ public class BattleControls : MonoBehaviour
     {
         string hitName = hitInfo.transform.gameObject.name;
         Debug.Log("Hit name is: " + hitName);
-        if (hitName == "LorbertRest" && !BattleManager.manager.GetStatsForEntity(LorbertRest).isStopped)
+        if (hitName == "LorbertRest" && !BattleManager.manager.CheckIfEntityIsStoppedOrDead(LorbertRest))
         {
             LorbertRest.SetActive(false);
             LorbertActive.SetActive(true);
@@ -58,7 +58,7 @@ public class BattleControls : MonoBehaviour
             IOActive.SetActive(false);
             AlienWithPriority = LorbertActive;
         }
-        else if (hitName == "ArtroRest" && !BattleManager.manager.GetStatsForEntity(ArtroRest).isStopped)
+        else if (hitName == "ArtroRest" && !BattleManager.manager.CheckIfEntityIsStoppedOrDead(ArtroRest))
         {
             LorbertRest.SetActive(true);
             LorbertActive.SetActive(false);
@@ -68,7 +68,7 @@ public class BattleControls : MonoBehaviour
             IOActive.SetActive(false);
             AlienWithPriority = ArtroActive;
         }
-        else if (hitName == "IORest" && !BattleManager.manager.GetStatsForEntity(IORest).isStopped)
+        else if (hitName == "IORest" && !BattleManager.manager.CheckIfEntityIsStoppedOrDead(IORest))
         {
             LorbertRest.SetActive(true);
             LorbertActive.SetActive(false);
@@ -347,6 +347,21 @@ public class BattleControls : MonoBehaviour
                 SceneManager.LoadScene("IntroductionScene");
             }
             return;
+        }
+        if(AlienWithPriority != null && BattleManager.manager.CheckIfEntityIsDead(AlienWithPriority))
+        {
+            if(AlienWithPriority == LorbertActive)
+            {
+                LorbertRest.SetActive(true);
+            } else if(AlienWithPriority == ArtroActive)
+            {
+                ArtroRest.SetActive(true);
+            } else
+            {
+                IORest.SetActive(true);
+            }
+            AlienWithPriority.SetActive(false);
+            AlienWithPriority = null;
         }
         if (Input.GetMouseButtonDown(0))
         {
