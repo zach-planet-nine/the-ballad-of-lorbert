@@ -29,8 +29,9 @@ public class Plasma : MonoBehaviour
             float mpPercent = (float)currentMP / (float)BattleManager.manager.plasmaCost;
             var col = PlasmaObject.GetComponent<SpriteRenderer>().material.color;
             col.a = mpPercent - 0.25f;
+            float scalePercent = 3.03f * mpPercent;
             PlasmaObject.GetComponent<SpriteRenderer>().material.color = col;
-            PlasmaObject.GetComponent<Transform>().localScale = new Vector3(mpPercent, mpPercent, 1.0f);
+            PlasmaObject.GetComponent<Transform>().localScale = new Vector3(scalePercent, scalePercent, 1.0f);
             PlasmaObject.GetComponent<CircleCollider2D>().enabled = false;
         }
         else
@@ -38,7 +39,7 @@ public class Plasma : MonoBehaviour
             var col = PlasmaObject.GetComponent<SpriteRenderer>().material.color;
             col.a = 1.0f;
             PlasmaObject.GetComponent<SpriteRenderer>().material.color = col;
-            PlasmaObject.GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            PlasmaObject.GetComponent<Transform>().localScale = new Vector3(3.03f, 3.03f, 3.03f);
             PlasmaObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }

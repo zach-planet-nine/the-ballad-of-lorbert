@@ -40,12 +40,14 @@ public class BattleControls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        IORest.SetActive(false);
+        IORest.SetActive(true);
     }
 
     private void HandleTap(RaycastHit2D hitInfo)
     {
         string hitName = hitInfo.transform.gameObject.name;
+        Debug.Log("Hit name is: " + hitName);
         if (hitName == "LorbertRest" && !BattleManager.manager.GetStatsForEntity(LorbertRest).isStopped)
         {
             LorbertRest.SetActive(false);
@@ -363,10 +365,15 @@ public class BattleControls : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
+
             RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
             if (hitInfo)
             {
                 HandleTap(hitInfo);
+            } else
+            {
+                Debug.Log("No hitinfo on mouseup");
             }
         }
         if (!CheckIfBattleOver())

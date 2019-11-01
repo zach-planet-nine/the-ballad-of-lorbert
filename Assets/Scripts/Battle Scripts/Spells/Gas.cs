@@ -48,8 +48,9 @@ public class Gas : MonoBehaviour
             float mpPercent = (float)currentMP / (float)BattleManager.manager.gasCost;
             var col = GasObject.GetComponent<SpriteRenderer>().material.color;
             col.a = mpPercent - 0.25f;
+            float scalePercent = 3.03f * mpPercent;
             GasObject.GetComponent<SpriteRenderer>().material.color = col;
-            GasObject.GetComponent<Transform>().localScale = new Vector3(mpPercent, mpPercent, 1.0f);
+            GasObject.GetComponent<Transform>().localScale = new Vector3(scalePercent, scalePercent, 1.0f);
             GasObject.GetComponent<CircleCollider2D>().enabled = false;
         }
         else
@@ -57,7 +58,7 @@ public class Gas : MonoBehaviour
             var col = GasObject.GetComponent<SpriteRenderer>().material.color;
             col.a = 1.0f;
             GasObject.GetComponent<SpriteRenderer>().material.color = col;
-            GasObject.GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            GasObject.GetComponent<Transform>().localScale = new Vector3(3.03f, 3.03f, 3.03f);
             GasObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }

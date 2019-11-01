@@ -38,15 +38,16 @@ public class Liquid : MonoBehaviour
             float mpPercent = (float)currentMP / (float)BattleManager.manager.liquidCost;
             var col = LiquidObject.GetComponent<SpriteRenderer>().material.color;
             col.a = mpPercent - 0.25f;
+            float scalePercent = 3.03f * mpPercent;
             LiquidObject.GetComponent<SpriteRenderer>().material.color = col;
-            LiquidObject.GetComponent<Transform>().localScale = new Vector3(mpPercent, mpPercent, 1.0f);
+            LiquidObject.GetComponent<Transform>().localScale = new Vector3(scalePercent, scalePercent, 1.0f);
             LiquidObject.GetComponent<CircleCollider2D>().enabled = false;
         } else
         {
             var col = LiquidObject.GetComponent<SpriteRenderer>().material.color;
             col.a = 1.0f;
             LiquidObject.GetComponent<SpriteRenderer>().material.color = col;
-            LiquidObject.GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            LiquidObject.GetComponent<Transform>().localScale = new Vector3(3.03f, 3.03f, 3.03f);
             LiquidObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }

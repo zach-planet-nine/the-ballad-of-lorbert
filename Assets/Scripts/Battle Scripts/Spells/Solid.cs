@@ -42,8 +42,9 @@ public class Solid : MonoBehaviour
             float mpPercent = (float)currentMP / (float)BattleManager.manager.solidCost;
             var col = SolidObject.GetComponent<SpriteRenderer>().material.color;
             col.a = mpPercent - 0.25f;
+            float scalePercent = 3.03f * mpPercent;
             SolidObject.GetComponent<SpriteRenderer>().material.color = col;
-            SolidObject.GetComponent<Transform>().localScale = new Vector3(mpPercent, mpPercent, 1.0f);
+            SolidObject.GetComponent<Transform>().localScale = new Vector3(scalePercent, scalePercent, 1.0f);
             SolidObject.GetComponent<CircleCollider2D>().enabled = false;
         }
         else
@@ -51,7 +52,7 @@ public class Solid : MonoBehaviour
             var col = SolidObject.GetComponent<SpriteRenderer>().material.color;
             col.a = 1.0f;
             SolidObject.GetComponent<SpriteRenderer>().material.color = col;
-            SolidObject.GetComponent<Transform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            SolidObject.GetComponent<Transform>().localScale = new Vector3(3.03f, 3.03f, 3.03f);
             SolidObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }
