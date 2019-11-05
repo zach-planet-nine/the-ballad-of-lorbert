@@ -261,6 +261,21 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunBash>().SetTargetWithCallback(target, damage, callback);
     }
 
+    public void StalactiteEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Stalactite");
+        Vector3 stalactitePosition = new Vector3(target.transform.position.x, target.transform.position.y + 2.2f, 0);
+        var clone = (GameObject)Instantiate(ability, stalactitePosition, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunStalactite>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void SolidAttackEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Cylinder");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunCylinder>().SetTargetWithCallback(target, damage, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

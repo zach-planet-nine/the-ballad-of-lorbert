@@ -35,7 +35,9 @@ public enum EnemyActions
     LiquidAttack,
     Wave,
     OrkastBall,
-    Baton
+    Baton,
+    Stalactite,
+    SolidAttack
 }
 
 public class EnemyAI : MonoBehaviour
@@ -160,6 +162,12 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObjectName.Contains("Marine"))
         {
             ai = new MarineAI();
+        } else if(gameObjectName.Contains("SolidElemental"))
+        {
+            ai = new SolidElementalAI();
+        } else if(gameObjectName.Contains("SolidFlan"))
+        {
+            ai = new SolidFlanAI();
         }
         else
         {
@@ -349,6 +357,18 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int batonDamage = BattleManager.manager.EntityBashesEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().BatonEntity(actionAndTarget.target, batonDamage, callback);
+                break;
+            case EnemyActions.Stalactite:
+                Debug.Log("Should bomb here");
+                activeSelf.SetActive(true);
+                int stalactiteDamage = BattleManager.manager.EntityStalactitesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().StalactiteEntity(actionAndTarget.target, stalactiteDamage, callback);
+                break;
+            case EnemyActions.SolidAttack:
+                Debug.Log("Should Solid Attack here");
+                activeSelf.SetActive(true);
+                int solidDamage = BattleManager.manager.EntityUsesSolidToAttackEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().SolidAttackEntity(actionAndTarget.target, solidDamage, callback);
                 break;
         }
     }

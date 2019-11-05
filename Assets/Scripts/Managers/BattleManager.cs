@@ -543,7 +543,8 @@ public class BattleManager : MonoBehaviour
         BattleStats attackerStats = GetStatsForEntity(attacker);
         BattleStats defenderStats = GetStatsForEntity(defender);
 
-        int damage = 106 + (attackerStats.wisdom * 3) + ((defenderStats.wisdom - defenderStats.aura) * 3) - (defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck));
+        int damage = 106 + (attackerStats.wisdom * 3) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -=  defenderStats.aura * 3 + Randomness.GetIntBetween(0, defenderStats.luck);
         return damage;
     }
 
@@ -800,6 +801,17 @@ public class BattleManager : MonoBehaviour
 
         int damage = ((attackerStats.wisdom + attackerStats.wisdom / 2) + attackerStats.dexterity) + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= (defenderStats.aura + (defenderStats.agility / 2)) * 3 / 4 + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
+    public int EntityStalactitesEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = (attackerStats.wisdom + attackerStats.wisdom / 2) * 2 + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.vitality + defenderStats.dexterity / 2 + Randomness.GetIntBetween(0, defenderStats.luck);
 
         return damage;
     }
