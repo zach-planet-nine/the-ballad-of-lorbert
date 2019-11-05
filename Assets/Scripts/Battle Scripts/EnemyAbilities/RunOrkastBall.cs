@@ -25,7 +25,7 @@ public class RunOrkastBall : MonoBehaviour
         Target = target;
         damage = orkastDamage;
         this.callback = callback;
-        Ball.GetComponent<Rigidbody2D>().angularVelocity = 450.0f;
+        Ball.GetComponent<Rigidbody2D>().angularVelocity = 1080.0f;
     }
 
     // Update is called once per frame

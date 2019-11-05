@@ -150,6 +150,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObject.name.Contains("OrkastBallPlayer"))
         {
             ai = new OrkastBallPlayerAI();
+        } else if(gameObject.name.Contains("RecycleMonster"))
+        {
+            ai = new RecycleMonsterAI();
         }
         else
         {
