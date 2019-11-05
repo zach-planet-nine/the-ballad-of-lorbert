@@ -34,7 +34,8 @@ public enum EnemyActions
     Trash,
     LiquidAttack,
     Wave,
-    OrkastBall
+    OrkastBall,
+    Baton
 }
 
 public class EnemyAI : MonoBehaviour
@@ -71,88 +72,94 @@ public class EnemyAI : MonoBehaviour
         Debug.Log("threes: " + threes);
         Debug.Log("fours: " + fours);*/
         //I feel that there's a better way to do this, but I can't figure out what it is.
-        if (gameObject.name.Contains("SludgeMonster"))
+
+        string gameObjectName = gameObject.name;
+
+        if (gameObjectName.Contains("SludgeMonster"))
         {
             ai = new SludgeMonsterAI();
         }
-        else if (gameObject.name.Contains("MPStealer"))
+        else if (gameObjectName.Contains("MPStealer"))
         {
             ai = new MPStealerAI();
-        } else if(gameObject.name.Contains("AttackBot"))
+        } else if(gameObjectName.Contains("AttackBot"))
         {
             ai = new AttackBotAI();
-        } else if(gameObject.name.Contains("Tank"))
+        } else if(gameObjectName.Contains("Tank"))
         {
             ai = new TankAI();
-        } else if(gameObject.name.Contains("Reaper"))
+        } else if(gameObjectName.Contains("Reaper"))
         {
             ai = new ReaperAI();
-        } else if(gameObject.name.Contains("MadRobot"))
+        } else if(gameObjectName.Contains("MadRobot"))
         {
             ai = new MadRobotAI();
-        } else if(gameObject.name.Contains("MadScientist"))
+        } else if(gameObjectName.Contains("MadScientist"))
         {
             ai = new MadScientistAI();
-        } else if(gameObject.name.Contains("SlowPlant"))
+        } else if(gameObjectName.Contains("SlowPlant"))
         {
             ai = new SlowPlantAI();
-        } else if(gameObject.name.Contains("Seedling"))
+        } else if(gameObjectName.Contains("Seedling"))
         {
             ai = new SeedlingAI();
-        } else if(gameObject.name.Contains("Oakenemy"))
+        } else if(gameObjectName.Contains("Oakenemy"))
         {
             ai = new OakenemyAI();
-        } else if(gameObject.name.Contains("WizenTree"))
+        } else if(gameObjectName.Contains("WizenTree"))
         {
             ai = new WizenTreeAI();
-        } else if(gameObject.name.Contains("TangleWeed"))
+        } else if(gameObjectName.Contains("TangleWeed"))
         {
             ai = new TangleWeedAI();
-        } else if(gameObject.name.Contains("Fireling"))
+        } else if(gameObjectName.Contains("Fireling"))
         {
             ai = new FirelingAI();
-        } else if(gameObject.name.Contains("Carniflora"))
+        } else if(gameObjectName.Contains("Carniflora"))
         {
             ai = new CarnifloraAI();
-        } else if(gameObject.name.Contains("SmallBomber"))
+        } else if(gameObjectName.Contains("SmallBomber"))
         {
             ai = new SmallBomberAI();
-        } else if(gameObject.name.Contains("Magimech"))
+        } else if(gameObjectName.Contains("Magimech"))
         {
             ai = new MagimechAI();
-        } else if(gameObject.name.Contains("SpiderBot"))
+        } else if(gameObjectName.Contains("SpiderBot"))
         {
             ai = new SpiderBotAI();
-        } else if(gameObject.name.Contains("Infantry"))
+        } else if(gameObjectName.Contains("Infantry"))
         {
             ai = new InfantryAI();
-        } else if(gameObject.name.Contains("DefenseBot"))
+        } else if(gameObjectName.Contains("DefenseBot"))
         {
             ai = new DefenseBotAI();
-        } else if(gameObject.name.Contains("AutoTurret"))
+        } else if(gameObjectName.Contains("AutoTurret"))
         {
             ai = new AutoTurretAI();
-        } else if(gameObject.name.Contains("FighterShip"))
+        } else if(gameObjectName.Contains("FighterShip"))
         {
             ai = new FighterShipAI();
-        } else if(gameObject.name.Contains("Clunker"))
+        } else if(gameObjectName.Contains("Clunker"))
         {
             ai = new ClunkerAI();
-        } else if(gameObject.name.Contains("LiquidFlan"))
+        } else if(gameObjectName.Contains("LiquidFlan"))
         {
             ai = new LiquidFlanAI();
-        } else if(gameObject.name.Contains("LiquidElemental"))
+        } else if(gameObjectName.Contains("LiquidElemental"))
         {
             ai = new LiquidElementalAI();
-        } else if(gameObject.name.Contains("Commando"))
+        } else if(gameObjectName.Contains("Commando"))
         {
             ai = new CommandoAI();
-        } else if(gameObject.name.Contains("OrkastBallPlayer"))
+        } else if(gameObjectName.Contains("OrkastBallPlayer"))
         {
             ai = new OrkastBallPlayerAI();
-        } else if(gameObject.name.Contains("RecycleMonster"))
+        } else if(gameObjectName.Contains("RecycleMonster"))
         {
             ai = new RecycleMonsterAI();
+        } else if(gameObjectName.Contains("Marine"))
+        {
+            ai = new MarineAI();
         }
         else
         {
@@ -336,6 +343,12 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int orkastballDamage = BattleManager.manager.EntityOrkastBallsEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().OrkastBallEntity(actionAndTarget.target, orkastballDamage, callback);
+                break;
+            case EnemyActions.Baton:
+                Debug.Log("Should bash here");
+                activeSelf.SetActive(true);
+                int batonDamage = BattleManager.manager.EntityBashesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().BatonEntity(actionAndTarget.target, batonDamage, callback);
                 break;
         }
     }

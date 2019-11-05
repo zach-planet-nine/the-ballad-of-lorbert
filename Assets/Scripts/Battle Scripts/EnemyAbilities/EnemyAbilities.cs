@@ -254,6 +254,13 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunOrkastBall>().SetTargetWithCallback(target, damage, callback);
     }
 
+    public void BatonEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Baton");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(new Vector3(0, 0, -45)));
+        clone.GetComponent<RunBash>().SetTargetWithCallback(target, damage, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {
