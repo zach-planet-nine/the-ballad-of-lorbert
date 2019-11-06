@@ -276,6 +276,21 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunCylinder>().SetTargetWithCallback(target, damage, callback);
     }
 
+    public void AgileStarEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("AgileStarObject");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunAgileStar>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void SwordSlashEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("SwordSlash");
+        Vector3 position = new Vector3(gameObject.transform.position.x, target.transform.position.y, 0);
+        var clone = (GameObject)Instantiate(ability, position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunWave>().SetTargetWithCallback(target, damage, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

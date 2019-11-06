@@ -29,7 +29,7 @@ public class RunWave : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(BattleManager.manager.CheckIfEntityIsDead(Target) && gameObject != null)
+        if(Target != null && BattleManager.manager.CheckIfEntityIsDead(Target) && gameObject != null)
         {
             if(callback != null)
             {

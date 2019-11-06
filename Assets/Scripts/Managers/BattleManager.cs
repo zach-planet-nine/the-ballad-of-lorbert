@@ -107,7 +107,8 @@ public class BattleManager : MonoBehaviour
         solidLearned = true;
         //gasLearned = CharacterStats.characterStats.partyData.haveLeanedGas;
         gasLearned = true;
-        plasmaLearned = CharacterStats.characterStats.partyData.haveLearnedPlasma;
+        //plasmaLearned = CharacterStats.characterStats.partyData.haveLearnedPlasma;
+        plasmaLearned = true;
     }
 
     private void UpdateStaminaForCharacter(BattleStats stats, ref float characterTimer)
@@ -519,6 +520,41 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityUsesPlasmaToHealEntity(GameObject healer, GameObject healed)
+    {
+        BattleStats healerStats = GetStatsForEntity(healer);
+        BattleStats healedStats = GetStatsForEntity(healed);
+
+        int baseHealingPower = healerStats.aura * 4 + Randomness.GetIntBetween(0, healerStats.luck);
+        int healing = Randomness.GetIntBetween(baseHealingPower, baseHealingPower + (baseHealingPower * 1 / 2));
+
+        healedStats.isBlinded = healedStats.isInCountdown = healedStats.isSlowedMP = healedStats.isSlowedStamina = healedStats.isStopped = false;
+
+        healerStats.currentMP -= plasmaCost;
+
+        return healing;
+    }
+
+    public int EntityUsesPlasmaOnEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = (attackerStats.wisdom * 3) + (attackerStats.perception + attackerStats.perception / 2) + Randomness.GetIntBetween(attackerStats.wisdom - 10, attackerStats.wisdom + 40) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.aura + defenderStats.dexterity + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        damage = ApplyDamageModifier(defenderStats.plasmaEffect, damage);
+
+        if (damage < 0 && defenderStats.plasmaEffect != ElementalEffects.Absorb)
+        {
+            damage = 0;
+        }
+
+        attackerStats.currentMP -= plasmaCost;
+
+        return damage;
+    }
+
     public int EntityStaminaAttacksEntity(GameObject attacker, GameObject defender)
     {
         BattleStats attackerStats = GetStatsForEntity(attacker);
@@ -812,6 +848,28 @@ public class BattleManager : MonoBehaviour
 
         int damage = (attackerStats.wisdom + attackerStats.wisdom / 2) * 2 + Randomness.GetIntBetween(0, attackerStats.luck);
         damage -= defenderStats.vitality + defenderStats.dexterity / 2 + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
+    public int EntityUsesAgileStarsToAttackEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = (attackerStats.agility + attackerStats.agility / 2) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.dexterity + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
+    public int EntitySwordSlashesEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.strength + attackerStats.agility + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= (defenderStats.vitality + defenderStats.dexterity) / 2 + Randomness.GetIntBetween(0, defenderStats.luck);
 
         return damage;
     }

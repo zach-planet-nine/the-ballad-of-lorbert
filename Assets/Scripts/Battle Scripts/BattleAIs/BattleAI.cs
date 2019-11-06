@@ -253,4 +253,17 @@ public class BattleAI
         }
         return target;
     }
+
+    public bool CheckIfEntityInCountdown(List<GameObject> entities)
+    {
+        bool inCountdown = false;
+        entities.ForEach(entity =>
+        {
+            if (BattleManager.manager.GetStatsForEntity(entity).isInCountdown)
+            {
+                inCountdown = true;
+            }
+        });
+        return inCountdown;
+    }
 }

@@ -37,7 +37,10 @@ public enum EnemyActions
     OrkastBall,
     Baton,
     Stalactite,
-    SolidAttack
+    SolidAttack,
+    AgileStar,
+    SwordSlash,
+    StaminaSlowAttack
 }
 
 public class EnemyAI : MonoBehaviour
@@ -168,6 +171,15 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObjectName.Contains("SolidFlan"))
         {
             ai = new SolidFlanAI();
+        } else if(gameObjectName.Contains("Chimera"))
+        {
+            ai = new ChimeraAI();
+        } else if(gameObjectName.Contains("AgileBot"))
+        {
+            ai = new AgileBotAI();
+        } else if(gameObjectName.Contains("ShadowyFigure"))
+        {
+            ai = new ShadowyFigureAI();
         }
         else
         {
@@ -369,6 +381,29 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int solidDamage = BattleManager.manager.EntityUsesSolidToAttackEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().SolidAttackEntity(actionAndTarget.target, solidDamage, callback);
+                break;
+            case EnemyActions.AgileStar:
+                Debug.Log("Should agile star here");
+                activeSelf.SetActive(true);
+                int agileDamage = BattleManager.manager.EntityUsesAgileStarsToAttackEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().AgileStarEntity(actionAndTarget.target, agileDamage, callback);
+                break;
+            case EnemyActions.SwordSlash:
+                Debug.Log("Should wave here");
+                activeSelf.SetActive(true);
+                int slashDamage = BattleManager.manager.EntitySwordSlashesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().SwordSlashEntity(actionAndTarget.target, slashDamage, callback);
+                break;
+            case EnemyActions.StaminaSlowAttack:
+                activeSelf.SetActive(true);
+                int attackDamage = BattleManager.manager.EntityAttacksEntity(gameObject, actionAndTarget.target);
+                activeSelf.GetComponent<Attack>().AttackEntityWithCallback(actionAndTarget.target, actionAndTarget.target.transform.position, attackDamage, a =>
+                {
+                    Debug.Log("Should do hourglass here");
+                    activeSelf.SetActive(true);
+                    float staminaDuration = BattleManager.manager.EntityUsesHourglassOnEntity(activeSelf, actionAndTarget.target);
+                    activeSelf.GetComponent<EnemyAbilities>().UseHourglass(actionAndTarget.target, staminaDuration, callback);
+                });
                 break;
         }
     }

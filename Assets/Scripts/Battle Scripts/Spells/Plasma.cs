@@ -21,6 +21,20 @@ public class Plasma : MonoBehaviour
         PlasmaObject.SetActive(false);
     }
 
+    public void HealEntity(GameObject entity, int healing)
+    {
+        Debug.Log("Should heal entity");
+        var clone = (GameObject)Instantiate(CharacterObject, entity.transform.position, Quaternion.Euler(Vector3.zero));
+        entity.GetComponent<TakeHealing>().DisplayHealing(healing, entity.transform.position);
+    }
+
+    public void AttackEntity(GameObject entity, int damage)
+    {
+        Vector3 position = new Vector3(Randomness.GetValueBetween(-3.0f, -1.0f), Randomness.GetValueBetween(3.5f, 4.5f), 0);
+        var clone = (GameObject)Instantiate(AttackObject, position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunPlasma>().SetTarget(entity, damage);
+    }
+
     private void Update()
     {
         int currentMP = BattleManager.manager.GetStatsForEntity(gameObject).currentMP;

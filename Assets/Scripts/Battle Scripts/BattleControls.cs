@@ -166,6 +166,13 @@ public class BattleControls : MonoBehaviour
                         BattleManager.manager.EntityUsesGasOnEntity(AlienWithPriority);
                         AlienWithPriority.GetComponent<Gas>().AttackEntity(target);
                         break;
+                    case "LorbertPlasma":
+                    case "ArtroPlasma":
+                    case "IOPlasma":
+                        Debug.Log("Should attack entity with plasma");
+                        int plasmaDamage = BattleManager.manager.EntityUsesPlasmaOnEntity(AlienWithPriority, target);
+                        AlienWithPriority.GetComponent<Plasma>().AttackEntity(target, plasmaDamage);
+                        break;
                 }
             }
             else if (target == LorbertRest || target == LorbertActive ||
@@ -207,6 +214,13 @@ public class BattleControls : MonoBehaviour
                     case "IOGas":
                         int gasHealing = BattleManager.manager.EntityUsesGasToHealEntity(AlienWithPriority, target);
                         AlienWithPriority.GetComponent<Gas>().HealEntity(target, gasHealing);
+                        break;
+                    case "LorbertPlasma":
+                    case "ArtroPlasma":
+                    case "IOPlasma":
+                        Debug.Log("Should do plasma healing");
+                        int plasmaHealing = BattleManager.manager.EntityUsesPlasmaToHealEntity(AlienWithPriority, target);
+                        AlienWithPriority.GetComponent<Plasma>().HealEntity(target, plasmaHealing);
                         break;
                 }
                 
