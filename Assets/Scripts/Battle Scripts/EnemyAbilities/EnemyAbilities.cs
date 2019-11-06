@@ -291,6 +291,13 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunWave>().SetTargetWithCallback(target, damage, callback);
     }
 
+    public void UsePoisonPills(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("PoisonPills");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunPoisonPills>().SetTargetWithCallback(target, damage, callback);
+    }
+
     // Update is called once per frame
     void Update()
     {

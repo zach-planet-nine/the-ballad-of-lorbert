@@ -40,7 +40,8 @@ public enum EnemyActions
     SolidAttack,
     AgileStar,
     SwordSlash,
-    StaminaSlowAttack
+    StaminaSlowAttack,
+    PoisonPills
 }
 
 public class EnemyAI : MonoBehaviour
@@ -180,6 +181,9 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObjectName.Contains("ShadowyFigure"))
         {
             ai = new ShadowyFigureAI();
+        } else if(gameObjectName.Contains("Bowman"))
+        {
+            ai = new BowmanAI();
         }
         else
         {
@@ -404,6 +408,11 @@ public class EnemyAI : MonoBehaviour
                     float staminaDuration = BattleManager.manager.EntityUsesHourglassOnEntity(activeSelf, actionAndTarget.target);
                     activeSelf.GetComponent<EnemyAbilities>().UseHourglass(actionAndTarget.target, staminaDuration, callback);
                 });
+                break;
+            case EnemyActions.PoisonPills:
+                activeSelf.SetActive(true);
+                int poisonPillDamage = BattleManager.manager.EntityUsesPoisonPillsOnEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().UsePoisonPills(actionAndTarget.target, poisonPillDamage, callback);
                 break;
         }
     }
