@@ -266,4 +266,18 @@ public class BattleAI
         });
         return inCountdown;
     }
+
+    public GameObject GetEntityThatIsGassed(List<GameObject> entities)
+    {
+        GameObject gasEntity = null;
+        entities.ForEach(entity =>
+        {
+            if (BattleManager.manager.GetStatsForEntity(entity).GasEmitter)
+            {
+                gasEntity = entity;
+            }
+        });
+
+        return gasEntity;
+    }
 }

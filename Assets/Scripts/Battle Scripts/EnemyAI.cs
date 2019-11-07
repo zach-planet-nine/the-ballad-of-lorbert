@@ -23,6 +23,7 @@ public enum EnemyActions
     Bolt,
     Bash,
     Branch,
+    Claw,
     MPSlow,
     Tangle,
     Needle,
@@ -41,7 +42,10 @@ public enum EnemyActions
     AgileStar,
     SwordSlash,
     StaminaSlowAttack,
-    PoisonPills
+    PoisonPills,
+    GasParticleAttack,
+    GasAttack,
+    HomingMissile
 }
 
 public class EnemyAI : MonoBehaviour
@@ -184,6 +188,18 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObjectName.Contains("Bowman"))
         {
             ai = new BowmanAI();
+        } else if(gameObjectName.Contains("SpaceDinosaur"))
+        {
+            ai = new SpaceDinosaurAI();
+        } else if(gameObjectName.Contains("GasElemental"))
+        {
+            ai = new GasElementalAI();
+        } else if(gameObjectName.Contains("GasFlan"))
+        {
+            ai = new GasFlanAI();
+        } else if(gameObjectName.Contains("SpecOps"))
+        {
+            ai = new SpecOpsAI();
         }
         else
         {
@@ -413,6 +429,30 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int poisonPillDamage = BattleManager.manager.EntityUsesPoisonPillsOnEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().UsePoisonPills(actionAndTarget.target, poisonPillDamage, callback);
+                break;
+            case EnemyActions.Claw:
+                Debug.Log("Should bash here");
+                activeSelf.SetActive(true);
+                int clawDamage = BattleManager.manager.EntityBashesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().ClawEntity(actionAndTarget.target, clawDamage, callback);
+                break;
+            case EnemyActions.GasParticleAttack:
+                Debug.Log("Should do pollen here");
+                activeSelf.SetActive(true);
+                float gasDuration = BattleManager.manager.EntityUsesPollenOnEntity(activeSelf, actionAndTarget.target);
+                int gasDamage = BattleManager.manager.EntityUsesGasParticlesOnEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().UseGasParticleAttack(actionAndTarget.target, gasDuration, gasDamage, callback);
+                break;
+            case EnemyActions.GasAttack:
+                Debug.Log("Should gas attack here");
+                activeSelf.SetActive(true);
+                activeSelf.GetComponent<EnemyAbilities>().UseGasAttack(actionAndTarget.target, callback);
+                break;
+            case EnemyActions.HomingMissile:
+                Debug.Log("Should homing missile here");
+                activeSelf.SetActive(true);
+                int missileDamage = BattleManager.manager.EntityHomingMissilesEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().HomingMissileEntity(actionAndTarget.target, missileDamage, callback);
                 break;
         }
     }

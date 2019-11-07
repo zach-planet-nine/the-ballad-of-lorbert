@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,9 +16,12 @@ public class RunGasAttack : MonoBehaviour
 
     private GameObject Target;
     private GameObject Caster;
+    private Action<bool> callback;
     private List<GameObject> ExplosionEmitters = new List<GameObject>();
     private int exploderIndex;
     private int exploders = 10;
+    private float callbackDuration = 0.2f;
+    private bool calledBack;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +44,14 @@ public class RunGasAttack : MonoBehaviour
         }
     }
 
+    public void SetTargetWithCallback(GameObject caster, GameObject target, Action<bool> callback)
+    {
+        exploders = 5;
+        SetTarget(caster, target);
+        this.callback = callback;
+        callback(true);
+    }
+
     public PositionAndDamage ExplodeOnce()
     {
         PositionAndDamage pad = new PositionAndDamage();
@@ -54,7 +66,7 @@ public class RunGasAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(BattleManager.manager.CheckIfEntityIsDead(Target) || BattleManager.manager.CheckIfEntityIsDead(Caster) || exploderIndex >= exploders)
+        if(gameObject != null && (BattleManager.manager.CheckIfEntityIsDead(Target) || BattleManager.manager.CheckIfEntityIsDead(Caster) || exploderIndex >= exploders))
         {
             BattleManager.manager.GetStatsForEntity(Target).GasEmitter = null;
             ExplosionEmitters.ForEach(emitter =>
@@ -62,6 +74,15 @@ public class RunGasAttack : MonoBehaviour
                 Destroy(emitter);
             });
             Destroy(gameObject);
+        }
+        callbackDuration -= Time.deltaTime;
+        if(!calledBack && callbackDuration <= 0)
+        {
+            calledBack = true;
+            if(callback != null)
+            {
+                callback(true);
+            }
         }
     }
 }

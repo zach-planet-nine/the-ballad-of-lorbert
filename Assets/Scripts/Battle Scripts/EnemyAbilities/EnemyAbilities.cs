@@ -298,6 +298,37 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunPoisonPills>().SetTargetWithCallback(target, damage, callback);
     }
 
+    public void ClawEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Claw");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(new Vector3(0, 0, -45)));
+        clone.GetComponent<RunBash>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void UseGasParticleAttack(GameObject target, float duration, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("GasParticleEmitter");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunGasParticleEmitter>().SetTargetWithCallback(target, duration, damage, callback);
+    }
+
+    public void UseGasAttack(GameObject target, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("GasAttackPlaceholder");
+        var clone = (GameObject)Instantiate(ability, target.transform.position, Quaternion.Euler(Vector3.zero));
+        BattleManager.manager.GetStatsForEntity(target).GasEmitter = clone;
+        clone.GetComponent<RunGasAttack>().SetTargetWithCallback(gameObject, target, callback);
+    }
+
+    public void HomingMissileEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("HomingMissile");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunHomingMissile>().SetTargetWithCallback(target, damage, callback);
+    }
+
+   
+
     // Update is called once per frame
     void Update()
     {
