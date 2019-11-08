@@ -45,7 +45,11 @@ public enum EnemyActions
     PoisonPills,
     GasParticleAttack,
     GasAttack,
-    HomingMissile
+    HomingMissile,
+    HomingMissiles,
+    PlasmaParticleAttack,
+    PlasmaAttack,
+    Flamethrower
 }
 
 public class EnemyAI : MonoBehaviour
@@ -200,6 +204,30 @@ public class EnemyAI : MonoBehaviour
         } else if(gameObjectName.Contains("SpecOps"))
         {
             ai = new SpecOpsAI();
+        } else if(gameObjectName.Contains("EvilEngineer"))
+        {
+            ai = new EvilEngineerAI();
+        } else if(gameObjectName.Contains("PlasmaElemental"))
+        {
+            ai = new PlasmaElementalAI();
+        } else if(gameObjectName.Contains("PlasmaFlan"))
+        {
+            ai = new PlasmaFlanAI();
+        } else if(gameObjectName.Contains("Dragon"))
+        {
+            ai = new DragonAI();
+        } else if(gameObjectName.Contains("DustBunny"))
+        {
+            ai = new DustBunnyAI();
+        } else if(gameObjectName.Contains("ShadowLorbert"))
+        {
+            ai = new ShadowLorbertAI();
+        } else if(gameObjectName.Contains("ShadowArtro"))
+        {
+            ai = new ShadowArtroAI();
+        } else if(gameObjectName.Contains("ShadowIO"))
+        {
+            ai = new ShadowIOAI();
         }
         else
         {
@@ -453,6 +481,39 @@ public class EnemyAI : MonoBehaviour
                 activeSelf.SetActive(true);
                 int missileDamage = BattleManager.manager.EntityHomingMissilesEntity(activeSelf, actionAndTarget.target);
                 activeSelf.GetComponent<EnemyAbilities>().HomingMissileEntity(actionAndTarget.target, missileDamage, callback);
+                break;
+            case EnemyActions.HomingMissiles:
+                Debug.Log("Should homing missile here");
+                activeSelf.SetActive(true);
+                characters.ForEach(character =>
+                {
+                    int missDamage = BattleManager.manager.EntityHomingMissilesEntity(activeSelf, character);
+                    activeSelf.GetComponent<EnemyAbilities>().HomingMissileEntity(character, missDamage, callback);
+                });
+                
+                break;
+            case EnemyActions.PlasmaParticleAttack:
+                Debug.Log("Should plasma particle attack here");
+                activeSelf.SetActive(true);
+                int plasmaParticleDamage = BattleManager.manager.EntityPlasmaParticleAttacksEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().PlasmaParticleAttackEntity(actionAndTarget.target, plasmaParticleDamage, callback);
+                break;
+            case EnemyActions.PlasmaAttack:
+                Debug.Log("Should plasma attack here");
+                activeSelf.SetActive(true);
+                int plasmaDamage = BattleManager.manager.EntityUsesPlasmaOnEntity(activeSelf, actionAndTarget.target);
+                activeSelf.GetComponent<EnemyAbilities>().PlasmaAttackEntity(actionAndTarget.target, plasmaDamage, callback);
+                break;
+            case EnemyActions.Flamethrower:
+                Debug.Log("Should flamethrower here");
+                activeSelf.SetActive(true);
+                List<int> damages = new List<int>();
+                characters.ForEach(character =>
+                {
+                    int flamethrowerDamage = BattleManager.manager.EntityFlamethrowersEntity(activeSelf, character);
+                    damages.Add(flamethrowerDamage);
+                });
+                activeSelf.GetComponent<EnemyAbilities>().FlamethrowerEntities(characters, damages, callback);
                 break;
         }
     }

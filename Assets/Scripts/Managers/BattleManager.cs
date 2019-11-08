@@ -907,6 +907,28 @@ public class BattleManager : MonoBehaviour
         return damage;
     }
 
+    public int EntityPlasmaParticleAttacksEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.wisdom * 2 + (attackerStats.wisdom / 2) + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.aura + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
+    public int EntityFlamethrowersEntity(GameObject attacker, GameObject defender)
+    {
+        BattleStats attackerStats = GetStatsForEntity(attacker);
+        BattleStats defenderStats = GetStatsForEntity(defender);
+
+        int damage = attackerStats.wisdom * 2 + attackerStats.vitality + Randomness.GetIntBetween(0, attackerStats.luck);
+        damage -= defenderStats.aura + defenderStats.vitality + Randomness.GetIntBetween(0, defenderStats.luck);
+
+        return damage;
+    }
+
     public int ApplyStamina(BattleStats stats, int value)
     {
         if(stats.currentStamina <= 0)

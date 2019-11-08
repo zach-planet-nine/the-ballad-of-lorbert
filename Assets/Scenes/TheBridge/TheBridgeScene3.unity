@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 1062998597}
   - component: {fileID: 1062998598}
   m_Layer: 0
-  m_Name: GasFlan
+  m_Name: Dragon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -764,8 +764,8 @@ MonoBehaviour:
   perception: 70
   luck: 20
   liquidEffect: 0
-  solidEffect: 1
-  gasEffect: 2
+  solidEffect: 0
+  gasEffect: 0
   plasmaEffect: 0
 --- !u!61 &1062998595
 BoxCollider2D:
@@ -1219,7 +1219,7 @@ GameObject:
   - component: {fileID: 2038290219}
   - component: {fileID: 2038290222}
   m_Layer: 0
-  m_Name: GasFlanActive
+  m_Name: DragonActive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1316,8 +1316,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09f7ab9c71f64df48c5da6f910b87e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ability1: {fileID: 4369515666601362618, guid: 5cc1d8008b8ed4edeab7a8685a479834,
+  Ability1: {fileID: 5470387833737645001, guid: f1e553e2456294b8c8adc95c75a41188,
     type: 3}
-  Ability2: {fileID: 0}
+  Ability2: {fileID: 7484022454794701685, guid: c7229fc26a29d4f188460fe5c4835185,
+    type: 3}
   Ability3: {fileID: 0}
   Ability4: {fileID: 0}

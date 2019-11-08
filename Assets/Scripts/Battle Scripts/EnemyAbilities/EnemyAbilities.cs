@@ -248,7 +248,7 @@ public class EnemyAbilities : MonoBehaviour
 
     public void OrkastBallEntity(GameObject target, int damage, Action<bool> callback)
     {
-        GameObject ability = GetGameObjectForAbilityNamed("Wave");
+        GameObject ability = GetGameObjectForAbilityNamed("OrkastBall");
         Vector3 position = new Vector3(gameObject.transform.position.x + 1.5f, target.transform.position.y + 2.0f, 0);
         var clone = (GameObject)Instantiate(ability, position, Quaternion.Euler(Vector3.zero));
         clone.GetComponent<RunOrkastBall>().SetTargetWithCallback(target, damage, callback);
@@ -327,7 +327,28 @@ public class EnemyAbilities : MonoBehaviour
         clone.GetComponent<RunHomingMissile>().SetTargetWithCallback(target, damage, callback);
     }
 
-   
+    public void PlasmaParticleAttackEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("PlasmaAttack");
+        Vector3 position = new Vector3(target.transform.position.x, target.transform.position.y + 2.0f, 0);
+        var clone = (GameObject)Instantiate(ability, position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunPlasmaParticleAttack>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void PlasmaAttackEntity(GameObject target, int damage, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("PlasmaAttackPlaceholder");
+        Vector3 position = new Vector3(Randomness.GetValueBetween(-2.0f, 0), Randomness.GetValueBetween(2.5f, 4.0f), 0);
+        var clone = (GameObject)Instantiate(ability, position, Quaternion.Euler(Vector3.zero));
+        clone.GetComponent<RunPlasma>().SetTargetWithCallback(target, damage, callback);
+    }
+
+    public void FlamethrowerEntities(List<GameObject> targets, List<int> damages, Action<bool> callback)
+    {
+        GameObject ability = GetGameObjectForAbilityNamed("Flamethrower");
+        var clone = (GameObject)Instantiate(ability, gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, 220)));
+        clone.GetComponent<RunFlamethrower>().SetTargetWithCallback(targets, damages, callback);
+    }
 
     // Update is called once per frame
     void Update()
