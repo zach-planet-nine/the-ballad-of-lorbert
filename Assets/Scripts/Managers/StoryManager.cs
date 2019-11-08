@@ -277,7 +277,14 @@ public class StoryManager : MonoBehaviour
         if(currentDialog.Contains("Scene"))
         {
             storyIndex += 1;
-            SceneManager.LoadScene(currentDialog);
+            //SceneManager.LoadScene(currentDialog);
+            if(Randomness.CoinToss())
+            {
+                SceneManager.LoadScene("HangarScene6");
+            } else
+            {
+                SceneManager.LoadScene("ObservationRoomScene6");
+            }
         }
     }
 

@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class TakeDamage : MonoBehaviour
 {
+    public GameObject activeSelf;
+    public GameObject hitSelf;
     public GameObject DamageText;
     public bool isDefenseBot;
 
     private int damage;
     private Vector2 startPosition;
+    private float hitSelfDisplayDuration = 0.15f;
+    private float hitSelfDuration;
 
     public void DisplayDamage(int damage, Vector3 position)
     {
+        if(hitSelf != null)
+        {
+            activeSelf.SetActive(false);
+            hitSelf.SetActive(true);
+            hitSelfDuration = hitSelfDisplayDuration;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
         BattleStats stats = BattleManager.manager.GetStatsForEntity(gameObject);
 
         if (stats.isProtectedByWall )
@@ -49,5 +60,18 @@ public class TakeDamage : MonoBehaviour
     public void TakeMPDamage(int damage)
     {
         BattleManager.manager.ApplyMPDamage(gameObject, damage);
+    }
+
+    private void Update()
+    {
+        if(hitSelfDuration > 0)
+        {
+            hitSelfDuration -= Time.deltaTime;
+            if(hitSelfDuration <= 0)
+            {
+                hitSelf.SetActive(false);
+                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+        }
     }
 }

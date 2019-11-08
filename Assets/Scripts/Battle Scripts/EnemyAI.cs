@@ -56,6 +56,7 @@ public class EnemyAI : MonoBehaviour
 {
     public BattleAI ai;
     public GameObject activeSelf;
+    public GameObject hitSelf;
 
     public void Start()
     {
@@ -245,7 +246,15 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log(enemies.Count);
         ActionAndTarget actionAndTarget = ai.ChooseActionAndTarget(characters, enemies);
-        switch(actionAndTarget.action)
+
+        activeSelf.SetActive(true);
+        if(hitSelf != null)
+        {
+            hitSelf.SetActive(false);
+        }
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        switch (actionAndTarget.action)
         {
             case EnemyActions.Projectile:
                 activeSelf.SetActive(true);

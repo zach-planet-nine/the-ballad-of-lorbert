@@ -107,4 +107,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ObservationRoom/ObservationRoomScene6.unity
     guid: ae07ffa886d4844bc9c47181b4e02602
+  - enabled: 1
+    path: Assets/Scenes/EngineRoom/EngineRoomScene1.unity
+    guid: eb696b0f4a18b4bb89c151de63d2c486
+  - enabled: 1
+    path: Assets/Scenes/EngineRoom/EngineRoomScene2.unity
+    guid: b73abb2ff36d94c049030e086fb076ac
+  - enabled: 1
+    path: Assets/Scenes/EngineRoom/EngineRoomScene3.unity
+    guid: 91a339944911542f0bf681ae43c1fb99
+  - enabled: 1
+    path: Assets/Scenes/EngineRoom/EngineRoomScene4.unity
+    guid: d8c836981a8a2416a9834bd116a99d2c
+  - enabled: 1
+    path: Assets/Scenes/EngineRoom/EngineRoomScene5.unity
+    guid: 79ba845f1636141c39a26e09154e7087
+  - enabled: 1
+    path: Assets/Scenes/EngineRoom/EngineRoomScene6.unity
+    guid: 284a0c3fae44047cb99653da7b585b13
+  - enabled: 1
+    path: Assets/Scenes/TheBridge/TheBridgeScene1.unity
+    guid: cc61e6f385ae14dfcaf424ae06bec37f
+  - enabled: 1
+    path: Assets/Scenes/TheBridge/TheBridgeScene2.unity
+    guid: 45a301c609a424a5ea7fbd3085376729
+  - enabled: 1
+    path: Assets/Scenes/TheBridge/TheBridgeScene3.unity
+    guid: 09760a0549f904d339ce1c8e09f48da5
+  - enabled: 1
+    path: Assets/Scenes/TheBridge/TheBridgeScene4.unity
+    guid: 008da849af5e4429f9d46757bb1f03cb
+  - enabled: 1
+    path: Assets/Scenes/TheBridge/TheBridgeScene5.unity
+    guid: 9b2651a5931d74dfa81920ee89c917bf
   m_configObjects: {}

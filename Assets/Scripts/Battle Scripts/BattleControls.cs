@@ -108,22 +108,29 @@ public class BattleControls : MonoBehaviour
     {
         if (enemy.name == Enemy1Rest.name || enemy.name == Enemy1Active.name)
         {
+            Enemy1Rest.GetComponent<SpriteRenderer>().enabled = true;
             Enemy1Rest.SetActive(true);
             Enemy1Active.SetActive(false);
         }
         else if (Enemy2Rest != null && (enemy.name == Enemy2Rest.name || enemy.name == Enemy2Active.name))
         {
             Enemy2Rest.SetActive(true);
+            Enemy2Rest.GetComponent<SpriteRenderer>().enabled = true;
+
             Enemy2Active.SetActive(false);
         }
         else if (Enemy3Rest != null && (enemy.name == Enemy3Rest.name || enemy.name == Enemy3Active.name))
         {
             Enemy3Rest.SetActive(true);
+            Enemy3Rest.GetComponent<SpriteRenderer>().enabled = true;
+
             Enemy3Active.SetActive(false);
         }
         else if (Enemy4Rest != null && (enemy.name == Enemy4Rest.name || enemy.name == Enemy4Active.name))
         {
             Enemy4Rest.SetActive(true);
+            Enemy4Rest.GetComponent<SpriteRenderer>().enabled = true;
+
             Enemy4Active.SetActive(false);
         }
     }
