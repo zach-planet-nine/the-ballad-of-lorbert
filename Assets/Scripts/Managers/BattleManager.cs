@@ -999,5 +999,9 @@ public class BattleStats
     public void Attack()
     {
         currentStamina -= attackStaminaCost;
+        if(currentStamina < -50)
+        {
+            currentStamina = -50;
+        }
     }
 }
