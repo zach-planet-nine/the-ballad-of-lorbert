@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuTester : MonoBehaviour
 {
+    public URLOpener opener;
 
     IEnumerator FadeToScene(string scene)
     {
@@ -52,6 +53,21 @@ public class StartMenuTester : MonoBehaviour
         {
             CharacterStats.characterStats.EquipOnCharacterOnLocation(Characters.Artro, EquipLocations.Arms, "010100111101010");
             CharacterStats.characterStats.Save("testfile.dat");
+        }
+        if(GUI.Button(new Rect(700, 110, 400, 180), "Connect PN Account", buttonStyle))
+        {
+            string urlEncodedName = "TheBalladOfLorbertTest";
+
+            GatewayModel gateway = new GatewayModel(urlEncodedName, CryptoManager.publicKey);
+            Debug.Log(JsonUtility.ToJson(gateway));
+            GatewayModelWithSignature gatewayWithSignature = new GatewayModelWithSignature(gateway, CryptoManager.signMessage(JsonUtility.ToJson(gateway)));
+            string urlString = "planetnine://ongoing/details?gatewayname=" + urlEncodedName +
+                "&publicKey=" + CryptoManager.publicKey + "&gatewayURL=pntbltest://ongoing&signature=" +
+                gatewayWithSignature.signature + "&timestamp=" + gatewayWithSignature.timestamp;
+            Debug.Log(urlString);
+            //Application.OpenURL(urlString);
+            string successURL = "pntbltest://ongoing/details?success=true&userId=41";
+            opener.URLOpened(successURL);
         }
     }
 }

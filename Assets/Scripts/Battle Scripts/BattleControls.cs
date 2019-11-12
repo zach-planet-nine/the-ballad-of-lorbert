@@ -348,6 +348,21 @@ public class BattleControls : MonoBehaviour
         return CheckIfNullOrDead(Enemy1Rest) && CheckIfNullOrDead(Enemy2Rest) && CheckIfNullOrDead(Enemy3Rest) && CheckIfNullOrDead(Enemy4Rest);
     }
 
+    private void OnGUI()
+    {
+        GUIStyle buttonStyle = new GUIStyle("button");
+        buttonStyle.fontSize = 32;
+
+        if(GUI.Button(new Rect(700, 20, 400, 60), "Use Power     " + CharacterStats.characterStats.partyData.user.currentPower, buttonStyle)) {
+            Debug.Log("Use special power here");
+            if(CharacterStats.characterStats.partyData.user.currentPower > 299)
+            {
+                //Do something special here
+                CharacterStats.characterStats.SpendPower(300);
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

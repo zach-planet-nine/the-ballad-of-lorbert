@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1813572015418913861}
   - component: {fileID: 1813572015418913858}
+  - component: {fileID: 7579873021378478780}
   m_Layer: 0
   m_Name: CharacterStats
   m_TagString: Untagged
@@ -41,5 +42,128 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f34b3e38c45b477a9439b7b057ca0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  partyData:
+    LorbertData:
+      health: 600
+      stamina: 300
+      mp: 150
+      strength: 64
+      vitality: 55
+      agility: 45
+      dexterity: 40
+      wisdom: 40
+      aura: 35
+      perception: 50
+      luck: 50
+      weapon: 
+      head: 
+      body: 
+      neck: 
+      hands: 
+      arms: 
+      shield: 
+      feet: 
+      inventory:
+        weapons: []
+        helms: []
+        armors: []
+        shields: []
+        bracers: []
+        necklaces: []
+        gloves: []
+        boots: []
+    ArtroData:
+      health: 650
+      stamina: 280
+      mp: 220
+      strength: 45
+      vitality: 43
+      agility: 55
+      dexterity: 50
+      wisdom: 65
+      aura: 55
+      perception: 50
+      luck: 50
+      weapon: 
+      head: 
+      body: 
+      neck: 
+      hands: 
+      arms: 
+      shield: 
+      feet: 
+      inventory:
+        weapons: []
+        helms: []
+        armors: []
+        shields: []
+        bracers: []
+        necklaces: []
+        gloves: []
+        boots: []
+    IOData:
+      health: 550
+      stamina: 320
+      mp: 185
+      strength: 53
+      vitality: 45
+      agility: 59
+      dexterity: 55
+      wisdom: 55
+      aura: 60
+      perception: 50
+      luck: 50
+      weapon: 
+      head: 
+      body: 
+      neck: 
+      hands: 
+      arms: 
+      shield: 
+      feet: 
+      inventory:
+        weapons: []
+        helms: []
+        armors: []
+        shields: []
+        bracers: []
+        necklaces: []
+        gloves: []
+        boots: []
+    Nineum: []
+    user:
+      userId: 0
+      name: 
+      locationId: 0
+      powerId: 0
+      powerOrdinal: 0
+      power: 0
+      lastPowerUsed: 
+      powerRegenerationRate: 0
+      globalRegenerationRate: 0
+      moveOrdinal: 0
+      lastMove: 
+      publicKey: 
+      location: 0
+      nineum: []
+      currentPower: 0
+      nextMove: 
+    storyIndex: 0
+    haveLearnedSolid: 0
+    haveLeanedGas: 0
+    haveLearnedPlasma: 0
+  continueFile: continue.dat
+--- !u!114 &7579873021378478780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813572015418913859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17925b88dcff54ba6a8de84abfbbe627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

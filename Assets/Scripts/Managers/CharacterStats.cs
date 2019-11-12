@@ -42,6 +42,7 @@ public class CharacterStats : MonoBehaviour
     public static CharacterStats characterStats;
     public PartyData partyData = new PartyData();
     public string continueFile = "continue.dat";
+    private NetworkManager nm;
     public List<string> Nineum
     {
         set
@@ -59,6 +60,17 @@ public class CharacterStats : MonoBehaviour
         } else if(this != characterStats)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        nm = GetComponent<NetworkManager>();
+        int userId = PlayerPrefs.GetInt("userId");
+        Debug.Log("userId is " + userId);
+        if(userId > 0)
+        {
+            RefreshUser(userId);
         }
     }
 
@@ -86,6 +98,54 @@ public class CharacterStats : MonoBehaviour
         {
             Debug.Log("File could not be found.");
         }
+    }
+
+    public void ConnectUser(int userId)
+    {
+        Debug.Log("Connecting user");
+        RefreshUser(userId);
+    }
+
+    public void RefreshUser(int userId)
+    {
+        GatewayTimestampTuple gateway = new GatewayTimestampTuple("TheBalladOfLorbertTest");
+        GatewayTimestampTupleWithSignature gatewayWithSignature = new GatewayTimestampTupleWithSignature(gateway, CryptoManager.signMessage(JsonUtility.ToJson(gateway)));
+
+        Debug.Log("Refreshing user here");
+
+
+        nm.RefreshUser(userId, gatewayWithSignature, (err, resp) =>
+        {
+            if (err != null)
+            {
+                Debug.Log("ERRORRRORORRR!!!");
+                Debug.Log(err);
+                return;
+            }
+            User user = JsonUtility.FromJson<User>(resp);
+            partyData.user = user;
+            PlayerPrefs.SetInt("userId", user.userId);
+            //NineumManager.manager.RefreshNineum(userId);
+            NineumManager.manager.RefreshNineum(user.nineum);
+        });
+    }
+
+    public void SpendPower(int powerAmount)
+    {
+        UsePower usePower = new UsePower(powerAmount, "sun-sun-bar", "TheBalladOfLorbertTest", partyData.user.userId, CryptoManager.publicKey, partyData.user.powerOrdinal + 1);
+        UsePowerWithSignature upws = new UsePowerWithSignature(usePower, "For testing the  Ballad of Lorbert", CryptoManager.signMessage(JsonUtility.ToJson(usePower)));
+
+        nm.UsePower(upws, (err, resp) =>
+        {
+            if (err != null)
+            {
+                Debug.Log("There was an error.");
+                Debug.Log(err);
+                return;
+            }
+            Debug.Log(resp);
+            partyData.user = JsonUtility.FromJson<User>(resp);
+        });
     }
 
     private void EquipOnLocation(CharacterData character, EquipLocations location, string ninea)
@@ -310,6 +370,7 @@ public class PartyData
     public CharacterData IOData = new CharacterData("I-O");
 
     public List<string> Nineum = new List<string>();
+    public User user;
 
     public int storyIndex;
 
