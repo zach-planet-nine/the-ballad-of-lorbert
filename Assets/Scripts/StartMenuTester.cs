@@ -65,9 +65,9 @@ public class StartMenuTester : MonoBehaviour
                 "&publicKey=" + CryptoManager.publicKey + "&gatewayURL=pntbltest://ongoing&signature=" +
                 gatewayWithSignature.signature + "&timestamp=" + gatewayWithSignature.timestamp;
             Debug.Log(urlString);
-            //Application.OpenURL(urlString);
-            string successURL = "pntbltest://ongoing/details?success=true&userId=41";
-            opener.URLOpened(successURL);
+            Application.OpenURL(urlString);
+            //string successURL = "pntbltest://ongoing/details?success=true&userId=41";
+            //opener.URLOpened(successURL);
         }
     }
 }
